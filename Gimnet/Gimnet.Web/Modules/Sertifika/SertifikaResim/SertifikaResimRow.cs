@@ -10,7 +10,7 @@ namespace Gimnet.Sertifika.Entities
     using System.ComponentModel;
     using System.IO;
 
-    [ConnectionKey("Default"), DisplayName("SertifikaResimleri"), InstanceName("SertifikaResimleri"), TwoLevelCached]
+    [ConnectionKey("Default"), DisplayName("Sertifika Resimleri"), InstanceName("Sertifika Resimleri"), TwoLevelCached]
     [ReadPermission("Default")]
     [ModifyPermission("Default")]
     [JsonConverter(typeof(JsonRowConverter))]

@@ -10,7 +10,7 @@ namespace Gimnet.HelalDunyaMarket.Entities
     using System.ComponentModel;
     using System.IO;
 
-    [ConnectionKey("Default"), DisplayName("Helal Dünya Marketi"), InstanceName("HelalMarket"), TwoLevelCached]
+    [ConnectionKey("Default"), DisplayName("Helal Dünya Marketi"), InstanceName("Helal Market"), TwoLevelCached]
     [ReadPermission("Default")]
     [ModifyPermission("Default")]
     [JsonConverter(typeof(JsonRowConverter))]
