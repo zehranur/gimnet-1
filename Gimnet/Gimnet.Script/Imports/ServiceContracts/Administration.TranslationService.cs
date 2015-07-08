@@ -12,12 +12,12 @@ namespace Gimnet.Administration
         {
             return Q.ServiceRequest("Administration/Translation/List", request, onSuccess, options);
         }
-
+    
         public static jQueryXmlHttpRequest Update(TranslationUpdateRequest request, Action<SaveResponse> onSuccess, ServiceCallOptions options = null)
         {
             return Q.ServiceRequest("Administration/Translation/Update", request, onSuccess, options);
         }
     }
-
+    
 }
 

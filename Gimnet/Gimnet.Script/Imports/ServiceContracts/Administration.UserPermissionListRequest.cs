@@ -16,6 +16,6 @@ namespace Gimnet.Administration
         public String Module { get; set; }
         public String Submodule { get; set; }
     }
-
+    
 }
 

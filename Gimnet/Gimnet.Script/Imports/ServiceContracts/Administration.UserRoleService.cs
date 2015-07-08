@@ -12,12 +12,12 @@ namespace Gimnet.Administration
         {
             return Q.ServiceRequest("Administration/UserRole/Update", request, onSuccess, options);
         }
-
+    
         public static jQueryXmlHttpRequest List(UserRoleListRequest request, Action<UserRoleListResponse> onSuccess, ServiceCallOptions options = null)
         {
             return Q.ServiceRequest("Administration/UserRole/List", request, onSuccess, options);
         }
     }
-
+    
 }
 

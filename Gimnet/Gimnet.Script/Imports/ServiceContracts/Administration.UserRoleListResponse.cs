@@ -13,6 +13,6 @@ namespace Gimnet.Administration
     public partial class UserRoleListResponse : ListResponse<Int32>
     {
     }
-
+    
 }
 

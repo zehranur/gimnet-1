@@ -44,20 +44,3 @@ namespace Gimnet.Common
     }
 }
 
-namespace Gimnet.Northwind
-{
-    public partial class PhoneEditorAttribute : CustomEditorAttribute
-    {
-        public PhoneEditorAttribute()
-            : base("Gimnet.Northwind.PhoneEditor")
-        {
-        }
-    
-        public Boolean Multiple
-        {
-            get { return GetOption<Boolean>("multiple"); }
-            set { SetOption("multiple", value); }
-        }
-    }
-}
-

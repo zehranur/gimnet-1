@@ -1,5 +1,5 @@
 
-namespace Gimnet.Administration
+namespace Gimnet.Sertifika
 {
     using Serenity;
     using Serenity.ComponentModel;
@@ -10,18 +10,18 @@ namespace Gimnet.Administration
     using System.Runtime.CompilerServices;
 
     [Imported, Serializable, PreserveMemberCase]
-    public partial class LanguageRow
+    public partial class KategoriRow
     {
         public Int32? Id { get; set; }
-        public String LanguageId { get; set; }
-        public String LanguageName { get; set; }
+        public String KategoriAdi { get; set; }
+        public String EklenmeTarihi { get; set; }
     
         [Imported, PreserveMemberCase]
         public static class Fields
         {
             [InlineConstant] public const string Id = "Id";
-            [InlineConstant] public const string LanguageId = "LanguageId";
-            [InlineConstant] public const string LanguageName = "LanguageName";
+            [InlineConstant] public const string KategoriAdi = "KategoriAdi";
+            [InlineConstant] public const string EklenmeTarihi = "EklenmeTarihi";
         }
     }
     

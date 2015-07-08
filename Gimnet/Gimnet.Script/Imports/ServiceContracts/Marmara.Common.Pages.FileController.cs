@@ -1,5 +1,5 @@
 
-namespace Gimnet.Administration
+namespace Marmara.Common.Pages
 {
     using Serenity;
     using Serenity.ComponentModel;
@@ -9,11 +9,5 @@ namespace Gimnet.Administration
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    [Imported, Serializable, PreserveMemberCase]
-    public partial class UserRoleListRequest : ServiceRequest
-    {
-        public Int32? UserID { get; set; }
-    }
-    
 }
 

@@ -7,7 +7,6 @@
 	global.Gimnet.Duyuru = global.Gimnet.Duyuru || {};
 	global.Gimnet.HelalDunyaMarket = global.Gimnet.HelalDunyaMarket || {};
 	global.Gimnet.Membership = global.Gimnet.Membership || {};
-	global.Gimnet.Northwind = global.Gimnet.Northwind || {};
 	global.Gimnet.Sertifika = global.Gimnet.Sertifika || {};
 	ss.initAssembly($asm, 'Gimnet.Script');
 	////////////////////////////////////////////////////////////////////////////////
@@ -421,7 +420,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Duyuru.DuyuruDialog
 	var $Gimnet_Duyuru_DuyuruDialog = function() {
-		ss.makeGenericType(Serenity.EntityDialog$1, [$Gimnet_Duyuru_DuyuruRow]).call(this);
+		ss.makeGenericType(Serenity.EntityDialog$1, [Object]).call(this);
 	};
 	$Gimnet_Duyuru_DuyuruDialog.__typeName = 'Gimnet.Duyuru.DuyuruDialog';
 	global.Gimnet.Duyuru.DuyuruDialog = $Gimnet_Duyuru_DuyuruDialog;
@@ -435,16 +434,31 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Duyuru.DuyuruGrid
 	var $Gimnet_Duyuru_DuyuruGrid = function(container) {
-		ss.makeGenericType(Serenity.EntityGrid$1, [$Gimnet_Duyuru_DuyuruRow]).call(this, container);
+		ss.makeGenericType(Serenity.EntityGrid$1, [Object]).call(this, container);
 	};
 	$Gimnet_Duyuru_DuyuruGrid.__typeName = 'Gimnet.Duyuru.DuyuruGrid';
 	global.Gimnet.Duyuru.DuyuruGrid = $Gimnet_Duyuru_DuyuruGrid;
 	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Duyuru.DuyuruRow
-	var $Gimnet_Duyuru_DuyuruRow = function() {
+	// Gimnet.Duyuru.DuyuruService
+	var $Gimnet_Duyuru_DuyuruService = function() {
 	};
-	$Gimnet_Duyuru_DuyuruRow.__typeName = 'Gimnet.Duyuru.DuyuruRow';
-	global.Gimnet.Duyuru.DuyuruRow = $Gimnet_Duyuru_DuyuruRow;
+	$Gimnet_Duyuru_DuyuruService.__typeName = 'Gimnet.Duyuru.DuyuruService';
+	$Gimnet_Duyuru_DuyuruService.create = function(request, onSuccess, options) {
+		return Q.serviceRequest('Duyuru/Duyuru/Create', request, onSuccess, options);
+	};
+	$Gimnet_Duyuru_DuyuruService.update = function(request, onSuccess, options) {
+		return Q.serviceRequest('Duyuru/Duyuru/Update', request, onSuccess, options);
+	};
+	$Gimnet_Duyuru_DuyuruService.delete$1 = function(request, onSuccess, options) {
+		return Q.serviceRequest('Duyuru/Duyuru/Delete', request, onSuccess, options);
+	};
+	$Gimnet_Duyuru_DuyuruService.retrieve = function(request, onSuccess, options) {
+		return Q.serviceRequest('Duyuru/Duyuru/Retrieve', request, onSuccess, options);
+	};
+	$Gimnet_Duyuru_DuyuruService.list = function(request, onSuccess, options) {
+		return Q.serviceRequest('Duyuru/Duyuru/List', request, onSuccess, options);
+	};
+	global.Gimnet.Duyuru.DuyuruService = $Gimnet_Duyuru_DuyuruService;
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.HelalDunyaMarket.HelalMarketDialog
 	var $Gimnet_HelalDunyaMarket_HelalMarketDialog = function() {
@@ -466,6 +480,27 @@
 	};
 	$Gimnet_HelalDunyaMarket_HelalMarketGrid.__typeName = 'Gimnet.HelalDunyaMarket.HelalMarketGrid';
 	global.Gimnet.HelalDunyaMarket.HelalMarketGrid = $Gimnet_HelalDunyaMarket_HelalMarketGrid;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.HelalDunyaMarket.HelalMarketService
+	var $Gimnet_HelalDunyaMarket_HelalMarketService = function() {
+	};
+	$Gimnet_HelalDunyaMarket_HelalMarketService.__typeName = 'Gimnet.HelalDunyaMarket.HelalMarketService';
+	$Gimnet_HelalDunyaMarket_HelalMarketService.create = function(request, onSuccess, options) {
+		return Q.serviceRequest('HelalDunyaMarket/HelalMarket/Create', request, onSuccess, options);
+	};
+	$Gimnet_HelalDunyaMarket_HelalMarketService.update = function(request, onSuccess, options) {
+		return Q.serviceRequest('HelalDunyaMarket/HelalMarket/Update', request, onSuccess, options);
+	};
+	$Gimnet_HelalDunyaMarket_HelalMarketService.delete$1 = function(request, onSuccess, options) {
+		return Q.serviceRequest('HelalDunyaMarket/HelalMarket/Delete', request, onSuccess, options);
+	};
+	$Gimnet_HelalDunyaMarket_HelalMarketService.retrieve = function(request, onSuccess, options) {
+		return Q.serviceRequest('HelalDunyaMarket/HelalMarket/Retrieve', request, onSuccess, options);
+	};
+	$Gimnet_HelalDunyaMarket_HelalMarketService.list = function(request, onSuccess, options) {
+		return Q.serviceRequest('HelalDunyaMarket/HelalMarket/List', request, onSuccess, options);
+	};
+	global.Gimnet.HelalDunyaMarket.HelalMarketService = $Gimnet_HelalDunyaMarket_HelalMarketService;
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Membership.LoginForm
 	var $Gimnet_Membership_LoginForm = function(idPrefix) {
@@ -506,279 +541,6 @@
 	$Gimnet_Membership_LoginPanel.__typeName = 'Gimnet.Membership.LoginPanel';
 	global.Gimnet.Membership.LoginPanel = $Gimnet_Membership_LoginPanel;
 	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.CategoryService
-	var $Gimnet_Northwind_CategoryService = function() {
-	};
-	$Gimnet_Northwind_CategoryService.__typeName = 'Gimnet.Northwind.CategoryService';
-	$Gimnet_Northwind_CategoryService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Category/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CategoryService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Category/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CategoryService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Category/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CategoryService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Category/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CategoryService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Category/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.CategoryService = $Gimnet_Northwind_CategoryService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.CustomerCustomerDemoService
-	var $Gimnet_Northwind_CustomerCustomerDemoService = function() {
-	};
-	$Gimnet_Northwind_CustomerCustomerDemoService.__typeName = 'Gimnet.Northwind.CustomerCustomerDemoService';
-	$Gimnet_Northwind_CustomerCustomerDemoService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/CustomerCustomerDemo/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerCustomerDemoService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/CustomerCustomerDemo/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerCustomerDemoService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/CustomerCustomerDemo/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerCustomerDemoService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/CustomerCustomerDemo/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerCustomerDemoService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/CustomerCustomerDemo/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.CustomerCustomerDemoService = $Gimnet_Northwind_CustomerCustomerDemoService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.CustomerDemographicService
-	var $Gimnet_Northwind_CustomerDemographicService = function() {
-	};
-	$Gimnet_Northwind_CustomerDemographicService.__typeName = 'Gimnet.Northwind.CustomerDemographicService';
-	$Gimnet_Northwind_CustomerDemographicService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/CustomerDemographic/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerDemographicService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/CustomerDemographic/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerDemographicService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/CustomerDemographic/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerDemographicService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/CustomerDemographic/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerDemographicService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/CustomerDemographic/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.CustomerDemographicService = $Gimnet_Northwind_CustomerDemographicService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.CustomerService
-	var $Gimnet_Northwind_CustomerService = function() {
-	};
-	$Gimnet_Northwind_CustomerService.__typeName = 'Gimnet.Northwind.CustomerService';
-	$Gimnet_Northwind_CustomerService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Customer/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Customer/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Customer/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Customer/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_CustomerService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Customer/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.CustomerService = $Gimnet_Northwind_CustomerService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.EmployeeService
-	var $Gimnet_Northwind_EmployeeService = function() {
-	};
-	$Gimnet_Northwind_EmployeeService.__typeName = 'Gimnet.Northwind.EmployeeService';
-	$Gimnet_Northwind_EmployeeService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Employee/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_EmployeeService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Employee/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_EmployeeService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Employee/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_EmployeeService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Employee/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_EmployeeService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Employee/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.EmployeeService = $Gimnet_Northwind_EmployeeService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.EmployeeTerritoryService
-	var $Gimnet_Northwind_EmployeeTerritoryService = function() {
-	};
-	$Gimnet_Northwind_EmployeeTerritoryService.__typeName = 'Gimnet.Northwind.EmployeeTerritoryService';
-	$Gimnet_Northwind_EmployeeTerritoryService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/EmployeeTerritory/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_EmployeeTerritoryService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/EmployeeTerritory/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_EmployeeTerritoryService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/EmployeeTerritory/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_EmployeeTerritoryService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/EmployeeTerritory/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_EmployeeTerritoryService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/EmployeeTerritory/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.EmployeeTerritoryService = $Gimnet_Northwind_EmployeeTerritoryService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.OrderDetailService
-	var $Gimnet_Northwind_OrderDetailService = function() {
-	};
-	$Gimnet_Northwind_OrderDetailService.__typeName = 'Gimnet.Northwind.OrderDetailService';
-	$Gimnet_Northwind_OrderDetailService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/OrderDetail/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_OrderDetailService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/OrderDetail/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_OrderDetailService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/OrderDetail/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_OrderDetailService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/OrderDetail/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_OrderDetailService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/OrderDetail/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.OrderDetailService = $Gimnet_Northwind_OrderDetailService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.OrderService
-	var $Gimnet_Northwind_OrderService = function() {
-	};
-	$Gimnet_Northwind_OrderService.__typeName = 'Gimnet.Northwind.OrderService';
-	$Gimnet_Northwind_OrderService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Order/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_OrderService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Order/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_OrderService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Order/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_OrderService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Order/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_OrderService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Order/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.OrderService = $Gimnet_Northwind_OrderService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.ProductService
-	var $Gimnet_Northwind_ProductService = function() {
-	};
-	$Gimnet_Northwind_ProductService.__typeName = 'Gimnet.Northwind.ProductService';
-	$Gimnet_Northwind_ProductService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Product/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_ProductService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Product/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_ProductService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Product/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_ProductService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Product/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_ProductService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Product/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.ProductService = $Gimnet_Northwind_ProductService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.RegionService
-	var $Gimnet_Northwind_RegionService = function() {
-	};
-	$Gimnet_Northwind_RegionService.__typeName = 'Gimnet.Northwind.RegionService';
-	$Gimnet_Northwind_RegionService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Region/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_RegionService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Region/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_RegionService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Region/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_RegionService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Region/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_RegionService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Region/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.RegionService = $Gimnet_Northwind_RegionService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.ShipperService
-	var $Gimnet_Northwind_ShipperService = function() {
-	};
-	$Gimnet_Northwind_ShipperService.__typeName = 'Gimnet.Northwind.ShipperService';
-	$Gimnet_Northwind_ShipperService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Shipper/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_ShipperService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Shipper/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_ShipperService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Shipper/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_ShipperService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Shipper/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_ShipperService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Shipper/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.ShipperService = $Gimnet_Northwind_ShipperService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.SupplierService
-	var $Gimnet_Northwind_SupplierService = function() {
-	};
-	$Gimnet_Northwind_SupplierService.__typeName = 'Gimnet.Northwind.SupplierService';
-	$Gimnet_Northwind_SupplierService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Supplier/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_SupplierService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Supplier/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_SupplierService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Supplier/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_SupplierService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Supplier/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_SupplierService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Supplier/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.SupplierService = $Gimnet_Northwind_SupplierService;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Northwind.TerritoryService
-	var $Gimnet_Northwind_TerritoryService = function() {
-	};
-	$Gimnet_Northwind_TerritoryService.__typeName = 'Gimnet.Northwind.TerritoryService';
-	$Gimnet_Northwind_TerritoryService.create = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Territory/Create', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_TerritoryService.update = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Territory/Update', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_TerritoryService.delete$1 = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Territory/Delete', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_TerritoryService.retrieve = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Territory/Retrieve', request, onSuccess, options);
-	};
-	$Gimnet_Northwind_TerritoryService.list = function(request, onSuccess, options) {
-		return Q.serviceRequest('Northwind/Territory/List', request, onSuccess, options);
-	};
-	global.Gimnet.Northwind.TerritoryService = $Gimnet_Northwind_TerritoryService;
-	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.FirmaDialog
 	var $Gimnet_Sertifika_FirmaDialog = function() {
 		this.$form = null;
@@ -805,6 +567,27 @@
 	$Gimnet_Sertifika_FirmaGrid.__typeName = 'Gimnet.Sertifika.FirmaGrid';
 	global.Gimnet.Sertifika.FirmaGrid = $Gimnet_Sertifika_FirmaGrid;
 	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.FirmaService
+	var $Gimnet_Sertifika_FirmaService = function() {
+	};
+	$Gimnet_Sertifika_FirmaService.__typeName = 'Gimnet.Sertifika.FirmaService';
+	$Gimnet_Sertifika_FirmaService.create = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Firma/Create', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_FirmaService.update = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Firma/Update', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_FirmaService.delete$1 = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Firma/Delete', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_FirmaService.retrieve = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Firma/Retrieve', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_FirmaService.list = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Firma/List', request, onSuccess, options);
+	};
+	global.Gimnet.Sertifika.FirmaService = $Gimnet_Sertifika_FirmaService;
+	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.HelalSertifikaDialog
 	var $Gimnet_Sertifika_HelalSertifikaDialog = function() {
 		ss.makeGenericType(Serenity.EntityDialog$1, [Object]).call(this);
@@ -825,6 +608,27 @@
 	};
 	$Gimnet_Sertifika_HelalSertifikaGrid.__typeName = 'Gimnet.Sertifika.HelalSertifikaGrid';
 	global.Gimnet.Sertifika.HelalSertifikaGrid = $Gimnet_Sertifika_HelalSertifikaGrid;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.HelalSertifikaService
+	var $Gimnet_Sertifika_HelalSertifikaService = function() {
+	};
+	$Gimnet_Sertifika_HelalSertifikaService.__typeName = 'Gimnet.Sertifika.HelalSertifikaService';
+	$Gimnet_Sertifika_HelalSertifikaService.create = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/HelalSertifika/Create', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_HelalSertifikaService.update = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/HelalSertifika/Update', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_HelalSertifikaService.delete$1 = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/HelalSertifika/Delete', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_HelalSertifikaService.retrieve = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/HelalSertifika/Retrieve', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_HelalSertifikaService.list = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/HelalSertifika/List', request, onSuccess, options);
+	};
+	global.Gimnet.Sertifika.HelalSertifikaService = $Gimnet_Sertifika_HelalSertifikaService;
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.KategoriDialog
 	var $Gimnet_Sertifika_KategoriDialog = function() {
@@ -847,6 +651,27 @@
 	$Gimnet_Sertifika_KategoriGrid.__typeName = 'Gimnet.Sertifika.KategoriGrid';
 	global.Gimnet.Sertifika.KategoriGrid = $Gimnet_Sertifika_KategoriGrid;
 	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.KategoriService
+	var $Gimnet_Sertifika_KategoriService = function() {
+	};
+	$Gimnet_Sertifika_KategoriService.__typeName = 'Gimnet.Sertifika.KategoriService';
+	$Gimnet_Sertifika_KategoriService.create = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Kategori/Create', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_KategoriService.update = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Kategori/Update', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_KategoriService.delete$1 = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Kategori/Delete', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_KategoriService.retrieve = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Kategori/Retrieve', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_KategoriService.list = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Kategori/List', request, onSuccess, options);
+	};
+	global.Gimnet.Sertifika.KategoriService = $Gimnet_Sertifika_KategoriService;
+	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.SertifikaResimDialog
 	var $Gimnet_Sertifika_SertifikaResimDialog = function() {
 		ss.makeGenericType(Serenity.EntityDialog$1, [Object]).call(this);
@@ -867,6 +692,27 @@
 	};
 	$Gimnet_Sertifika_SertifikaResimGrid.__typeName = 'Gimnet.Sertifika.SertifikaResimGrid';
 	global.Gimnet.Sertifika.SertifikaResimGrid = $Gimnet_Sertifika_SertifikaResimGrid;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.SertifikaResimService
+	var $Gimnet_Sertifika_SertifikaResimService = function() {
+	};
+	$Gimnet_Sertifika_SertifikaResimService.__typeName = 'Gimnet.Sertifika.SertifikaResimService';
+	$Gimnet_Sertifika_SertifikaResimService.create = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/SertifikaResim/Create', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_SertifikaResimService.update = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/SertifikaResim/Update', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_SertifikaResimService.delete$1 = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/SertifikaResim/Delete', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_SertifikaResimService.retrieve = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/SertifikaResim/Retrieve', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_SertifikaResimService.list = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/SertifikaResim/List', request, onSuccess, options);
+	};
+	global.Gimnet.Sertifika.SertifikaResimService = $Gimnet_Sertifika_SertifikaResimService;
 	ss.initClass($Gimnet_ScriptInitialization, $asm, {});
 	ss.initClass($Gimnet_Administration_LanguageDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog, Serenity.IAsyncInit]);
 	ss.initClass($Gimnet_Administration_LanguageForm, $asm, {
@@ -1332,7 +1178,7 @@
 			liList.children('ul').removeClass('collapse');
 		}
 	}, Serenity.Widget);
-	ss.initClass($Gimnet_Duyuru_DuyuruDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [$Gimnet_Duyuru_DuyuruRow]), [Serenity.IDialog, Serenity.IEditDialog]);
+	ss.initClass($Gimnet_Duyuru_DuyuruDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Duyuru_DuyuruForm, $asm, {
 		get_baslik: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'Baslik');
@@ -1347,8 +1193,8 @@
 			return this.byId(Serenity.DateEditor).call(this, 'SonTarih');
 		}
 	}, Serenity.PrefixedContext);
-	ss.initClass($Gimnet_Duyuru_DuyuruGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [$Gimnet_Duyuru_DuyuruRow]), [Serenity.IDataGrid]);
-	ss.initClass($Gimnet_Duyuru_DuyuruRow, $asm, {});
+	ss.initClass($Gimnet_Duyuru_DuyuruGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
+	ss.initClass($Gimnet_Duyuru_DuyuruService, $asm, {});
 	ss.initClass($Gimnet_HelalDunyaMarket_HelalMarketDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_HelalDunyaMarket_HelalMarketForm, $asm, {
 		get_adi: function() {
@@ -1380,6 +1226,7 @@
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_HelalDunyaMarket_HelalMarketGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
+	ss.initClass($Gimnet_HelalDunyaMarket_HelalMarketService, $asm, {});
 	ss.initClass($Gimnet_Membership_LoginForm, $asm, {
 		get_username: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'Username');
@@ -1389,32 +1236,13 @@
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Membership_LoginPanel, $asm, {}, ss.makeGenericType(Serenity.PropertyDialog$1, [Object]), [Serenity.IDialog]);
-	ss.initClass($Gimnet_Northwind_CategoryService, $asm, {});
-	ss.initClass($Gimnet_Northwind_CustomerCustomerDemoService, $asm, {});
-	ss.initClass($Gimnet_Northwind_CustomerDemographicService, $asm, {});
-	ss.initClass($Gimnet_Northwind_CustomerService, $asm, {});
-	ss.initClass($Gimnet_Northwind_EmployeeService, $asm, {});
-	ss.initClass($Gimnet_Northwind_EmployeeTerritoryService, $asm, {});
-	ss.initClass($Gimnet_Northwind_OrderDetailService, $asm, {});
-	ss.initClass($Gimnet_Northwind_OrderService, $asm, {});
-	ss.initClass($Gimnet_Northwind_ProductService, $asm, {});
-	ss.initClass($Gimnet_Northwind_RegionService, $asm, {});
-	ss.initClass($Gimnet_Northwind_ShipperService, $asm, {});
-	ss.initClass($Gimnet_Northwind_SupplierService, $asm, {});
-	ss.initClass($Gimnet_Northwind_TerritoryService, $asm, {});
 	ss.initClass($Gimnet_Sertifika_FirmaDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Sertifika_FirmaForm, $asm, {
 		get_firmaAdi: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'FirmaAdi');
 		},
 		get_kucukLogo: function() {
-			return this.byId(Serenity.StringEditor).call(this, 'KucukLogo');
-		},
-		get_ortaLogo: function() {
-			return this.byId(Serenity.StringEditor).call(this, 'OrtaLogo');
-		},
-		get_buyukLogo: function() {
-			return this.byId(Serenity.StringEditor).call(this, 'BuyukLogo');
+			return this.byId(Serenity.ImageUploadEditor).call(this, 'KucukLogo');
 		},
 		get_konumSehir: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'KonumSehir');
@@ -1430,6 +1258,7 @@
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_FirmaGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
+	ss.initClass($Gimnet_Sertifika_FirmaService, $asm, {});
 	ss.initClass($Gimnet_Sertifika_HelalSertifikaDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Sertifika_HelalSertifikaForm, $asm, {
 		get_kategoriId: function() {
@@ -1455,6 +1284,7 @@
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_HelalSertifikaGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
+	ss.initClass($Gimnet_Sertifika_HelalSertifikaService, $asm, {});
 	ss.initClass($Gimnet_Sertifika_KategoriDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Sertifika_KategoriForm, $asm, {
 		get_kategoriAdi: function() {
@@ -1465,6 +1295,7 @@
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_KategoriGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
+	ss.initClass($Gimnet_Sertifika_KategoriService, $asm, {});
 	ss.initClass($Gimnet_Sertifika_SertifikaResimDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Sertifika_SertifikaResimForm, $asm, {
 		get_resimKonumu: function() {
@@ -1478,6 +1309,7 @@
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_SertifikaResimGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
+	ss.initClass($Gimnet_Sertifika_SertifikaResimService, $asm, {});
 	ss.setMetadata($Gimnet_Administration_LanguageDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('LanguageName'), new Serenity.FormKeyAttribute('Administration.Language'), new Serenity.LocalTextPrefixAttribute('Administration.Language'), new Serenity.ServiceAttribute('Administration/Language')] });
 	ss.setMetadata($Gimnet_Administration_LanguageGrid, { attr: [new Serenity.ColumnsKeyAttribute('Administration.Language'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('LanguageName'), new Serenity.DialogTypeAttribute($Gimnet_Administration_LanguageDialog), new Serenity.LocalTextPrefixAttribute('Administration.Language'), new Serenity.ServiceAttribute('Administration/Language')] });
 	ss.setMetadata($Gimnet_Administration_PermissionCheckEditor, { attr: [new Serenity.EditorAttribute()] });

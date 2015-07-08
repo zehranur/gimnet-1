@@ -20,7 +20,6 @@ namespace Gimnet.Sertifika
 
             //PropertyGrid.SetReadOnly(form.BuyukLogo, true);
 
-            PropertyGrid.CreateInside<Serenity.Texts.Controls.EntityGrid>(this.Element.GetElement());
 
         }
     }

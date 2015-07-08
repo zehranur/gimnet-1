@@ -16,20 +16,16 @@ namespace Gimnet.Administration
         public Int32? RoleId { get; set; }
         public String PermissionKey { get; set; }
         public String RoleRoleName { get; set; }
-
+    
         [Imported, PreserveMemberCase]
         public static class Fields
         {
-            [InlineConstant]
-            public const string RolePermissionId = "RolePermissionId";
-            [InlineConstant]
-            public const string RoleId = "RoleId";
-            [InlineConstant]
-            public const string PermissionKey = "PermissionKey";
-            [InlineConstant]
-            public const string RoleRoleName = "RoleRoleName";
+            [InlineConstant] public const string RolePermissionId = "RolePermissionId";
+            [InlineConstant] public const string RoleId = "RoleId";
+            [InlineConstant] public const string PermissionKey = "PermissionKey";
+            [InlineConstant] public const string RoleRoleName = "RoleRoleName";
         }
     }
-
+    
 }
 

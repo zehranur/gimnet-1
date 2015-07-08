@@ -12,17 +12,17 @@ namespace Gimnet.Administration
         {
             return Q.ServiceRequest("Administration/UserPermission/Update", request, onSuccess, options);
         }
-
+    
         public static jQueryXmlHttpRequest List(UserPermissionListRequest request, Action<UserPermissionListResponse> onSuccess, ServiceCallOptions options = null)
         {
             return Q.ServiceRequest("Administration/UserPermission/List", request, onSuccess, options);
         }
-
+    
         public static jQueryXmlHttpRequest ListPermissionKeys(ServiceRequest request, Action<UserPermissionListResponse> onSuccess, ServiceCallOptions options = null)
         {
             return Q.ServiceRequest("Administration/UserPermission/ListPermissionKeys", request, onSuccess, options);
         }
     }
-
+    
 }
 
