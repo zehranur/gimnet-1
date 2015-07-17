@@ -38,7 +38,21 @@ namespace Gimnet.HelalDunyaMarket.Repositories
             return new MyListHandler().Process(connection, request);
         }
 
-        private class MySaveHandler : SaveRequestHandler<MyRow> { }
+        private class MySaveHandler : SaveRequestHandler<MyRow>
+        {
+            protected override void SetInternalFields()
+            {
+                base.SetInternalFields();
+                if (IsCreate)
+                {
+                    Row.EklemeTarihi = DateTime.Now;
+                }
+                if (IsUpdate)
+                {
+                    Row.GuncellemeTarihi = DateTime.Now;
+                }
+            }
+        }
         private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
         private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }
         private class MyListHandler : ListRequestHandler<MyRow> { }
