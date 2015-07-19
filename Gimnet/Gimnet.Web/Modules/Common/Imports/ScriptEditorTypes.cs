@@ -44,3 +44,25 @@ namespace Gimnet.Common
     }
 }
 
+namespace Gimnet.Sertifika.Firma
+{
+    public partial class FirmaLookupEditorAttribute : CustomEditorAttribute
+    {
+        public FirmaLookupEditorAttribute()
+            : base("Gimnet.Sertifika.Firma.FirmaLookupEditor")
+        {
+        }
+    }
+}
+
+namespace Gimnet.Sertifika.Kategori
+{
+    public partial class KategoriLookupEditorAttribute : CustomEditorAttribute
+    {
+        public KategoriLookupEditorAttribute()
+            : base("Gimnet.Sertifika.Kategori.KategoriLookupEditor")
+        {
+        }
+    }
+}
+

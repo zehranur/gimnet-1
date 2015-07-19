@@ -20,8 +20,11 @@ namespace Gimnet.Sertifika.Forms
         [EditLink]
         public String Marka { get; set; }
         public DateTime İlkBasvuruTarihi { get; set; }
-        public DateTime SonYenilemeTarihi { get; set; }
+        public DateTime YenilemeTarihi { get; set; }
         public String SertifikaKapsami { get; set; }
-        public String Uyari { get; set; }
+        public Int16 Durum { get; set; }
+        public String KapsamDisi { get; set; }
+        public DateTime BitisTarihi { get; set; }
+        public String İptalAciklamasi { get; set; }
     }
 }

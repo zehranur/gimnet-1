@@ -765,10 +765,10 @@
     <Content Include="Modules\Administration\Role\RoleIndex.cshtml" />
     <Content Include="Modules\Duyuru\Duyuru\DuyuruIndex.cshtml" />
     <Content Include="Modules\Sertifika\Firma\FirmaIndex.cshtml" />
-    <Content Include="Modules\Sertifika\HelalSertifika\HelalSertifikaIndex.cshtml" />
     <Content Include="Modules\Sertifika\Kategori\KategoriIndex.cshtml" />
     <Content Include="Modules\Sertifika\SertifikaResim\SertifikaResimIndex.cshtml" />
     <Content Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketIndex.cshtml" />
+    <Content Include="Modules\Sertifika\HelalSertifika\HelalSertifikaIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -780,6 +780,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SiteInitialization.cs" />
+    <Compile Include="CustomScripts.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -861,12 +862,6 @@
     <Compile Include="Modules\Sertifika\Firma\FirmaRepository.cs" />
     <Compile Include="Modules\Sertifika\Firma\FirmaEndpoint.cs" />
     <Compile Include="Modules\Sertifika\Firma\FirmaPage.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaRow.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaColumns.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaForm.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaRepository.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaEndpoint.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaPage.cs" />
     <Compile Include="Modules\Sertifika\Kategori\KategoriRow.cs" />
     <Compile Include="Modules\Sertifika\Kategori\KategoriColumns.cs" />
     <Compile Include="Modules\Sertifika\Kategori\KategoriForm.cs" />
@@ -885,6 +880,12 @@
     <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketRepository.cs" />
     <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketEndpoint.cs" />
     <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketPage.cs" />
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaRow.cs" />
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaColumns.cs" />
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaForm.cs" />
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaRepository.cs" />
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaEndpoint.cs" />
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

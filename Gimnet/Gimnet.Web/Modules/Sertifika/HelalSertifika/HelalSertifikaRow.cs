@@ -51,11 +51,11 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.İlkBasvuruTarihi[this] = value; }
         }
 
-        [DisplayName("Son Yenileme Tarihi"), NotNull]
-        public DateTime? SonYenilemeTarihi
+        [DisplayName("Yenileme Tarihi"), NotNull]
+        public DateTime? YenilemeTarihi
         {
-            get { return Fields.SonYenilemeTarihi[this]; }
-            set { Fields.SonYenilemeTarihi[this] = value; }
+            get { return Fields.YenilemeTarihi[this]; }
+            set { Fields.YenilemeTarihi[this] = value; }
         }
 
         [DisplayName("Sertifika Kapsami"), NotNull]
@@ -65,11 +65,32 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.SertifikaKapsami[this] = value; }
         }
 
-        [DisplayName("Uyari"), Size(256)]
-        public String Uyari
+        [DisplayName("Durum"), NotNull]
+        public Int16? Durum
         {
-            get { return Fields.Uyari[this]; }
-            set { Fields.Uyari[this] = value; }
+            get { return Fields.Durum[this]; }
+            set { Fields.Durum[this] = value; }
+        }
+
+        [DisplayName("Kapsam Disi")]
+        public String KapsamDisi
+        {
+            get { return Fields.KapsamDisi[this]; }
+            set { Fields.KapsamDisi[this] = value; }
+        }
+
+        [DisplayName("Bitis Tarihi")]
+        public DateTime? BitisTarihi
+        {
+            get { return Fields.BitisTarihi[this]; }
+            set { Fields.BitisTarihi[this] = value; }
+        }
+
+        [DisplayName("İptal Aciklamasi"), Size(256)]
+        public String İptalAciklamasi
+        {
+            get { return Fields.İptalAciklamasi[this]; }
+            set { Fields.İptalAciklamasi[this] = value; }
         }
 
         [DisplayName("Kategori Kategori Adi"), Expression("jKategori.KategoriAdi")]
@@ -166,9 +187,12 @@ namespace Gimnet.Sertifika.Entities
             public readonly Int32Field FirmaId;
             public readonly StringField Marka;
             public readonly DateTimeField İlkBasvuruTarihi;
-            public readonly DateTimeField SonYenilemeTarihi;
+            public readonly DateTimeField YenilemeTarihi;
             public readonly StringField SertifikaKapsami;
-            public readonly StringField Uyari;
+            public readonly Int16Field Durum;
+            public readonly StringField KapsamDisi;
+            public readonly DateTimeField BitisTarihi;
+            public readonly StringField İptalAciklamasi;
 
             public readonly StringField KategoriKategoriAdi;
             public readonly DateTimeField KategoriEklenmeTarihi;

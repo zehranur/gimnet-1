@@ -19,7 +19,7 @@ namespace Gimnet.Sertifika
             //form.OrtaLogo.GetGridField().Hide();
 
             //PropertyGrid.SetReadOnly(form.BuyukLogo, true);
-
+            
 
         }
     }

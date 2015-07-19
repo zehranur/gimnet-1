@@ -8,13 +8,15 @@ namespace Gimnet.HelalDunyaMarket
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using Gimnet.Sertifika.Kategori;
+    using Gimnet.Sertifika.Firma;
 
     public partial class HelalMarketForm : PrefixedContext
     {
         public HelalMarketForm(string idPrefix) : base(idPrefix) {}
     
         public StringEditor Adi { get { return ById<StringEditor>("Adi"); } }
-        public StringEditor AcikAdres { get { return ById<StringEditor>("AcikAdres"); } }
+        public TextAreaEditor AcikAdres { get { return ById<TextAreaEditor>("AcikAdres"); } }
         public StringEditor AdresAciklama { get { return ById<StringEditor>("AdresAciklama"); } }
         public StringEditor SorumluKisi { get { return ById<StringEditor>("SorumluKisi"); } }
         public StringEditor Telefon1 { get { return ById<StringEditor>("Telefon1"); } }

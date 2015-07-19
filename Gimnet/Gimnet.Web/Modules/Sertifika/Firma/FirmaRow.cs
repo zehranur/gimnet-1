@@ -30,14 +30,14 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.FirmaAdi[this] = value; }
         }
 
-        [DisplayName("Kucuk Logo"), Size(256), NotNull]
+        [DisplayName("Kucuk Logo"), Size(256)]
         public String KucukLogo
         {
             get { return Fields.KucukLogo[this]; }
             set { Fields.KucukLogo[this] = value; }
         }
 
-        [DisplayName("Orta Logo"), Size(256), NotNull]
+        [DisplayName("Orta Logo"), Size(256)]
         public String OrtaLogo
         {
             get { return Fields.OrtaLogo[this]; }

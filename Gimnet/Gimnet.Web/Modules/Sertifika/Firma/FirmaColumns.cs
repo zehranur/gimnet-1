@@ -17,11 +17,8 @@ namespace Gimnet.Sertifika.Forms
         public Int32 Id { get; set; }
         [EditLink,DisplayName("Firma Adı")]
         public String FirmaAdi { get; set; }
-        [Hidden]
         public String KucukLogo { get; set; }
-        [Hidden]
         public String OrtaLogo { get; set; }
-        [Hidden]
         public String BuyukLogo { get; set; }
         [DisplayName("Bulunduğu Şehir")]
         public String KonumSehir { get; set; }

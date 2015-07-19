@@ -15,12 +15,11 @@ namespace Gimnet.Sertifika.Forms
     {
         [DisplayName("Firma Adı")]
         public String FirmaAdi { get; set; }
-        [DisplayName("Logo")]
-        [ImageUploadEditor]
+        [Hidden()]
         public String KucukLogo { get; set; }
         [Hidden()]
         public String OrtaLogo { get; set; }
-        [Hidden()]
+        [ImageUploadEditor, DisplayName("Logo")]
         public String BuyukLogo { get; set; }
         [DisplayName("Bulunduğu Şehir")]
         public String KonumSehir { get; set; }

@@ -17,9 +17,12 @@ namespace Gimnet.Sertifika
         public Int32? FirmaId { get; set; }
         public String Marka { get; set; }
         public String İlkBasvuruTarihi { get; set; }
-        public String SonYenilemeTarihi { get; set; }
+        public String YenilemeTarihi { get; set; }
         public String SertifikaKapsami { get; set; }
-        public String Uyari { get; set; }
+        public Int16? Durum { get; set; }
+        public String KapsamDisi { get; set; }
+        public String BitisTarihi { get; set; }
+        public String İptalAciklamasi { get; set; }
         public String KategoriKategoriAdi { get; set; }
         public String KategoriEklenmeTarihi { get; set; }
         public String FirmaFirmaAdi { get; set; }
@@ -39,9 +42,12 @@ namespace Gimnet.Sertifika
             [InlineConstant] public const string FirmaId = "FirmaId";
             [InlineConstant] public const string Marka = "Marka";
             [InlineConstant] public const string İlkBasvuruTarihi = "İlkBasvuruTarihi";
-            [InlineConstant] public const string SonYenilemeTarihi = "SonYenilemeTarihi";
+            [InlineConstant] public const string YenilemeTarihi = "YenilemeTarihi";
             [InlineConstant] public const string SertifikaKapsami = "SertifikaKapsami";
-            [InlineConstant] public const string Uyari = "Uyari";
+            [InlineConstant] public const string Durum = "Durum";
+            [InlineConstant] public const string KapsamDisi = "KapsamDisi";
+            [InlineConstant] public const string BitisTarihi = "BitisTarihi";
+            [InlineConstant] public const string İptalAciklamasi = "İptalAciklamasi";
             [InlineConstant] public const string KategoriKategoriAdi = "KategoriKategoriAdi";
             [InlineConstant] public const string KategoriEklenmeTarihi = "KategoriEklenmeTarihi";
             [InlineConstant] public const string FirmaFirmaAdi = "FirmaFirmaAdi";

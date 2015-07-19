@@ -8,18 +8,23 @@ namespace Gimnet.Sertifika
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using Gimnet.Sertifika.Kategori;
+    using Gimnet.Sertifika.Firma;
 
     public partial class HelalSertifikaForm : PrefixedContext
     {
         public HelalSertifikaForm(string idPrefix) : base(idPrefix) {}
     
-        public IntegerEditor KategoriId { get { return ById<IntegerEditor>("KategoriId"); } }
-        public IntegerEditor FirmaId { get { return ById<IntegerEditor>("FirmaId"); } }
+        public KategoriLookupEditor KategoriId { get { return ById<KategoriLookupEditor>("KategoriId"); } }
+        public FirmaLookupEditor FirmaId { get { return ById<FirmaLookupEditor>("FirmaId"); } }
         public StringEditor Marka { get { return ById<StringEditor>("Marka"); } }
         public DateEditor İlkBasvuruTarihi { get { return ById<DateEditor>("İlkBasvuruTarihi"); } }
-        public DateEditor SonYenilemeTarihi { get { return ById<DateEditor>("SonYenilemeTarihi"); } }
+        public DateEditor YenilemeTarihi { get { return ById<DateEditor>("YenilemeTarihi"); } }
         public StringEditor SertifikaKapsami { get { return ById<StringEditor>("SertifikaKapsami"); } }
-        public StringEditor Uyari { get { return ById<StringEditor>("Uyari"); } }
+        public StringEditor Durum { get { return ById<StringEditor>("Durum"); } }
+        public StringEditor KapsamDisi { get { return ById<StringEditor>("KapsamDisi"); } }
+        public DateEditor BitisTarihi { get { return ById<DateEditor>("BitisTarihi"); } }
+        public StringEditor İptalAciklamasi { get { return ById<StringEditor>("İptalAciklamasi"); } }
     }
 }
 

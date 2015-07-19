@@ -8,6 +8,8 @@ namespace Gimnet.Administration
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using Gimnet.Sertifika.Kategori;
+    using Gimnet.Sertifika.Firma;
 
     public partial class RoleForm : PrefixedContext
     {

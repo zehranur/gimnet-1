@@ -8,17 +8,24 @@ namespace Gimnet.Sertifika.Forms
     using System.ComponentModel;
     using System.Collections.Generic;
     using System.IO;
+    using Gimnet.Sertifika.Kategori;
+    using Gimnet.Sertifika.Firma;
 
     [FormScript("Sertifika.HelalSertifika")]
     [BasedOnRow(typeof(Entities.HelalSertifikaRow))]
     public class HelalSertifikaForm
     {
+        [KategoriLookupEditor]
         public Int32 KategoriId { get; set; }
+        [FirmaLookupEditor]
         public Int32 FirmaId { get; set; }
         public String Marka { get; set; }
         public DateTime İlkBasvuruTarihi { get; set; }
-        public DateTime SonYenilemeTarihi { get; set; }
+        public DateTime YenilemeTarihi { get; set; }
         public String SertifikaKapsami { get; set; }
-        public String Uyari { get; set; }
+        public Int16 Durum { get; set; }
+        public String KapsamDisi { get; set; }
+        public DateTime BitisTarihi { get; set; }
+        public String İptalAciklamasi { get; set; }
     }
 }

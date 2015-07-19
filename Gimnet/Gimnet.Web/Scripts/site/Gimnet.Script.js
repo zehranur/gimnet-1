@@ -8,6 +8,8 @@
 	global.Gimnet.HelalDunyaMarket = global.Gimnet.HelalDunyaMarket || {};
 	global.Gimnet.Membership = global.Gimnet.Membership || {};
 	global.Gimnet.Sertifika = global.Gimnet.Sertifika || {};
+	global.Gimnet.Sertifika.Firma = global.Gimnet.Sertifika.Firma || {};
+	global.Gimnet.Sertifika.Kategori = global.Gimnet.Sertifika.Kategori || {};
 	ss.initAssembly($asm, 'Gimnet.Script');
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.ScriptInitialization
@@ -632,7 +634,9 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.KategoriDialog
 	var $Gimnet_Sertifika_KategoriDialog = function() {
+		this.$form = null;
 		ss.makeGenericType(Serenity.EntityDialog$1, [Object]).call(this);
+		this.$form = new $Gimnet_Sertifika_KategoriForm(this.idPrefix);
 	};
 	$Gimnet_Sertifika_KategoriDialog.__typeName = 'Gimnet.Sertifika.KategoriDialog';
 	global.Gimnet.Sertifika.KategoriDialog = $Gimnet_Sertifika_KategoriDialog;
@@ -713,6 +717,20 @@
 		return Q.serviceRequest('Sertifika/SertifikaResim/List', request, onSuccess, options);
 	};
 	global.Gimnet.Sertifika.SertifikaResimService = $Gimnet_Sertifika_SertifikaResimService;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.Firma.FirmaLookupEditor
+	var $Gimnet_Sertifika_Firma_FirmaLookupEditor = function(hidden) {
+		ss.makeGenericType(Serenity.LookupEditorBase$2, [Object, Object]).call(this, hidden, null);
+	};
+	$Gimnet_Sertifika_Firma_FirmaLookupEditor.__typeName = 'Gimnet.Sertifika.Firma.FirmaLookupEditor';
+	global.Gimnet.Sertifika.Firma.FirmaLookupEditor = $Gimnet_Sertifika_Firma_FirmaLookupEditor;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.Kategori.KategoriLookupEditor
+	var $Gimnet_Sertifika_Kategori_KategoriLookupEditor = function(hidden) {
+		ss.makeGenericType(Serenity.LookupEditorBase$2, [Object, Object]).call(this, hidden, null);
+	};
+	$Gimnet_Sertifika_Kategori_KategoriLookupEditor.__typeName = 'Gimnet.Sertifika.Kategori.KategoriLookupEditor';
+	global.Gimnet.Sertifika.Kategori.KategoriLookupEditor = $Gimnet_Sertifika_Kategori_KategoriLookupEditor;
 	ss.initClass($Gimnet_ScriptInitialization, $asm, {});
 	ss.initClass($Gimnet_Administration_LanguageDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog, Serenity.IAsyncInit]);
 	ss.initClass($Gimnet_Administration_LanguageForm, $asm, {
@@ -1201,7 +1219,7 @@
 			return this.byId(Serenity.StringEditor).call(this, 'Adi');
 		},
 		get_acikAdres: function() {
-			return this.byId(Serenity.StringEditor).call(this, 'AcikAdres');
+			return this.byId(Serenity.TextAreaEditor).call(this, 'AcikAdres');
 		},
 		get_adresAciklama: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'AdresAciklama');
@@ -1262,7 +1280,7 @@
 	ss.initClass($Gimnet_Sertifika_HelalSertifikaDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Sertifika_HelalSertifikaForm, $asm, {
 		get_kategoriId: function() {
-			return this.byId(Serenity.IntegerEditor).call(this, 'KategoriId');
+			return this.byId($Gimnet_Sertifika_Kategori_KategoriLookupEditor).call(this, 'KategoriId');
 		},
 		get_firmaId: function() {
 			return this.byId(Serenity.IntegerEditor).call(this, 'FirmaId');
@@ -1273,19 +1291,35 @@
 		get_İlkBasvuruTarihi: function() {
 			return this.byId(Serenity.DateEditor).call(this, 'İlkBasvuruTarihi');
 		},
-		get_sonYenilemeTarihi: function() {
-			return this.byId(Serenity.DateEditor).call(this, 'SonYenilemeTarihi');
+		get_yenilemeTarihi: function() {
+			return this.byId(Serenity.DateEditor).call(this, 'YenilemeTarihi');
 		},
 		get_sertifikaKapsami: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'SertifikaKapsami');
 		},
-		get_uyari: function() {
-			return this.byId(Serenity.StringEditor).call(this, 'Uyari');
+		get_durum: function() {
+			return this.byId(Serenity.StringEditor).call(this, 'Durum');
+		},
+		get_kapsamDisi: function() {
+			return this.byId(Serenity.StringEditor).call(this, 'KapsamDisi');
+		},
+		get_bitisTarihi: function() {
+			return this.byId(Serenity.DateEditor).call(this, 'BitisTarihi');
+		},
+		get_İptalAciklamasi: function() {
+			return this.byId(Serenity.StringEditor).call(this, 'İptalAciklamasi');
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_HelalSertifikaGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
 	ss.initClass($Gimnet_Sertifika_HelalSertifikaService, $asm, {});
-	ss.initClass($Gimnet_Sertifika_KategoriDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
+	ss.initClass($Gimnet_Sertifika_KategoriDialog, $asm, {
+		loadEntity: function(entity) {
+			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
+			if (this.get_isNew()) {
+				this.$form.get_eklenmeTarihi().set_value(ss.today().toLocaleDateString());
+			}
+		}
+	}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Sertifika_KategoriForm, $asm, {
 		get_kategoriAdi: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'KategoriAdi');
@@ -1310,6 +1344,26 @@
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_SertifikaResimGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
 	ss.initClass($Gimnet_Sertifika_SertifikaResimService, $asm, {});
+	ss.initClass($Gimnet_Sertifika_Firma_FirmaLookupEditor, $asm, {
+		getLookupKey: function() {
+			return 'Sertifika.Firma';
+		},
+		getItems: function(lookup) {
+			return Enumerable.from(ss.makeGenericType(Serenity.LookupEditorBase$2, [Object, Object]).prototype.getItems.call(this, lookup)).where(function(x) {
+				return ss.isValue(x.FirmaAdi);
+			});
+		}
+	}, ss.makeGenericType(Serenity.LookupEditorBase$2, [Object, Object]), [Serenity.IStringValue]);
+	ss.initClass($Gimnet_Sertifika_Kategori_KategoriLookupEditor, $asm, {
+		getLookupKey: function() {
+			return 'Sertifika.Kategoriler';
+		},
+		getItems: function(lookup) {
+			return Enumerable.from(ss.makeGenericType(Serenity.LookupEditorBase$2, [Object, Object]).prototype.getItems.call(this, lookup)).where(function(x) {
+				return ss.isValue(x.KategoriAdi);
+			});
+		}
+	}, ss.makeGenericType(Serenity.LookupEditorBase$2, [Object, Object]), [Serenity.IStringValue]);
 	ss.setMetadata($Gimnet_Administration_LanguageDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('LanguageName'), new Serenity.FormKeyAttribute('Administration.Language'), new Serenity.LocalTextPrefixAttribute('Administration.Language'), new Serenity.ServiceAttribute('Administration/Language')] });
 	ss.setMetadata($Gimnet_Administration_LanguageGrid, { attr: [new Serenity.ColumnsKeyAttribute('Administration.Language'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('LanguageName'), new Serenity.DialogTypeAttribute($Gimnet_Administration_LanguageDialog), new Serenity.LocalTextPrefixAttribute('Administration.Language'), new Serenity.ServiceAttribute('Administration/Language')] });
 	ss.setMetadata($Gimnet_Administration_PermissionCheckEditor, { attr: [new Serenity.EditorAttribute()] });
@@ -1333,6 +1387,8 @@
 	ss.setMetadata($Gimnet_Sertifika_KategoriGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.Kategori'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('KategoriAdi'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_KategoriDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.Kategori'), new Serenity.ServiceAttribute('Sertifika/Kategori')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('ResimKonumu'), new Serenity.FormKeyAttribute('Sertifika.SertifikaResim'), new Serenity.LocalTextPrefixAttribute('Sertifika.SertifikaResim'), new Serenity.ServiceAttribute('Sertifika/SertifikaResim')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.SertifikaResim'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('ResimKonumu'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_SertifikaResimDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.SertifikaResim'), new Serenity.ServiceAttribute('Sertifika/SertifikaResim')] });
+	ss.setMetadata($Gimnet_Sertifika_Firma_FirmaLookupEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Firma Adı')] });
+	ss.setMetadata($Gimnet_Sertifika_Kategori_KategoriLookupEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Kategori')] });
 	(function() {
 		Q$Config.rootNamespaces.push('Gimnet');
 	})();

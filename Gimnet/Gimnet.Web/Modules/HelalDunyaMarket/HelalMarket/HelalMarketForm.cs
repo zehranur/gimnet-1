@@ -14,6 +14,7 @@ namespace Gimnet.HelalDunyaMarket.Forms
     public class HelalMarketForm
     {
         public String Adi { get; set; }
+        [TextAreaEditor(Rows = 4)]
         public String AcikAdres { get; set; }
         public String AdresAciklama { get; set; }
         public String SorumluKisi { get; set; }

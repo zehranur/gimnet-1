@@ -65,7 +65,7 @@ namespace Gimnet.HelalDunyaMarket.Entities
             set { Fields.Telefon2[this] = value; }
         }
 
-        [DisplayName("Koordinat"), Size(100)]
+        [DisplayName("Koordinatlar"), Size(100)]
         public String Koordinat
         {
             get { return Fields.Koordinat[this]; }
