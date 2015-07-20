@@ -58,7 +58,7 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.YenilemeTarihi[this] = value; }
         }
 
-        [DisplayName("Sertifika Kapsami"), NotNull]
+        [DisplayName("Sertifika Kapsamı"), NotNull]
         public String SertifikaKapsami
         {
             get { return Fields.SertifikaKapsami[this]; }
@@ -72,28 +72,28 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.Durum[this] = value; }
         }
 
-        [DisplayName("Kapsam Disi")]
+        [DisplayName("Kapsam Dışı")]
         public String KapsamDisi
         {
             get { return Fields.KapsamDisi[this]; }
             set { Fields.KapsamDisi[this] = value; }
         }
 
-        [DisplayName("Bitis Tarihi")]
+        [DisplayName("Bitiş Tarihi")]
         public DateTime? BitisTarihi
         {
             get { return Fields.BitisTarihi[this]; }
             set { Fields.BitisTarihi[this] = value; }
         }
 
-        [DisplayName("İptal Aciklamasi"), Size(256)]
+        [DisplayName("İptal Açıklaması"), Size(256)]
         public String İptalAciklamasi
         {
             get { return Fields.İptalAciklamasi[this]; }
             set { Fields.İptalAciklamasi[this] = value; }
         }
 
-        [DisplayName("Kategori Kategori Adi"), Expression("jKategori.KategoriAdi")]
+        [DisplayName("Kategori Kategori Adı"), Expression("jKategori.KategoriAdi")]
         public String KategoriKategoriAdi
         {
             get { return Fields.KategoriKategoriAdi[this]; }
@@ -107,14 +107,14 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.KategoriEklenmeTarihi[this] = value; }
         }
 
-        [DisplayName("Firma Firma Adi"), Expression("jFirma.FirmaAdi")]
+        [DisplayName("Firma Firma Adı"), Expression("jFirma.FirmaAdi")]
         public String FirmaFirmaAdi
         {
             get { return Fields.FirmaFirmaAdi[this]; }
             set { Fields.FirmaFirmaAdi[this] = value; }
         }
 
-        [DisplayName("Firma Kucuk Logo"), Expression("jFirma.KucukLogo")]
+        [DisplayName("Firma Küçük Logo"), Expression("jFirma.KucukLogo")]
         public String FirmaKucukLogo
         {
             get { return Fields.FirmaKucukLogo[this]; }
@@ -128,14 +128,14 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.FirmaOrtaLogo[this] = value; }
         }
 
-        [DisplayName("Firma Buyuk Logo"), Expression("jFirma.BuyukLogo")]
+        [DisplayName("Firma Büyük Logo"), Expression("jFirma.BuyukLogo")]
         public String FirmaBuyukLogo
         {
             get { return Fields.FirmaBuyukLogo[this]; }
             set { Fields.FirmaBuyukLogo[this] = value; }
         }
 
-        [DisplayName("Firma Konum Sehir"), Expression("jFirma.KonumSehir")]
+        [DisplayName("Firma Konum Şehir"), Expression("jFirma.KonumSehir")]
         public String FirmaKonumSehir
         {
             get { return Fields.FirmaKonumSehir[this]; }
@@ -149,14 +149,14 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.FirmaTelefon[this] = value; }
         }
 
-        [DisplayName("Firma Web Sayfasi"), Expression("jFirma.WebSayfasi")]
+        [DisplayName("Firma Web Sayfası"), Expression("jFirma.WebSayfasi")]
         public String FirmaWebSayfasi
         {
             get { return Fields.FirmaWebSayfasi[this]; }
             set { Fields.FirmaWebSayfasi[this] = value; }
         }
 
-        [DisplayName("Firma Iletisim Email"), Expression("jFirma.IletisimEmail")]
+        [DisplayName("Firma İletişim Email"), Expression("jFirma.IletisimEmail")]
         public String FirmaIletisimEmail
         {
             get { return Fields.FirmaIletisimEmail[this]; }

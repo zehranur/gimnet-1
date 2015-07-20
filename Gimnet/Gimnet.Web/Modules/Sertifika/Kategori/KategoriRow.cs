@@ -23,7 +23,7 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.Id[this] = value; }
         }
 
-        [DisplayName("Kategori Adi"), Size(100), NotNull, QuickSearch]
+        [DisplayName("Kategori Adı"), Size(100), NotNull, QuickSearch]
         public String KategoriAdi
         {
             get { return Fields.KategoriAdi[this]; }

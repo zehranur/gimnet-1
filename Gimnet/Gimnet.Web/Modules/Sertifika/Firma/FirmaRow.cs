@@ -23,14 +23,14 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.Id[this] = value; }
         }
 
-        [DisplayName("Firma Adi"), Size(100), NotNull, QuickSearch]
+        [DisplayName("Firma Adı"), Size(100), NotNull, QuickSearch]
         public String FirmaAdi
         {
             get { return Fields.FirmaAdi[this]; }
             set { Fields.FirmaAdi[this] = value; }
         }
 
-        [DisplayName("Kucuk Logo"), Size(256)]
+        [DisplayName("Küçük Logo"), Size(256)]
         public String KucukLogo
         {
             get { return Fields.KucukLogo[this]; }
@@ -44,14 +44,14 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.OrtaLogo[this] = value; }
         }
 
-        [DisplayName("Buyuk Logo"), Size(256), NotNull]
+        [DisplayName("Büyük Logo"), Size(256), NotNull]
         public String BuyukLogo
         {
             get { return Fields.BuyukLogo[this]; }
             set { Fields.BuyukLogo[this] = value; }
         }
 
-        [DisplayName("Konum Sehir"), Size(100), NotNull]
+        [DisplayName("Konum Şehir"), Size(100), NotNull]
         public String KonumSehir
         {
             get { return Fields.KonumSehir[this]; }
@@ -65,14 +65,14 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.Telefon[this] = value; }
         }
 
-        [DisplayName("Web Sayfasi"), Size(50)]
+        [DisplayName("Web Sayfası"), Size(50)]
         public String WebSayfasi
         {
             get { return Fields.WebSayfasi[this]; }
             set { Fields.WebSayfasi[this] = value; }
         }
 
-        [DisplayName("Iletisim Email"), Size(50)]
+        [DisplayName("İletişim Email"), Size(50)]
         public String IletisimEmail
         {
             get { return Fields.IletisimEmail[this]; }

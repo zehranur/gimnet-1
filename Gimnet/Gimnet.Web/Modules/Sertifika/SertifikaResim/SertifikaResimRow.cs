@@ -79,14 +79,14 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.SertifikaSonYenilemeTarihi[this] = value; }
         }
 
-        [DisplayName("Sertifika Sertifika Kapsami"), Expression("jSertifika.SertifikaKapsami")]
+        [DisplayName("Sertifika Sertifika Kapsamı"), Expression("jSertifika.SertifikaKapsami")]
         public String SertifikaSertifikaKapsami
         {
             get { return Fields.SertifikaSertifikaKapsami[this]; }
             set { Fields.SertifikaSertifikaKapsami[this] = value; }
         }
 
-        [DisplayName("Sertifika Uyari"), Expression("jSertifika.Uyari")]
+        [DisplayName("Sertifika Uyarı"), Expression("jSertifika.Uyari")]
         public String SertifikaUyari
         {
             get { return Fields.SertifikaUyari[this]; }
