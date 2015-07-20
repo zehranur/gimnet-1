@@ -1344,8 +1344,10 @@
 	ss.initClass($Gimnet_Sertifika_KategoriDialog, $asm, {
 		loadEntity: function(entity) {
 			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
-			//if (IsNew)
-			//    form.EklenmeTarihi.Value = JsDate.Today.ToDateString();
+			if (this.get_isNew()) {
+				this.$form.get_eklenmeTarihi().set_value(ss.today().toString());
+			}
+			// JsDate.Today.ToDateString();
 		}
 	}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Sertifika_KategoriForm, $asm, {

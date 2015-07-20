@@ -20,8 +20,8 @@ namespace Gimnet.Sertifika
         protected override void LoadEntity(KategoriRow entity)
         {
             base.LoadEntity(entity);
-            //if (IsNew)
-            //    form.EklenmeTarihi.Value = JsDate.Today.ToDateString();
+            if (IsNew)
+                form.EklenmeTarihi.Value = System.DateTime.Today.ToString(); // JsDate.Today.ToDateString();
         }
     }
 }
