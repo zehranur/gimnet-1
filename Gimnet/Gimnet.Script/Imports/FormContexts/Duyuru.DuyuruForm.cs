@@ -8,6 +8,7 @@ namespace Gimnet.Duyuru
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using Gimnet.Duyuru.Duyuru;
     using Gimnet.Sertifika.Kategori;
     using Gimnet.Sertifika.Firma;
 
@@ -17,7 +18,7 @@ namespace Gimnet.Duyuru
     
         public StringEditor Baslik { get { return ById<StringEditor>("Baslik"); } }
         public DateEditor EklemeTarihi { get { return ById<DateEditor>("EklemeTarihi"); } }
-        public StringEditor DuyuruMetni { get { return ById<StringEditor>("DuyuruMetni"); } }
+        public NotEditor DuyuruMetni { get { return ById<NotEditor>("DuyuruMetni"); } }
         public DateEditor SonTarih { get { return ById<DateEditor>("SonTarih"); } }
     }
 }

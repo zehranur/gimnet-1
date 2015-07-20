@@ -44,6 +44,17 @@ namespace Gimnet.Common
     }
 }
 
+namespace Gimnet.Duyuru.Duyuru
+{
+    public partial class NotEditorAttribute : CustomEditorAttribute
+    {
+        public NotEditorAttribute()
+            : base("Gimnet.Duyuru.Duyuru.NotEditor")
+        {
+        }
+    }
+}
+
 namespace Gimnet.Sertifika.Firma
 {
     public partial class FirmaLookupEditorAttribute : CustomEditorAttribute
@@ -62,6 +73,29 @@ namespace Gimnet.Sertifika.Kategori
         public KategoriLookupEditorAttribute()
             : base("Gimnet.Sertifika.Kategori.KategoriLookupEditor")
         {
+        }
+    }
+}
+
+namespace Serenity.ComponentModel
+{
+    public partial class HtmlBasicContentEditorAttribute : CustomEditorAttribute
+    {
+        public HtmlBasicContentEditorAttribute()
+            : base("Serenity.HtmlBasicContentEditor")
+        {
+        }
+    
+        public Int32 Cols
+        {
+            get { return GetOption<Int32>("cols"); }
+            set { SetOption("cols", value); }
+        }
+    
+        public Int32 Rows
+        {
+            get { return GetOption<Int32>("rows"); }
+            set { SetOption("rows", value); }
         }
     }
 }
