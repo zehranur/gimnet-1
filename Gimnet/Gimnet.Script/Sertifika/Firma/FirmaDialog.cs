@@ -19,8 +19,11 @@ namespace Gimnet.Sertifika
             //form.OrtaLogo.GetGridField().Hide();
 
             //PropertyGrid.SetReadOnly(form.BuyukLogo, true);
-            
+        }
 
+        protected override void LoadEntity(FirmaRow entity)
+        {
+            base.LoadEntity(entity);
         }
     }
 }

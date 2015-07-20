@@ -9,5 +9,11 @@ namespace Gimnet.Duyuru
     [FormKey("Duyuru.Duyuru"), LocalTextPrefix("Duyuru.Duyuru"), Service("Duyuru/Duyuru")]
     public class DuyuruDialog : EntityDialog<DuyuruRow>
     {
+        DuyuruForm form;
+
+        public DuyuruDialog()
+        {
+            form = new DuyuruForm(this.idPrefix);
+        }
     }
 }

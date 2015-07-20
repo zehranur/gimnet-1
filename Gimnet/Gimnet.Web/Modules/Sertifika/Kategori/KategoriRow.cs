@@ -30,7 +30,7 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.KategoriAdi[this] = value; }
         }
 
-        [DisplayName("Eklenme Tarihi"), NotNull, ReadOnly(true)]
+        [DisplayName("Eklenme Tarihi"), ReadOnly(true)]
         public DateTime? EklenmeTarihi
         {
             get { return Fields.EklenmeTarihi[this]; }

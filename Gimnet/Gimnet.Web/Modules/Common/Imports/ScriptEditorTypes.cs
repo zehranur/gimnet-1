@@ -66,3 +66,26 @@ namespace Gimnet.Sertifika.Kategori
     }
 }
 
+namespace Serenity.ComponentModel
+{
+    public partial class HtmlBasicContentEditorAttribute : CustomEditorAttribute
+    {
+        public HtmlBasicContentEditorAttribute()
+            : base("Serenity.HtmlBasicContentEditor")
+        {
+        }
+    
+        public Int32 Cols
+        {
+            get { return GetOption<Int32>("cols"); }
+            set { SetOption("cols", value); }
+        }
+    
+        public Int32 Rows
+        {
+            get { return GetOption<Int32>("rows"); }
+            set { SetOption("rows", value); }
+        }
+    }
+}
+

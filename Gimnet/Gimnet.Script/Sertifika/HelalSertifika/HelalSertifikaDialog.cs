@@ -9,5 +9,17 @@ namespace Gimnet.Sertifika
     [FormKey("Sertifika.HelalSertifika"), LocalTextPrefix("Sertifika.HelalSertifika"), Service("Sertifika/HelalSertifika")]
     public class HelalSertifikaDialog : EntityDialog<HelalSertifikaRow>
     {
+        HelalSertifikaForm form;
+
+        public HelalSertifikaDialog()
+        {
+            form = new HelalSertifikaForm(this.idPrefix);
+        }
+
+        protected override void LoadEntity(HelalSertifikaRow entity)
+        {
+            base.LoadEntity(entity);
+           
+        }
     }
 }

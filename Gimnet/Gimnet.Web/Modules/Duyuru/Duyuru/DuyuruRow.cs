@@ -30,13 +30,6 @@ namespace Gimnet.Duyuru.Entities
             set { Fields.Baslik[this] = value; }
         }
 
-        [DisplayName("Ekleme Tarihi"), NotNull]
-        public DateTime? EklemeTarihi
-        {
-            get { return Fields.EklemeTarihi[this]; }
-            set { Fields.EklemeTarihi[this] = value; }
-        }
-
         [DisplayName("Duyuru Metni"), NotNull]
         public String DuyuruMetni
         {
@@ -44,11 +37,18 @@ namespace Gimnet.Duyuru.Entities
             set { Fields.DuyuruMetni[this] = value; }
         }
 
-        [DisplayName("Son Tarih")]
+        [DisplayName("Yayından Kaldırılacağı Tarih")]
         public DateTime? SonTarih
         {
             get { return Fields.SonTarih[this]; }
             set { Fields.SonTarih[this] = value; }
+        }
+
+        [DisplayName("Ekleme Tarihi"), NotNull]
+        public DateTime? EklemeTarihi
+        {
+            get { return Fields.EklemeTarihi[this]; }
+            set { Fields.EklemeTarihi[this] = value; }
         }
 
         IIdField IIdRow.IdField

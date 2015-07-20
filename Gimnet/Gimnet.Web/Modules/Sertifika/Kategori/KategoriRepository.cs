@@ -22,7 +22,7 @@ namespace Gimnet.Sertifika.Repositories
         {
             return new MySaveHandler().Process(uow, request, SaveRequestType.Update);
         }
-
+       
         public DeleteResponse Delete(IUnitOfWork uow, DeleteRequest request)
         {
             return new MyDeleteHandler().Process(uow, request);
@@ -50,7 +50,16 @@ namespace Gimnet.Sertifika.Repositories
             }
         }
         private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
-        private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }
+        private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> {
+         
+
+            protected override void OnReturn()
+            {
+                
+                base.OnReturn();
+                //this.Row.EklenmeTarihi = System.DateTime.Today;
+            }
+        }
         private class MyListHandler : ListRequestHandler<MyRow> { }
     }
 }
