@@ -17,7 +17,6 @@
 	var contractGenerator = new ScriptDtoGenerator(typeof(Gimnet.SiteInitialization).Assembly);
     contractGenerator.RootNamespaces.Add("Gimnet");
     var contractCodes = contractGenerator.GenerateCode();
-    
 
     var endpointGenerator = new ScriptEndpointGenerator(typeof(Gimnet.SiteInitialization).Assembly);
     endpointGenerator.IsEndpoint = type => type.Namespace.EndsWith(".Endpoints");

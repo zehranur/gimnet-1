@@ -39,9 +39,6 @@
     <Compile Include="Common\Helper\CascadedEditorHelper.cs" />
     <Compile Include="Common\Navigation\LanguageSelection.cs" />
     <Compile Include="Common\Navigation\SidebarSearch.cs" />
-    <Compile Include="Duyuru\Duyuru\HtmlBasicContentEditor.cs" />
-    <Compile Include="Duyuru\Duyuru\NotEditor.cs" />
-    <Compile Include="Duyuru\Duyuru\PromptDialog.cs" />
     <Compile Include="Imports\FormContexts\Administration.LanguageForm.cs">
       <DependentUpon>FormContexts.tt</DependentUpon>
     </Compile>

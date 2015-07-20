@@ -5,13 +5,11 @@
 	global.Gimnet.Administration = global.Gimnet.Administration || {};
 	global.Gimnet.Common = global.Gimnet.Common || {};
 	global.Gimnet.Duyuru = global.Gimnet.Duyuru || {};
-	global.Gimnet.Duyuru.Duyuru = global.Gimnet.Duyuru.Duyuru || {};
 	global.Gimnet.HelalDunyaMarket = global.Gimnet.HelalDunyaMarket || {};
 	global.Gimnet.Membership = global.Gimnet.Membership || {};
 	global.Gimnet.Sertifika = global.Gimnet.Sertifika || {};
 	global.Gimnet.Sertifika.Firma = global.Gimnet.Sertifika.Firma || {};
 	global.Gimnet.Sertifika.Kategori = global.Gimnet.Sertifika.Kategori || {};
-	global.Serenity = global.Serenity || {};
 	ss.initAssembly($asm, 'Gimnet.Script');
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.ScriptInitialization
@@ -464,37 +462,6 @@
 	};
 	global.Gimnet.Duyuru.DuyuruService = $Gimnet_Duyuru_DuyuruService;
 	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Duyuru.Duyuru.NotEditor
-	var $Gimnet_Duyuru_Duyuru_NotEditor = function(container) {
-		Serenity.Widget.call(this, container);
-		(new $Gimnet_Duyuru_Duyuru_PromptDialog({ title: 'Not Ekle', value: '', editorType: 'HtmlBasicContentEditor', editorOptions: { rows: 9 }, cssClass: 'NotEkleDialog' })).dialogOpen();
-	};
-	$Gimnet_Duyuru_Duyuru_NotEditor.__typeName = 'Gimnet.Duyuru.Duyuru.NotEditor';
-	global.Gimnet.Duyuru.Duyuru.NotEditor = $Gimnet_Duyuru_Duyuru_NotEditor;
-	////////////////////////////////////////////////////////////////////////////////
-	// Gimnet.Duyuru.Duyuru.PromptDialog
-	var $Gimnet_Duyuru_Duyuru_PromptDialog = function(opt) {
-		ss.makeGenericType(Serenity.PropertyDialog$2, [Object, Object]).$ctor1.call(this, opt);
-		if (!ss.isNullOrEmptyString(this.options.cssClass)) {
-			this.element.addClass(this.options.cssClass);
-		}
-		if (!ss.isNullOrEmptyString(this.options.message)) {
-			$('<div/>').addClass('message').insertBefore(this.byId$1('PropertyGrid')).text(ss.coalesce(this.options.message, ''));
-		}
-	};
-	$Gimnet_Duyuru_Duyuru_PromptDialog.__typeName = 'Gimnet.Duyuru.Duyuru.PromptDialog';
-	$Gimnet_Duyuru_Duyuru_PromptDialog.prompt = function(title, message, value, validateValue) {
-		(new $Gimnet_Duyuru_Duyuru_PromptDialog({
-			title: title,
-			message: message,
-			value: value,
-			validateValue: function(v) {
-				return validateValue(ss.cast(v, String));
-			}
-		})).dialogOpen();
-	};
-	global.Gimnet.Duyuru.Duyuru.PromptDialog = $Gimnet_Duyuru_Duyuru_PromptDialog;
-	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.HelalDunyaMarket.HelalMarketDialog
 	var $Gimnet_HelalDunyaMarket_HelalMarketDialog = function() {
 		ss.makeGenericType(Serenity.EntityDialog$1, [Object]).call(this);
@@ -764,13 +731,6 @@
 	};
 	$Gimnet_Sertifika_Kategori_KategoriLookupEditor.__typeName = 'Gimnet.Sertifika.Kategori.KategoriLookupEditor';
 	global.Gimnet.Sertifika.Kategori.KategoriLookupEditor = $Gimnet_Sertifika_Kategori_KategoriLookupEditor;
-	////////////////////////////////////////////////////////////////////////////////
-	// Serenity.HtmlBasicContentEditor
-	var $Serenity_HtmlBasicContentEditor = function(textArea, opt) {
-		Serenity.HtmlContentEditor.call(this, textArea, opt);
-	};
-	$Serenity_HtmlBasicContentEditor.__typeName = 'Serenity.HtmlBasicContentEditor';
-	global.Serenity.HtmlBasicContentEditor = $Serenity_HtmlBasicContentEditor;
 	ss.initClass($Gimnet_ScriptInitialization, $asm, {});
 	ss.initClass($Gimnet_Administration_LanguageDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog, Serenity.IAsyncInit]);
 	ss.initClass($Gimnet_Administration_LanguageForm, $asm, {
@@ -1245,7 +1205,7 @@
 			return this.byId(Serenity.DateEditor).call(this, 'EklemeTarihi');
 		},
 		get_duyuruMetni: function() {
-			return this.byId($Gimnet_Duyuru_Duyuru_NotEditor).call(this, 'DuyuruMetni');
+			return this.byId(Serenity.TextAreaEditor).call(this, 'DuyuruMetni');
 		},
 		get_sonTarih: function() {
 			return this.byId(Serenity.DateEditor).call(this, 'SonTarih');
@@ -1253,36 +1213,6 @@
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Duyuru_DuyuruGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
 	ss.initClass($Gimnet_Duyuru_DuyuruService, $asm, {});
-	ss.initClass($Gimnet_Duyuru_Duyuru_NotEditor, $asm, {}, Serenity.Widget);
-	ss.initClass($Gimnet_Duyuru_Duyuru_PromptDialog, $asm, {
-		getDialogOptions: function() {
-			var opt = ss.makeGenericType(Serenity.PropertyDialog$2, [Object, Object]).prototype.getDialogOptions.call(this);
-			opt.buttons = [{ text: 'Tamam', click: ss.mkdel(this, function() {
-				if (!this.validateForm()) {
-					return;
-				}
-				if (ss.staticEquals(this.options.validateValue, null) || this.options.validateValue(this.get_value())) {
-					this.dialogClose();
-				}
-			}) }, { text: 'İptal', click: ss.mkdel(this, this.dialogClose) }];
-			opt.title = ss.coalesce(this.options.title, 'Giriş İstemi');
-			return opt;
-		},
-		loadInitialEntity: function() {
-			this.set_value(this.options.value);
-		},
-		getPropertyItems: function() {
-			var $t1 = [];
-			$t1.push({ name: 'Value', editorType: ss.coalesce(this.options.editorType, 'String'), required: ss.coalesce(this.options.required, true), editorParams: this.options.editorOptions });
-			return $t1;
-		},
-		get_value: function() {
-			return this.getSaveEntity().Value;
-		},
-		set_value: function(value) {
-			this.propertyGrid.load({ Value: value });
-		}
-	}, ss.makeGenericType(Serenity.PropertyDialog$2, [Object, Object]), [Serenity.IDialog]);
 	ss.initClass($Gimnet_HelalDunyaMarket_HelalMarketDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_HelalDunyaMarket_HelalMarketForm, $asm, {
 		get_adi: function() {
@@ -1434,14 +1364,6 @@
 			});
 		}
 	}, ss.makeGenericType(Serenity.LookupEditorBase$2, [Object, Object]), [Serenity.IStringValue]);
-	ss.initClass($Serenity_HtmlBasicContentEditor, $asm, {
-		getConfig: function() {
-			var config = Serenity.HtmlContentEditor.prototype.getConfig.call(this);
-			config.removeButtons += ',Cut,Copy,Paste,BulletedList,NumberedList,Indent,Outdent,SpecialChar,Subscript,Superscript,Styles,PasteText,PasteFromWord,Strike,Link,Unlink,CreatePlaceholder,Image,Table,HorizontalRule,Source,Maximize,Format,Font,FontSize,Anchor,Blockquote,CreatePlaceholder,BGColor,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,Superscript,RemoveFormat';
-			config.removePlugins += ',elementspath';
-			return config;
-		}
-	}, Serenity.HtmlContentEditor, [Serenity.IStringValue]);
 	ss.setMetadata($Gimnet_Administration_LanguageDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('LanguageName'), new Serenity.FormKeyAttribute('Administration.Language'), new Serenity.LocalTextPrefixAttribute('Administration.Language'), new Serenity.ServiceAttribute('Administration/Language')] });
 	ss.setMetadata($Gimnet_Administration_LanguageGrid, { attr: [new Serenity.ColumnsKeyAttribute('Administration.Language'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('LanguageName'), new Serenity.DialogTypeAttribute($Gimnet_Administration_LanguageDialog), new Serenity.LocalTextPrefixAttribute('Administration.Language'), new Serenity.ServiceAttribute('Administration/Language')] });
 	ss.setMetadata($Gimnet_Administration_PermissionCheckEditor, { attr: [new Serenity.EditorAttribute()] });
@@ -1454,7 +1376,6 @@
 	ss.setMetadata($Gimnet_Administration_UserGrid, { attr: [new Serenity.IdPropertyAttribute('UserId'), new Serenity.NamePropertyAttribute('Username'), new Serenity.IsActivePropertyAttribute('IsActive'), new Serenity.DialogTypeAttribute($Gimnet_Administration_UserDialog), new Serenity.LocalTextPrefixAttribute('Administration.User'), new Serenity.ServiceAttribute('Administration/User')] });
 	ss.setMetadata($Gimnet_Duyuru_DuyuruDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Baslik'), new Serenity.FormKeyAttribute('Duyuru.Duyuru'), new Serenity.LocalTextPrefixAttribute('Duyuru.Duyuru'), new Serenity.ServiceAttribute('Duyuru/Duyuru')] });
 	ss.setMetadata($Gimnet_Duyuru_DuyuruGrid, { attr: [new Serenity.ColumnsKeyAttribute('Duyuru.Duyuru'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Baslik'), new Serenity.DialogTypeAttribute($Gimnet_Duyuru_DuyuruDialog), new Serenity.LocalTextPrefixAttribute('Duyuru.Duyuru'), new Serenity.ServiceAttribute('Duyuru/Duyuru')] });
-	ss.setMetadata($Gimnet_Duyuru_Duyuru_NotEditor, { attr: [new Serenity.EditorAttribute(), new Serenity.ElementAttribute('<div/>')] });
 	ss.setMetadata($Gimnet_HelalDunyaMarket_HelalMarketDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Adi'), new Serenity.FormKeyAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.LocalTextPrefixAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.ServiceAttribute('HelalDunyaMarket/HelalMarket')] });
 	ss.setMetadata($Gimnet_HelalDunyaMarket_HelalMarketGrid, { attr: [new Serenity.ColumnsKeyAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Adi'), new Serenity.DialogTypeAttribute($Gimnet_HelalDunyaMarket_HelalMarketDialog), new Serenity.LocalTextPrefixAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.ServiceAttribute('HelalDunyaMarket/HelalMarket')] });
 	ss.setMetadata($Gimnet_Membership_LoginPanel, { attr: [new Serenity.PanelAttribute(), new Serenity.FormKeyAttribute('Membership.Login')] });
@@ -1468,7 +1389,6 @@
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.SertifikaResim'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('ResimKonumu'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_SertifikaResimDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.SertifikaResim'), new Serenity.ServiceAttribute('Sertifika/SertifikaResim')] });
 	ss.setMetadata($Gimnet_Sertifika_Firma_FirmaLookupEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Firma Adı')] });
 	ss.setMetadata($Gimnet_Sertifika_Kategori_KategoriLookupEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Kategori')] });
-	ss.setMetadata($Serenity_HtmlBasicContentEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Html İçerik (En Temel Set)'), new Serenity.OptionsTypeAttribute(Serenity.HtmlContentEditorOptions), new Serenity.ElementAttribute('<textarea />')] });
 	(function() {
 		Q$Config.rootNamespaces.push('Gimnet');
 	})();

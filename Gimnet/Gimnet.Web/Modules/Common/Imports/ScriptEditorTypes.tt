@@ -28,7 +28,6 @@
             };                
         }
     }
-    
     var code = generator.GenerateCode();
     var manager = Manager.Create(Host, GenerationEnvironment);
     manager.StartNewFile("ScriptEditorTypes.cs");

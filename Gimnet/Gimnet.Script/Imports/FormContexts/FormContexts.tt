@@ -20,7 +20,6 @@
     var solutionDir = Host.ResolvePath(@"..\..\..");
     var scriptAssembly1 =(solutionDir + @"\Gimnet.Script\bin\debug\Serenity.Script.UI.dll");
     var scriptAssembly2 =(solutionDir + @"\Gimnet.Script\bin\debug\Gimnet.Script.dll");
-
     var widgetTypes1 = new ScriptWidgetTypeLister(scriptAssembly1).List();
     var widgetTypes2 = new ScriptWidgetTypeLister(scriptAssembly2).List();
     

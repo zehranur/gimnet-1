@@ -8,7 +8,6 @@ namespace Gimnet.HelalDunyaMarket
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using Gimnet.Duyuru.Duyuru;
     using Gimnet.Sertifika.Kategori;
     using Gimnet.Sertifika.Firma;
 
