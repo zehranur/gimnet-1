@@ -21,7 +21,7 @@ namespace Gimnet.HelalDunyaMarket
         {
             base.LoadEntity(entity);
             if (IsNew)
-                form.EklemeTarihi.Value = JsDate.Today.ToDateString();
+                form.EklemeTarihi.Value = "Today";
         }
     }
 }

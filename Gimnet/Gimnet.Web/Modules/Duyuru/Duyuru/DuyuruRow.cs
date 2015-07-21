@@ -23,7 +23,7 @@ namespace Gimnet.Duyuru.Entities
             set { Fields.Id[this] = value; }
         }
 
-        [DisplayName("Baslik"), Size(100), NotNull, QuickSearch]
+        [DisplayName("Başlık"), Size(100), NotNull, QuickSearch]
         public String Baslik
         {
             get { return Fields.Baslik[this]; }
@@ -44,7 +44,7 @@ namespace Gimnet.Duyuru.Entities
             set { Fields.SonTarih[this] = value; }
         }
 
-        [DisplayName("Ekleme Tarihi"), NotNull]
+        [DisplayName("Ekleme Tarihi"), NotNull, ReadOnly(true)]
         public DateTime? EklemeTarihi
         {
             get { return Fields.EklemeTarihi[this]; }

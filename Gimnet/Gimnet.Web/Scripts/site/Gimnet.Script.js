@@ -1210,7 +1210,19 @@
 			liList.children('ul').removeClass('collapse');
 		}
 	}, Serenity.Widget);
-	ss.initClass($Gimnet_Duyuru_DuyuruDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
+	ss.initClass($Gimnet_Duyuru_DuyuruDialog, $asm, {
+		loadEntity: function(entity) {
+			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
+			if (this.get_isNew()) {
+				this.$form.get_eklemeTarihi().set_value('Today');
+				if (ss.isNullOrEmptyString(this.$form.get_sonTarih().get_value())) {
+					var $t2 = this.$form.get_sonTarih();
+					var $t1 = new Date();
+					$t2.set_value((new Date($t1.getFullYear() + 1, $t1.getMonth(), $t1.getDate(), $t1.getHours(), $t1.getMinutes(), $t1.getSeconds(), $t1.getMilliseconds())).toDateString());
+				}
+			}
+		}
+	}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Duyuru_DuyuruForm, $asm, {
 		get_baslik: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'Baslik');
@@ -1231,7 +1243,7 @@
 		loadEntity: function(entity) {
 			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
 			if (this.get_isNew()) {
-				this.$form.get_eklemeTarihi().set_value(ss.today().toDateString());
+				this.$form.get_eklemeTarihi().set_value('Today');
 			}
 		}
 	}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
@@ -1345,9 +1357,8 @@
 		loadEntity: function(entity) {
 			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
 			if (this.get_isNew()) {
-				this.$form.get_eklenmeTarihi().set_value(ss.today().toString());
+				this.$form.get_eklenmeTarihi().set_value('Today');
 			}
-			// JsDate.Today.ToDateString();
 		}
 	}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Sertifika_KategoriForm, $asm, {

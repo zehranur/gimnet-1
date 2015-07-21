@@ -1,4 +1,5 @@
-﻿
+﻿using Gimnet.Modules.Sertifika.Firma;
+
 namespace Gimnet.Sertifika.Entities
 {
     using Newtonsoft.Json;
@@ -78,6 +79,7 @@ namespace Gimnet.Sertifika.Entities
             get { return Fields.IletisimEmail[this]; }
             set { Fields.IletisimEmail[this] = value; }
         }
+
 
         IIdField IIdRow.IdField
         {

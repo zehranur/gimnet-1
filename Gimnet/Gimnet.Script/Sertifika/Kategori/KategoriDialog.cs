@@ -21,7 +21,7 @@ namespace Gimnet.Sertifika
         {
             base.LoadEntity(entity);
             if (IsNew)
-                form.EklenmeTarihi.Value = System.DateTime.Today.ToString(); // JsDate.Today.ToDateString();
+                form.EklenmeTarihi.Value = "Today";
         }
     }
 }
