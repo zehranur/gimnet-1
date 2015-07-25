@@ -12,6 +12,10 @@ namespace Gimnet.Sertifika
     [Imported, Serializable, PreserveMemberCase]
     public partial class KategoriRow
     {
+        [InlineConstant] public const string IdProperty = "Id";
+        [InlineConstant] public const string NameProperty = "KategoriAdi";
+        [InlineConstant] public const string LocalTextPrefix = "Sertifika.Kategori";
+    
         public Int32? Id { get; set; }
         public String KategoriAdi { get; set; }
         public String EklenmeTarihi { get; set; }

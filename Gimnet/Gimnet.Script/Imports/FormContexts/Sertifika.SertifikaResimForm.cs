@@ -8,12 +8,11 @@ namespace Gimnet.Sertifika
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using Gimnet.Sertifika;
-    using Gimnet.Sertifika.Kategori;
-    using Gimnet.Sertifika.Firma;
 
     public partial class SertifikaResimForm : PrefixedContext
     {
+        [InlineConstant] public const string FormKey = "Sertifika.SertifikaResim";
+    
         public SertifikaResimForm(string idPrefix) : base(idPrefix) {}
     
         public StringEditor ResimKonumu { get { return ById<StringEditor>("ResimKonumu"); } }

@@ -12,6 +12,10 @@ namespace Gimnet.HelalDunyaMarket
     [Imported, Serializable, PreserveMemberCase]
     public partial class HelalMarketRow
     {
+        [InlineConstant] public const string IdProperty = "Id";
+        [InlineConstant] public const string NameProperty = "Adi";
+        [InlineConstant] public const string LocalTextPrefix = "HelalDunyaMarket.HelalMarket";
+    
         public Int32? Id { get; set; }
         public String Adi { get; set; }
         public String AcikAdres { get; set; }

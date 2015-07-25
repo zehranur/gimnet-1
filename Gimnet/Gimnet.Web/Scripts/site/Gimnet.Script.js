@@ -721,6 +721,14 @@
 	$Gimnet_Sertifika_SertifikaResimGrid.__typeName = 'Gimnet.Sertifika.SertifikaResimGrid';
 	global.Gimnet.Sertifika.SertifikaResimGrid = $Gimnet_Sertifika_SertifikaResimGrid;
 	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.SertifikaResimleriUploadEditor
+	var $Gimnet_Sertifika_SertifikaResimleriUploadEditor = function(div, opt) {
+		Serenity.MultipleImageUploadEditor.call(this, div, opt);
+		this.toolbar.get_element().appendTo(this.element);
+	};
+	$Gimnet_Sertifika_SertifikaResimleriUploadEditor.__typeName = 'Gimnet.Sertifika.SertifikaResimleriUploadEditor';
+	global.Gimnet.Sertifika.SertifikaResimleriUploadEditor = $Gimnet_Sertifika_SertifikaResimleriUploadEditor;
+	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.SertifikaResimService
 	var $Gimnet_Sertifika_SertifikaResimService = function() {
 	};
@@ -785,38 +793,6 @@
 	};
 	$Serenity_HtmlBasicContentEditor.__typeName = 'Serenity.HtmlBasicContentEditor';
 	global.Serenity.HtmlBasicContentEditor = $Serenity_HtmlBasicContentEditor;
-	////////////////////////////////////////////////////////////////////////////////
-	// Serenity.MultipleImageUploadEditor
-	var $Serenity_MultipleImageUploadEditor = function(div, opt) {
-		this.entities = null;
-		this.toolbar = null;
-		this.fileSymbols = null;
-		this.uploadInput = null;
-		this.$4$JsonEncodeValueField = false;
-		ss.makeGenericType(Serenity.Widget$1, [Serenity.ImageUploadEditorOptions]).call(this, div, opt);
-		this.entities = [];
-		div.addClass('s-MultipleImageUploadEditor');
-		var self = this;
-		this.toolbar = new Serenity.Toolbar($('<div/>').appendTo(this.get_element()), { buttons: this.getToolButtons() });
-		var progress = $('<div><div></div></div>').addClass('upload-progress').prependTo(this.toolbar.get_element());
-		var addFileButton = this.toolbar.findButton('add-file-button');
-		this.uploadInput = Serenity.UploadHelper.addUploadInput({ container: addFileButton, inputName: this.uniqueName, progress: progress, fileDone: ss.mkdel(this, function(response, name, data) {
-			if (!Serenity.UploadHelper.checkImageConstraints(response, this.options)) {
-				return;
-			}
-			var $t1 = new Serenity.UploadedFile();
-			$t1.set_originalName(name);
-			$t1.set_filename(response.TemporaryFile);
-			var newEntity = $t1;
-			self.entities.push(newEntity);
-			self.populate();
-			self.updateInterface();
-		}) });
-		this.fileSymbols = $('<ul/>').appendTo(this.element);
-		this.updateInterface();
-	};
-	$Serenity_MultipleImageUploadEditor.__typeName = 'Serenity.MultipleImageUploadEditor';
-	global.Serenity.MultipleImageUploadEditor = $Serenity_MultipleImageUploadEditor;
 	ss.initClass($Gimnet_ScriptInitialization, $asm, {});
 	ss.initClass($Gimnet_Administration_LanguageDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog, Serenity.IAsyncInit]);
 	ss.initClass($Gimnet_Administration_LanguageForm, $asm, {
@@ -1369,6 +1345,12 @@
 		get_firmaAdi: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'FirmaAdi');
 		},
+		get_kucukLogo: function() {
+			return this.byId(Serenity.StringEditor).call(this, 'KucukLogo');
+		},
+		get_ortaLogo: function() {
+			return this.byId(Serenity.StringEditor).call(this, 'OrtaLogo');
+		},
 		get_buyukLogo: function() {
 			return this.byId($Gimnet_Sertifika_FirmaLogoUploadEditor).call(this, 'BuyukLogo');
 		},
@@ -1413,14 +1395,14 @@
 		},
 		$populateFileSymbols: function(fileElement, file, displayOriginalName) {
 			fileElement.html('');
-			if (ss.isNullOrUndefined(file) || Q.isEmptyOrNull(file.get_filename())) {
+			if (ss.isNullOrUndefined(file) || Q.isEmptyOrNull(file.filename)) {
 				return;
 			}
 			var li = $('<li/>');
-			var isImage = Serenity.UploadHelper.hasImageExtension(file.get_filename());
+			var isImage = Serenity.UploadHelper.hasImageExtension(file.filename);
 			var thumb = $('<a/>').appendTo(li);
-			var originalName = ss.coalesce(file.get_originalName(), '');
-			var fileName = file.get_filename();
+			var originalName = ss.coalesce(file.originalName, '');
+			var fileName = file.filename;
 			//if (!fileName.StartsWith("temporary/"))
 			//    fileName = "personelFoto/" + fileName;
 			thumb.attr('href', Serenity.UploadHelper.dbFileUrl(fileName));
@@ -1483,6 +1465,9 @@
 		},
 		get_İptalAciklamasi: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'İptalAciklamasi');
+		},
+		get_sertifikaResimleri: function() {
+			return this.byId(Serenity.MultipleImageUploadEditor).call(this, 'SertifikaResimleri');
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_HelalSertifikaGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
@@ -1557,6 +1542,7 @@
 			return true;
 		}
 	}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
+	ss.initClass($Gimnet_Sertifika_SertifikaResimleriUploadEditor, $asm, {}, Serenity.MultipleImageUploadEditor, [Serenity.IGetEditValue, Serenity.ISetEditValue, Serenity.IReadOnly]);
 	ss.initClass($Gimnet_Sertifika_SertifikaResimService, $asm, {});
 	ss.initClass($Gimnet_Sertifika_SupportUtility, $asm, {}, Serenity.ScriptContext);
 	ss.initClass($Gimnet_Sertifika_Firma_FirmaLookupEditor, $asm, {
@@ -1644,78 +1630,6 @@
 			return config;
 		}
 	}, Serenity.HtmlContentEditor, [Serenity.IStringValue]);
-	ss.initClass($Serenity_MultipleImageUploadEditor, $asm, {
-		addFileButtonText: function() {
-			return Q.text('Controls.ImageUpload.AddFileButton');
-		},
-		getToolButtons: function() {
-			var self = this;
-			var $t1 = [];
-			$t1.push({
-				title: this.addFileButtonText(),
-				cssClass: 'add-file-button',
-				onClick: function() {
-				}
-			});
-			return $t1;
-		},
-		populate: function() {
-			Serenity.UploadHelper.populateFileSymbols(this.fileSymbols, this.entities, true, this.options.urlPrefix);
-		},
-		updateInterface: function() {
-			var addButton = this.toolbar.findButton('add-file-button');
-			addButton.toggleClass('disabled', this.get_readOnly());
-		},
-		get_readOnly: function() {
-			return !ss.isNullOrUndefined(this.uploadInput.attr('disabled'));
-		},
-		set_readOnly: function(value) {
-			if (this.get_readOnly() !== value) {
-				if (value) {
-					this.uploadInput.attr('disabled', 'disabled');
-				}
-				else {
-					this.uploadInput.removeAttr('disabled');
-				}
-				this.updateInterface();
-			}
-		},
-		get_value: function() {
-			return Enumerable.from(this.entities).select(function(x) {
-				return $.extend(new Serenity.UploadedFile(), x);
-			}).toArray();
-		},
-		set_value: function(value) {
-			this.entities = Enumerable.from(value || []).select(function(x) {
-				return $.extend(new Serenity.UploadedFile(), x);
-			}).toArray();
-			this.populate();
-			this.updateInterface();
-		},
-		getEditValue: function(property, target) {
-			if (this.get_jsonEncodeValue()) {
-				target[property.name] = $.toJSON(this.get_value());
-			}
-			else {
-				target[property.name] = this.get_value();
-			}
-		},
-		setEditValue: function(source, property) {
-			if (this.get_jsonEncodeValue()) {
-				var json = ss.coalesce(Q.trimToNull(ss.safeCast(source[property.name], String)), '[]');
-				this.set_value($.parseJSON(json));
-			}
-			else {
-				this.set_value(ss.cast(source[property.name], Array));
-			}
-		},
-		get_jsonEncodeValue: function() {
-			return this.$4$JsonEncodeValueField;
-		},
-		set_jsonEncodeValue: function(value) {
-			this.$4$JsonEncodeValueField = value;
-		}
-	}, ss.makeGenericType(Serenity.Widget$1, [Serenity.ImageUploadEditorOptions]), [Serenity.IGetEditValue, Serenity.ISetEditValue, Serenity.IReadOnly]);
 	ss.setMetadata($Gimnet_Administration_LanguageDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('LanguageName'), new Serenity.FormKeyAttribute('Administration.Language'), new Serenity.LocalTextPrefixAttribute('Administration.Language'), new Serenity.ServiceAttribute('Administration/Language')] });
 	ss.setMetadata($Gimnet_Administration_LanguageGrid, { attr: [new Serenity.ColumnsKeyAttribute('Administration.Language'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('LanguageName'), new Serenity.DialogTypeAttribute($Gimnet_Administration_LanguageDialog), new Serenity.LocalTextPrefixAttribute('Administration.Language'), new Serenity.ServiceAttribute('Administration/Language')] });
 	ss.setMetadata($Gimnet_Administration_PermissionCheckEditor, { attr: [new Serenity.EditorAttribute()] });
@@ -1741,11 +1655,11 @@
 	ss.setMetadata($Gimnet_Sertifika_KategoriGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.Kategori'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('KategoriAdi'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_KategoriDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.Kategori'), new Serenity.ServiceAttribute('Sertifika/Kategori')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('ResimKonumu'), new Serenity.FormKeyAttribute('Sertifika.SertifikaResim'), new Serenity.LocalTextPrefixAttribute('Sertifika.SertifikaResim'), new Serenity.ServiceAttribute('Sertifika/SertifikaResim')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.SertifikaResim'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('ResimKonumu'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_SertifikaResimDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.SertifikaResim'), new Serenity.ServiceAttribute('Sertifika/SertifikaResim')] });
+	ss.setMetadata($Gimnet_Sertifika_SertifikaResimleriUploadEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Sertifika Resimleri'), new Serenity.OptionsTypeAttribute(Serenity.ImageUploadEditorOptions), new Serenity.ElementAttribute('<div/>')] });
 	ss.setMetadata($Gimnet_Sertifika_Firma_FirmaLookupEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Firma Adı')] });
 	ss.setMetadata($Gimnet_Sertifika_Kategori_KategoriLookupEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Kategori')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResim_SertifikaResimGridDialog, { attr: [new Serenity.IdPropertyAttribute('Id')] });
 	ss.setMetadata($Serenity_HtmlBasicContentEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Html İçerik (En Temel Set)'), new Serenity.OptionsTypeAttribute(Serenity.HtmlContentEditorOptions), new Serenity.ElementAttribute('<textarea />')] });
-	ss.setMetadata($Serenity_MultipleImageUploadEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('MultipleImage Upload'), new Serenity.OptionsTypeAttribute(Serenity.ImageUploadEditorOptions), new Serenity.ElementAttribute('<div/>')], members: [{ attr: [new Serenity.ComponentModel.OptionAttribute()], name: 'JsonEncodeValue', type: 16, returnType: Boolean, getter: { name: 'get_JsonEncodeValue', type: 8, sname: 'get_jsonEncodeValue', returnType: Boolean, params: [] }, setter: { name: 'set_JsonEncodeValue', type: 8, sname: 'set_jsonEncodeValue', returnType: Object, params: [Boolean] } }] });
 	(function() {
 		Q$Config.rootNamespaces.push('Gimnet');
 	})();

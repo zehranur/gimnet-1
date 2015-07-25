@@ -8,16 +8,15 @@ namespace Gimnet.Sertifika
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using Gimnet.Sertifika;
-    using Gimnet.Sertifika.Kategori;
-    using Gimnet.Sertifika.Firma;
 
     public partial class HelalSertifikaForm : PrefixedContext
     {
+        [InlineConstant] public const string FormKey = "Sertifika.HelalSertifika";
+    
         public HelalSertifikaForm(string idPrefix) : base(idPrefix) {}
     
-        public KategoriLookupEditor KategoriId { get { return ById<KategoriLookupEditor>("KategoriId"); } }
-        public FirmaLookupEditor FirmaId { get { return ById<FirmaLookupEditor>("FirmaId"); } }
+        public Kategori.KategoriLookupEditor KategoriId { get { return ById<Kategori.KategoriLookupEditor>("KategoriId"); } }
+        public Firma.FirmaLookupEditor FirmaId { get { return ById<Firma.FirmaLookupEditor>("FirmaId"); } }
         public StringEditor Marka { get { return ById<StringEditor>("Marka"); } }
         public DateEditor İlkBasvuruTarihi { get { return ById<DateEditor>("İlkBasvuruTarihi"); } }
         public DateEditor YenilemeTarihi { get { return ById<DateEditor>("YenilemeTarihi"); } }
@@ -26,6 +25,7 @@ namespace Gimnet.Sertifika
         public StringEditor KapsamDisi { get { return ById<StringEditor>("KapsamDisi"); } }
         public DateEditor BitisTarihi { get { return ById<DateEditor>("BitisTarihi"); } }
         public StringEditor İptalAciklamasi { get { return ById<StringEditor>("İptalAciklamasi"); } }
+        public StringEditor SertifikaResimleri { get { return ById<StringEditor>("SertifikaResimleri"); } }
     }
 }
 

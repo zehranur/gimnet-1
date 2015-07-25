@@ -472,6 +472,9 @@
 				}, ss.mkdel(this, function(ctx) {
 					var cls = 'check-box';
 					var item = ss.cast(ctx.item, TItem);
+					if (item.hideCheckBox) {
+						return this.getItemText(ctx);
+					}
 					var threeState = this.isThreeStateHierarchy();
 					if (item.isSelected) {
 						if (threeState && !item.isAllDescendantsSelected) {
@@ -905,6 +908,9 @@
 					return;
 				}
 				var target = $(e.target);
+				if (!target.hasClass('s-EditLink')) {
+					target = target.closest('a');
+				}
 				if (target.hasClass('s-EditLink')) {
 					e.preventDefault();
 					this.editItem$1(Serenity.SlickFormatting.getItemType$1(target), Serenity.SlickFormatting.getItemId$1(target));
@@ -954,6 +960,12 @@
 					var column = $t1[$t2];
 					if (ss.isValue(column.field)) {
 						include[column.field] = true;
+					}
+					if (ss.isValue(column.referencedFields)) {
+						for (var $t3 = 0; $t3 < column.referencedFields.length; $t3++) {
+							var x = column.referencedFields[$t3];
+							include[x] = true;
+						}
 					}
 				}
 			},
@@ -1127,7 +1139,7 @@
 			},
 			getColumns: function() {
 				var columnItems = Enumerable.from(this.getPropertyItems()).where(function(x) {
-					return x.filterOnly !== true;
+					return x.filterOnly !== true && x.visible !== false;
 				}).toArray();
 				return this.propertyItemsToSlickColumns(columnItems);
 			},
@@ -1148,6 +1160,10 @@
 							}), ss.mkdel({ css: css }, function(ctx1) {
 								return ss.coalesce(this.css.$, '');
 							}), false);
+							if (!ss.isNullOrEmptyString(item.editLinkIdField)) {
+								column.referencedFields = column.referencedFields || [];
+								column.referencedFields.push(item.editLinkIdField);
+							}
 						}
 					}
 				}
@@ -1156,7 +1172,7 @@
 			getColumnsAsync: function() {
 				return this.getPropertyItemsAsync().then(ss.mkdel(this, function(propertyItems) {
 					return this.propertyItemsToSlickColumns(Enumerable.from(propertyItems).where(function(x) {
-						return x.filterOnly !== true;
+						return x.filterOnly !== true && x.visible !== false;
 					}).toArray());
 				}), null);
 			},
@@ -1261,6 +1277,18 @@
 			},
 			get_slickGrid: function() {
 				return this.slickGrid;
+			},
+			getElement: function() {
+				return this.element;
+			},
+			getGrid: function() {
+				return this.slickGrid;
+			},
+			getView: function() {
+				return this.view;
+			},
+			getFilterStore: function() {
+				return (ss.isNullOrUndefined(this.filterBar) ? null : this.filterBar.get_store());
 			}
 		}, function() {
 			return ss.makeGenericType($Serenity_Widget$1, [TOptions]);
@@ -1275,6 +1303,8 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Serenity.DateEditor
 	var $Serenity_DateEditor = function(input) {
+		this.$4$MinValueField = null;
+		this.$4$MaxValueField = null;
 		ss.makeGenericType($Serenity_Widget$1, [Object]).call(this, input, new Object());
 		input.addClass('dateQ');
 		input.datepicker({
@@ -1283,8 +1313,162 @@
 				return !input.hasClass('readonly');
 			}
 		});
+		input.bind('keyup.' + this.uniqueName, $Serenity_DateEditor.dateInputKeyup);
+		input.bind('change.' + this.uniqueName, $Serenity_DateEditor.dateInputChange);
+		$Serenity_VX.addValidationRule$1(input, this.uniqueName, ss.mkdel(this, function(e) {
+			var value = this.get_value();
+			if (ss.isNullOrEmptyString(value)) {
+				return null;
+			}
+			if (!ss.isNullOrEmptyString(this.get_minValue()) && ss.compareStrings(value, this.get_minValue()) < 0) {
+				return ss.formatString(Q.text('Validation.MinDate'), Q.formatDate(Q.parseISODateTime(this.get_minValue()), null));
+			}
+			if (!ss.isNullOrEmptyString(this.get_maxValue()) && ss.compareStrings(value, this.get_maxValue()) >= 0) {
+				return ss.formatString(Q.text('Validation.MaxDate'), Q.formatDate(Q.parseISODateTime(this.get_maxValue()), null));
+			}
+			return null;
+		}));
+		this.set_sqlMinMax(true);
 	};
 	$Serenity_DateEditor.__typeName = 'Serenity.DateEditor';
+	$Serenity_DateEditor.dateInputChange = function(e) {
+		if (Q$Culture.dateOrder !== 'dmy') {
+			return;
+		}
+		var input = $(e.target);
+		if (!input.is(':input')) {
+			return;
+		}
+		var val = ss.coalesce(input.val(), '');
+		var x = {};
+		if (val.length >= 6 && ss.Int32.tryParse(val, x)) {
+			input.val(val.substr(0, 2) + Q$Culture.dateSeparator + val.substr(2, 2) + Q$Culture.dateSeparator + val.substr(4));
+		}
+		val = ss.coalesce(input.val(), '');
+		if (!!(val.length >= 5 && !ss.referenceEquals(Q.parseDate(val), false))) {
+			var d = Q.parseDate(val);
+			input.val(Q.formatDate(d, null));
+		}
+	};
+	$Serenity_DateEditor.dateInputKeyup = function(e) {
+		if (Q$Culture.dateOrder !== 'dmy') {
+			return;
+		}
+		var input = $(e.target);
+		if (!input.is(':input')) {
+			return;
+		}
+		var val = ss.coalesce(input.val(), '');
+		if (!!(val.length === 0 || !ss.referenceEquals(input[0].selectionEnd, val.length))) {
+			return;
+		}
+		if (val.indexOf(Q$Culture.dateSeparator + Q$Culture.dateSeparator) !== -1) {
+			input.val(ss.replaceAllString(val, Q$Culture.dateSeparator + Q$Culture.dateSeparator, Q$Culture.dateSeparator));
+			return;
+		}
+		if (e.which === 47 || e.which === 111) {
+			if (val.length >= 2 && ss.referenceEquals(String.fromCharCode(val.charCodeAt(val.length - 1)), Q$Culture.dateSeparator) && ss.referenceEquals(String.fromCharCode(val.charCodeAt(val.length - 2)), Q$Culture.dateSeparator)) {
+				input.val(val.substr(0, val.length - 1));
+				return;
+			}
+			if (!ss.referenceEquals(String.fromCharCode(val.charCodeAt(val.length - 1)), Q$Culture.dateSeparator)) {
+				return;
+			}
+			switch (val.length) {
+				case 2: {
+					if ($Serenity_DateEditor.$isNumeric(val.charCodeAt(0))) {
+						val = '0' + val;
+						break;
+					}
+					else {
+						return;
+					}
+				}
+				case 4: {
+					if ($Serenity_DateEditor.$isNumeric(val.charCodeAt(0)) && $Serenity_DateEditor.$isNumeric(val.charCodeAt(2)) && ss.referenceEquals(String.fromCharCode(val.charCodeAt(1)), Q$Culture.dateSeparator)) {
+						val = '0' + String.fromCharCode(val.charCodeAt(0)) + Q$Culture.dateSeparator + '0' + String.fromCharCode(val.charCodeAt(2)) + Q$Culture.dateSeparator;
+						break;
+					}
+					else {
+						return;
+					}
+				}
+				case 5: {
+					if ($Serenity_DateEditor.$isNumeric(val.charCodeAt(0)) && $Serenity_DateEditor.$isNumeric(val.charCodeAt(2)) && $Serenity_DateEditor.$isNumeric(val.charCodeAt(3)) && ss.referenceEquals(String.fromCharCode(val.charCodeAt(1)), Q$Culture.dateSeparator)) {
+						val = '0' + val;
+						break;
+					}
+					else if ($Serenity_DateEditor.$isNumeric(val.charCodeAt(0)) && $Serenity_DateEditor.$isNumeric(val.charCodeAt(1)) && $Serenity_DateEditor.$isNumeric(val.charCodeAt(3)) && ss.referenceEquals(String.fromCharCode(val.charCodeAt(2)), Q$Culture.dateSeparator)) {
+						val = String.fromCharCode(val.charCodeAt(0)) + String.fromCharCode(val.charCodeAt(1)) + Q$Culture.dateSeparator + '0' + String.fromCharCode(val.charCodeAt(3)) + Q$Culture.dateSeparator;
+						break;
+					}
+					else {
+						break;
+					}
+				}
+				default: {
+					return;
+				}
+			}
+			input.val(val);
+		}
+		if (val.length < 6 && (e.which >= 48 && e.which <= 57 || e.which >= 96 && e.which <= 105) && $Serenity_DateEditor.$isNumeric(val.charCodeAt(val.length - 1))) {
+			switch (val.length) {
+				case 1: {
+					if (val.charCodeAt(0) <= 51) {
+						return;
+					}
+					val = '0' + val;
+					break;
+				}
+				case 2: {
+					if (!$Serenity_DateEditor.$isNumeric(val.charCodeAt(0))) {
+						return;
+					}
+					break;
+				}
+				case 3: {
+					if (!$Serenity_DateEditor.$isNumeric(val.charCodeAt(0)) || !ss.referenceEquals(String.fromCharCode(val.charCodeAt(1)), Q$Culture.dateSeparator) || val.charCodeAt(2) <= 49) {
+						return;
+					}
+					val = '0' + String.fromCharCode(val.charCodeAt(0)) + Q$Culture.dateSeparator + '0' + String.fromCharCode(val.charCodeAt(2));
+					break;
+				}
+				case 4: {
+					if (ss.referenceEquals(String.fromCharCode(val.charCodeAt(1)), Q$Culture.dateSeparator)) {
+						if (!$Serenity_DateEditor.$isNumeric(val.charCodeAt(0)) || !$Serenity_DateEditor.$isNumeric(val.charCodeAt(2))) {
+							return;
+						}
+						val = '0' + val;
+						break;
+					}
+					else if (ss.referenceEquals(String.fromCharCode(val.charCodeAt(2)), Q$Culture.dateSeparator)) {
+						if (!$Serenity_DateEditor.$isNumeric(val.charCodeAt(0)) || !$Serenity_DateEditor.$isNumeric(val.charCodeAt(1)) || val.charCodeAt(3) <= 49) {
+							return;
+						}
+						val = String.fromCharCode(val.charCodeAt(0)) + String.fromCharCode(val.charCodeAt(1)) + Q$Culture.dateSeparator + '0' + String.fromCharCode(val.charCodeAt(3));
+						break;
+					}
+					else {
+						return;
+					}
+				}
+				case 5: {
+					if (!ss.referenceEquals(String.fromCharCode(val.charCodeAt(2)), Q$Culture.dateSeparator) || !$Serenity_DateEditor.$isNumeric(val.charCodeAt(0)) || !$Serenity_DateEditor.$isNumeric(val.charCodeAt(1)) || !$Serenity_DateEditor.$isNumeric(val.charCodeAt(3))) {
+						return;
+					}
+					break;
+				}
+				default: {
+					return;
+				}
+			}
+			input.val(val + Q$Culture.dateSeparator);
+		}
+	};
+	$Serenity_DateEditor.$isNumeric = function(c) {
+		return c >= 48 && c <= 57;
+	};
 	$Serenity_DateEditor.defaultAutoNumericOptions = function() {
 		return { aDec: Q$Culture.decimalSeparator, altDec: ((Q$Culture.decimalSeparator === '.') ? ',' : '.'), aSep: ((Q$Culture.decimalSeparator === '.') ? ',' : '.'), aPad: true };
 	};
@@ -1298,54 +1482,58 @@
 	global.Serenity.DateFiltering = $Serenity_DateFiltering;
 	////////////////////////////////////////////////////////////////////////////////
 	// Serenity.DateTimeEditor
-	var $Serenity_DateTimeEditor = function(input) {
+	var $Serenity_DateTimeEditor = function(input, opt) {
 		this.$time = null;
-		$Serenity_Widget.call(this, input);
+		this.$4$MinValueField = null;
+		this.$4$MaxValueField = null;
+		ss.makeGenericType($Serenity_Widget$1, [Object]).call(this, input, opt);
 		input.addClass('dateQ s-DateTimeEditor').datepicker({ showOn: 'button' });
+		input.bind('keyup.' + this.uniqueName, $Serenity_DateEditor.dateInputKeyup);
+		input.bind('change.' + this.uniqueName, $Serenity_DateEditor.dateInputChange);
 		this.$time = $('<select/>').addClass('editor s-DateTimeEditor time').insertAfter(input.next('.ui-datepicker-trigger'));
-		var $t1 = $Serenity_DateTimeEditor.$getTimeOptions(null, null, 23, 59, 30);
+		var $t1 = $Serenity_DateTimeEditor.$getTimeOptions(ss.coalesce(this.options.startHour, 0), 0, ss.coalesce(this.options.endHour, 23), 59, ss.coalesce(this.options.intervalMinutes, 30));
 		for (var $t2 = 0; $t2 < $t1.length; $t2++) {
 			var t = $t1[$t2];
 			Q.addOption(this.$time, t, t);
 		}
+		$Serenity_VX.addValidationRule$1(input, this.uniqueName, ss.mkdel(this, function(e) {
+			var value = this.get_value();
+			if (ss.isNullOrEmptyString(value)) {
+				return null;
+			}
+			if (!ss.isNullOrEmptyString(this.get_minValue()) && ss.compareStrings(value, this.get_minValue()) < 0) {
+				return ss.formatString(Q.text('Validation.MinDate'), Q.formatDate(Q.parseISODateTime(this.get_minValue()), null));
+			}
+			if (!ss.isNullOrEmptyString(this.get_maxValue()) && ss.compareStrings(value, this.get_maxValue()) >= 0) {
+				return ss.formatString(Q.text('Validation.MaxDate'), Q.formatDate(Q.parseISODateTime(this.get_maxValue()), null));
+			}
+			return null;
+		}));
 	};
 	$Serenity_DateTimeEditor.__typeName = 'Serenity.DateTimeEditor';
 	$Serenity_DateTimeEditor.$getTimeOptions = function(fromHour, fromMin, toHour, toMin, stepMins) {
 		var list = [];
-		fromHour = ss.coalesce(fromHour, 0);
-		if (ss.isNullOrUndefined(toHour)) {
-			toHour = 0;
-		}
-		else if (ss.Nullable$1.ge(toHour, 23)) {
+		if (toHour >= 23) {
 			toHour = 23;
 		}
-		if (ss.isNullOrUndefined(fromMin)) {
-			fromMin = 0;
-		}
-		if (ss.isNullOrUndefined(toMin)) {
-			toMin = 0;
-		}
-		else if (ss.Nullable$1.ge(toMin, 60)) {
+		if (toMin >= 60) {
 			toMin = 59;
 		}
 		var hour = fromHour;
 		var min = fromMin;
 		while (true) {
-			if (ss.Nullable$1.gt(hour, toHour) || ss.referenceEquals(hour, toHour) && ss.Nullable$1.gt(min, toMin)) {
+			if (hour > toHour || hour === toHour && min > toMin) {
 				break;
 			}
-			var t = (ss.Nullable$1.ge(hour, 10) ? '' : '0') + hour + ':' + (ss.Nullable$1.ge(min, 10) ? '' : '0') + min;
+			var t = ((hour >= 10) ? '' : '0') + hour + ':' + ((min >= 10) ? '' : '0') + min;
 			list.push(t);
-			min = ss.Nullable$1.add(min, stepMins);
-			if (ss.Nullable$1.ge(min, 60)) {
-				min = ss.Nullable$1.sub(min, 60);
-				hour = ss.Nullable$1.add(hour, 1);
+			min += stepMins;
+			if (min >= 60) {
+				min -= 60;
+				hour++;
 			}
 		}
 		return list;
-	};
-	$Serenity_DateTimeEditor.defaultAutoNumericOptions = function() {
-		return { aDec: Q$Culture.decimalSeparator, altDec: ((Q$Culture.decimalSeparator === '.') ? ',' : '.'), aSep: ((Q$Culture.decimalSeparator === '.') ? ',' : '.'), aPad: true };
 	};
 	global.Serenity.DateTimeEditor = $Serenity_DateTimeEditor;
 	////////////////////////////////////////////////////////////////////////////////
@@ -1639,6 +1827,11 @@
 				e1.preventDefault();
 			}
 		});
+		if (!this.options.readOnlyDomain) {
+			input.change(ss.mkdel(this, function(e2) {
+				this.set_value(input.val());
+			}));
+		}
 	};
 	$Serenity_EmailEditor.__typeName = 'Serenity.EmailEditor';
 	$Serenity_EmailEditor.registerValidationMethods = function() {
@@ -1717,7 +1910,9 @@
 			this.$formKey = null;
 			this.$service = null;
 			this.localizationGrid = null;
-			this.localizationSelect = null;
+			this.localizationButton = null;
+			this.localizationLastValue = null;
+			this.localizationPendingValue = null;
 			this.propertyGrid = null;
 			this.saveAndCloseButton = null;
 			this.applyChangesButton = null;
@@ -1729,13 +1924,6 @@
 				this.$initPropertyGrid();
 				this.$initLocalizationGrid();
 			}
-		};
-		$type.$getLanguages = function() {
-			var $t1 = [];
-			$t1.push({ item1: '', item2: 'Türkçe' });
-			$t1.push({ item1: 1033, item2: 'English' });
-			$t1.push({ item1: 3082, item2: 'Espanol' });
-			return $t1;
 		};
 		ss.registerGenericClassInstance($type, $Serenity_EntityDialog$2, [TEntity, TOptions], {
 			initializeAsync: function() {
@@ -1967,7 +2155,7 @@
 						var entityId = entityOrId;
 						this.loadById(entityId, function(response) {
 							window.setTimeout(done, 0);
-						});
+						}, null);
 						return;
 					}
 					var entity = entityOrId || ss.createInstance(TEntity);
@@ -2008,6 +2196,8 @@
 				}
 			},
 			beforeLoadEntity: function(entity) {
+				this.localizationPendingValue = null;
+				this.localizationLastValue = null;
 			},
 			afterLoadEntity: function() {
 				this.updateInterface();
@@ -2021,6 +2211,10 @@
 							self.element.dialog().dialog('open');
 						}
 					}), 0);
+				}), ss.mkdel(this, function() {
+					if (!this.isPanel && !self.get_element().is(':visible')) {
+						self.get_element().remove();
+					}
 				}));
 			},
 			onLoadingData: function(data) {
@@ -2034,9 +2228,9 @@
 				return request;
 			},
 			reloadById: function() {
-				this.loadById(ss.unbox(this.get_entityId()), null);
+				this.loadById(ss.unbox(this.get_entityId()), null, null);
 			},
-			loadById: function(id, callback) {
+			loadById: function(id, callback, fail) {
 				var baseOptions = {};
 				baseOptions.service = this.getService() + '/Retrieve';
 				baseOptions.blockUI = true;
@@ -2055,10 +2249,13 @@
 				};
 				var thisOptions = this.getLoadByIdOptions(id, callback);
 				var finalOptions = $.extend(baseOptions, thisOptions);
-				this.loadByIdHandler(finalOptions, callback);
+				this.loadByIdHandler(finalOptions, callback, fail);
 			},
-			loadByIdHandler: function(options, callback) {
-				Q.serviceCall(options);
+			loadByIdHandler: function(options, callback, fail) {
+				var request = Q.serviceCall(options);
+				if (!ss.staticEquals(fail, null)) {
+					request.fail(fail);
+				}
 			},
 			$initLocalizationGrid: function() {
 				var pgDiv = this.byId$1('PropertyGrid');
@@ -2098,84 +2295,182 @@
 					var item1 = pgOptions.items[$t2];
 					if (item1.localizable) {
 						var copy = $.extend({}, item1);
-						copy.insertable = true;
-						copy.updatable = true;
-						copy.oneWay = false;
+						copy.oneWay = true;
+						copy.readOnly = true;
 						copy.required = false;
-						copy.localizable = false;
 						copy.defaultValue = null;
 						items.push(copy);
+						var $t3 = ss.getEnumerator(this.getLanguages());
+						try {
+							while ($t3.moveNext()) {
+								var lang = $t3.current();
+								copy = $.extend({}, item1);
+								copy.name = lang.item1 + '$' + copy.name;
+								copy.title = lang.item2;
+								copy.cssClass = [copy.cssClass, 'translation'].join(' ');
+								copy.insertable = true;
+								copy.updatable = true;
+								copy.oneWay = false;
+								copy.required = false;
+								copy.localizable = false;
+								copy.defaultValue = null;
+								items.push(copy);
+							}
+						}
+						finally {
+							$t3.dispose();
+						}
 					}
 				}
 				pgOptions.items = items;
 				this.localizationGrid = (new $Serenity_PropertyGrid(localGridDiv, pgOptions)).init(null);
 				localGridDiv.addClass('s-LocalizationGrid');
 				var self = this;
-				this.localizationSelect = $('<select/>').addClass('s-LocalizationSelect').appendTo(this.toolbar.get_element()).change(function(e) {
-					self.$localizationSelectChange(e);
-				});
-				var $t3 = ss.getEnumerator($type.$getLanguages());
-				try {
-					while ($t3.moveNext()) {
-						var k = $t3.current();
-						Q.addOption(this.localizationSelect, k.item1.toString(), k.item2);
-					}
-				}
-				finally {
-					$t3.dispose();
-				}
 			},
-			get_$isLocalizationMode: function() {
-				return this.get_isEditMode() && !this.get_isCloneMode() && ss.isValue(this.localizationSelect) && !Q.isEmptyOrNull(this.localizationSelect.val());
+			get_isLocalizationMode: function() {
+				return ss.isValue(this.localizationButton) && this.localizationButton.hasClass('pressed');
 			},
-			$localizationSelectChange: function(e) {
+			get_$isLocalizationModeAndChanged: function() {
+				if (!this.get_isLocalizationMode()) {
+					return false;
+				}
+				var newValue = this.$getLocalizationGridValue();
+				return !ss.referenceEquals($.toJSON(this.localizationLastValue), $.toJSON(newValue));
+			},
+			$localizationButtonClick: function() {
+				if (this.get_isLocalizationMode() && !this.validateForm()) {
+					return;
+				}
+				if (this.get_$isLocalizationModeAndChanged()) {
+					var newValue = this.$getLocalizationGridValue();
+					this.localizationLastValue = newValue;
+					this.localizationPendingValue = newValue;
+				}
+				this.localizationButton.toggleClass('pressed');
 				this.updateInterface();
-				if (this.get_$isLocalizationMode()) {
+				if (this.get_isLocalizationMode()) {
 					this.$loadLocalization();
 				}
 			},
+			getLanguages: function() {
+				return [];
+			},
 			$loadLocalization: function() {
+				if (ss.isNullOrUndefined(this.localizationLastValue) && this.get_isNew()) {
+					this.localizationGrid.load({});
+					this.$setLocalizationGridCurrentValues();
+					this.localizationLastValue = this.$getLocalizationGridValue();
+					return;
+				}
+				if (ss.isValue(this.localizationLastValue)) {
+					this.localizationGrid.load(this.localizationLastValue);
+					this.$setLocalizationGridCurrentValues();
+					return;
+				}
 				var self = this;
 				var opt = {};
 				opt.service = this.getService() + '/RetrieveLocalization';
 				opt.blockUI = true;
-				opt.request = { EntityId: ss.unbox(this.get_entityId()), CultureId: parseInt(this.localizationSelect.val(), 10) };
-				opt.onSuccess = function(response) {
-					var valueByName = {};
-					self.localizationGrid.load(self.get_entity());
-					self.localizationGrid.enumerateItems(function(item, widget) {
-						if (widget.get_element().is(':input')) {
-							valueByName[item.name] = widget.get_element().val();
-						}
-					});
-					self.localizationGrid.load(response.Entity);
-					self.localizationGrid.enumerateItems(function(item1, widget1) {
-						if (widget1.get_element().is(':input')) {
-							var hint = valueByName[item1.name];
-							if (ss.isValue(hint) && hint.length > 0) {
-								widget1.get_element().attr('title', 'Türkçe Metin: ' + hint).attr('placeholder', hint);
+				opt.request = { EntityId: ss.unbox(this.get_entityId()) };
+				opt.onSuccess = ss.mkdel(this, function(response) {
+					var copy = $.extend(ss.createInstance(TEntity), self.get_entity());
+					var $t1 = ss.getEnumerator(Object.keys(response.Entities));
+					try {
+						while ($t1.moveNext()) {
+							var language = $t1.current();
+							var entity = response.Entities[language];
+							var $t2 = ss.getEnumerator(Object.keys(entity));
+							try {
+								while ($t2.moveNext()) {
+									var key = $t2.current();
+									copy[language + '$' + key] = entity[key];
+								}
+							}
+							finally {
+								$t2.dispose();
 							}
 						}
-					});
-				};
+					}
+					finally {
+						$t1.dispose();
+					}
+					self.localizationGrid.load(copy);
+					this.$setLocalizationGridCurrentValues();
+					this.localizationPendingValue = null;
+					this.localizationLastValue = this.$getLocalizationGridValue();
+				});
 				Q.serviceCall(opt);
 			},
-			$saveLocalization: function() {
-				if (!this.validateForm()) {
-					return;
+			$setLocalizationGridCurrentValues: function() {
+				var valueByName = {};
+				this.localizationGrid.enumerateItems(ss.mkdel(this, function(item, widget) {
+					if (item.name.indexOf('$') < 0 && widget.get_element().is(':input')) {
+						valueByName[item.name] = this.byId$1(item.name).val();
+						widget.get_element().val(valueByName[item.name]);
+					}
+				}));
+				this.localizationGrid.enumerateItems(function(item1, widget1) {
+					var idx = item1.name.indexOf('$');
+					if (idx >= 0 && widget1.get_element().is(':input')) {
+						var hint = valueByName[item1.name.substr(idx + 1)];
+						if (ss.isValue(hint) && hint.length > 0) {
+							widget1.get_element().attr('title', hint).attr('placeholder', hint);
+						}
+					}
+				});
+			},
+			$getLocalizationGridValue: function() {
+				var value = {};
+				this.localizationGrid.save(value);
+				var $t1 = ss.getEnumerator(Object.keys(value));
+				try {
+					while ($t1.moveNext()) {
+						var k = $t1.current();
+						if (k.indexOf(String.fromCharCode(36)) < 0) {
+							delete value[k];
+						}
+					}
 				}
-				var opt = {};
-				opt.service = this.getService() + '/UpdateLocalization';
-				opt.onSuccess = function(response) {
-				};
-				var entity = ss.createInstance(TEntity);
-				this.localizationGrid.save(entity);
+				finally {
+					$t1.dispose();
+				}
+				return value;
+			},
+			$getPendingLocalizations: function() {
+				if (ss.isNullOrUndefined(this.localizationPendingValue)) {
+					return null;
+				}
+				var result = {};
 				var idField = this.getEntityIdField();
-				if (ss.isValue(idField)) {
-					entity[idField] = this.get_entityId();
+				var $t1 = ss.getEnumerator(this.getLanguages());
+				try {
+					while ($t1.moveNext()) {
+						var pair = $t1.current();
+						var language = pair.item1;
+						var entity = {};
+						if (ss.isValue(idField)) {
+							entity[idField] = this.get_entityId();
+						}
+						var prefix = language + '$';
+						var $t2 = ss.getEnumerator(Object.keys(this.localizationPendingValue));
+						try {
+							while ($t2.moveNext()) {
+								var k = $t2.current();
+								if (ss.startsWithString(k, prefix)) {
+									entity[k.substr(prefix.length)] = this.localizationPendingValue[k];
+								}
+							}
+						}
+						finally {
+							$t2.dispose();
+						}
+						result[language] = entity;
+					}
 				}
-				opt.request = { CultureId: parseInt(this.localizationSelect.val(), 10), Entity: entity };
-				Q.serviceCall(opt);
+				finally {
+					$t1.dispose();
+				}
+				return result;
 			},
 			$initPropertyGrid: function() {
 				var pgDiv = this.byId$1('PropertyGrid');
@@ -2288,6 +2583,9 @@
 				var entity = this.getSaveEntity();
 				var req = {};
 				req.Entity = entity;
+				if (ss.isValue(this.localizationPendingValue)) {
+					req.Localizations = this.$getPendingLocalizations();
+				}
 				return req;
 			},
 			onSaveSuccess: function(response) {
@@ -2317,6 +2615,7 @@
 				this.deleteButton = this.toolbar.findButton('delete-button');
 				this.undeleteButton = this.toolbar.findButton('undo-delete-button');
 				this.cloneButton = this.toolbar.findButton('clone-button');
+				this.localizationButton = this.toolbar.findButton('localization-button');
 			},
 			showSaveSuccessMessage: function(response) {
 				Q.notifySuccess(Texts$Controls$EntityDialog.SaveSuccessMessage.get());
@@ -2336,16 +2635,12 @@
 					});
 				}
 				list.push({ title: (this.isPanel ? Texts$Controls$EntityDialog.SaveButton : Q$LT.empty).get(), hint: (this.isPanel ? Texts$Controls$EntityDialog.SaveButton : Texts$Controls$EntityDialog.ApplyChangesButton).get(), cssClass: 'apply-changes-button', onClick: ss.mkdel(this, function() {
-					if (self.get_$isLocalizationMode()) {
-						self.$saveLocalization();
-						return;
-					}
 					self.save(ss.mkdel(this, function(response1) {
 						if (self.get_isEditMode()) {
-							self.loadById(self.get_entityId(), null);
+							self.loadById(self.get_entityId(), null, null);
 						}
 						else {
-							self.loadById(response1.EntityId, null);
+							self.loadById(response1.EntityId, null, null);
 						}
 						this.showSaveSuccessMessage(response1);
 					}));
@@ -2369,12 +2664,15 @@
 							if (self.get_isDeleted()) {
 								Q.confirm(Texts$Controls$EntityDialog.UndeleteConfirmation.get(), function() {
 									self.undelete(function() {
-										self.loadById(self.get_entityId(), null);
+										self.loadById(self.get_entityId(), null, null);
 									});
 								});
 							}
 						}
 					});
+					list.push({ title: Texts$Controls$EntityDialog.LocalizationButton.get(), cssClass: 'localization-button', onClick: ss.mkdel(this, function() {
+						this.$localizationButtonClick();
+					}) });
 					list.push({ title: Texts$Controls$EntityDialog.CloneButton.get(), cssClass: 'clone-button', onClick: ss.mkdel(this, function() {
 						if (!self.get_isEditMode()) {
 							return;
@@ -2402,22 +2700,9 @@
 			},
 			updateInterface: function() {
 				var isDeleted = this.get_isDeleted();
-				var isLocalizationMode = this.get_$isLocalizationMode();
-				if (ss.isValue(this.deleteButton)) {
-					this.deleteButton.toggle(!isLocalizationMode && this.get_isEditMode() && !isDeleted);
-				}
-				if (ss.isValue(this.undeleteButton)) {
-					this.undeleteButton.toggle(!isLocalizationMode && this.get_isEditMode() && isDeleted);
-				}
-				if (ss.isValue(this.saveAndCloseButton)) {
-					this.saveAndCloseButton.toggle(!isLocalizationMode && !isDeleted);
-					this.saveAndCloseButton.find('.button-inner').text((this.get_isNew() ? Texts$Controls$EntityDialog.SaveButton : Texts$Controls$EntityDialog.UpdateButton).get());
-				}
-				if (ss.isValue(this.applyChangesButton)) {
-					this.applyChangesButton.toggle(isLocalizationMode || !isDeleted);
-				}
-				if (ss.isValue(this.cloneButton)) {
-					this.cloneButton.toggle(false);
+				var isLocalizationMode = this.get_isLocalizationMode();
+				if (ss.isValue(this.tabs)) {
+					Serenity.TabsExtensions.setDisabled(this.tabs, 'Log', this.get_isNewOrDeleted());
 				}
 				if (ss.isValue(this.propertyGrid)) {
 					this.propertyGrid.get_element().toggle(!isLocalizationMode);
@@ -2425,11 +2710,35 @@
 				if (ss.isValue(this.localizationGrid)) {
 					this.localizationGrid.get_element().toggle(isLocalizationMode);
 				}
-				if (ss.isValue(this.localizationSelect)) {
-					this.localizationSelect.toggle(this.get_isEditMode() && !this.get_isCloneMode());
+				if (ss.isValue(this.localizationButton)) {
+					this.localizationButton.toggle(ss.isValue(this.localizationGrid));
+					this.localizationButton.find('.button-inner').text((this.get_isLocalizationMode() ? Texts$Controls$EntityDialog.LocalizationBack : Texts$Controls$EntityDialog.LocalizationButton).get());
 				}
-				if (ss.isValue(this.tabs)) {
-					Serenity.TabsExtensions.setDisabled(this.tabs, 'Log', this.get_isNewOrDeleted());
+				if (isLocalizationMode) {
+					if (ss.isValue(this.toolbar)) {
+						this.toolbar.findButton('tool-button').not('.localization-hidden').addClass('.localization-hidden').hide();
+					}
+					if (ss.isValue(this.localizationButton)) {
+						this.localizationButton.show();
+					}
+					return;
+				}
+				this.toolbar.findButton('localization-hidden').removeClass('localization-hidden').show();
+				if (ss.isValue(this.deleteButton)) {
+					this.deleteButton.toggle(this.get_isEditMode() && !isDeleted);
+				}
+				if (ss.isValue(this.undeleteButton)) {
+					this.undeleteButton.toggle(this.get_isEditMode() && isDeleted);
+				}
+				if (ss.isValue(this.saveAndCloseButton)) {
+					this.saveAndCloseButton.toggle(!isDeleted);
+					this.saveAndCloseButton.find('.button-inner').text((this.get_isNew() ? Texts$Controls$EntityDialog.SaveButton : Texts$Controls$EntityDialog.UpdateButton).get());
+				}
+				if (ss.isValue(this.applyChangesButton)) {
+					this.applyChangesButton.toggle(!isDeleted);
+				}
+				if (ss.isValue(this.cloneButton)) {
+					this.cloneButton.toggle(false);
 				}
 			},
 			getUndeleteOptions: function(callback) {
@@ -2588,13 +2897,14 @@
 						self.addButtonClick();
 					}
 				});
-				buttons.push(this.newRefreshButton());
+				buttons.push(this.newRefreshButton(false));
 				return buttons;
 			},
-			newRefreshButton: function() {
+			newRefreshButton: function(noText) {
 				var self = this;
 				return {
-					title: Texts$Controls$EntityGrid.RefreshButton.get(),
+					title: (noText ? null : Texts$Controls$EntityGrid.RefreshButton.get()),
+					hint: (noText ? Texts$Controls$EntityGrid.RefreshButton.get() : null),
 					cssClass: 'refresh-button',
 					onClick: function() {
 						self.refresh();
@@ -2774,17 +3084,19 @@
 		this.get_element().find('.cap').text(Q.text('Controls.FilterPanel.EffectiveFilter'));
 		this.get_element().find('.edit').text(Q.text('Controls.FilterPanel.EditFilter'));
 		this.get_element().find('.reset').attr('title', Q.text('Controls.FilterPanel.ResetFilterHint'));
-		this.get_element().find('.edit').add('.txt').click(ss.thisFix(ss.mkdel(this, function(s, e) {
+		var openFilterDialog = ss.mkdel(this, function(e) {
 			e.preventDefault();
 			var dialog = new $Serenity_FilterDialog();
 			dialog.get_filterPanel().set_store(this.get_store());
 			dialog.dialogOpen();
-		})));
-		this.get_element().find('.reset').click(ss.thisFix(ss.mkdel(this, function(s1, e1) {
+		});
+		this.get_element().find('.edit').click(openFilterDialog);
+		this.get_element().find('.txt').click(openFilterDialog);
+		this.get_element().find('.reset').click(ss.mkdel(this, function(e1) {
 			e1.preventDefault();
 			ss.clear(this.get_store().get_items());
 			this.get_store().raiseChanged();
-		})));
+		}));
 	};
 	$Serenity_FilterDisplayBar.__typeName = 'Serenity.FilterDisplayBar';
 	global.Serenity.FilterDisplayBar = $Serenity_FilterDisplayBar;
@@ -2900,26 +3212,34 @@
 		}
 		this.set_fields(Enumerable.from(fields).toArray());
 		this.get_fields().sort(function(x, y) {
-			var $t1 = x.title;
-			if (ss.isNullOrUndefined($t1)) {
-				$t1 = x.name;
-			}
-			var $t2 = y.title;
+			var $t2 = Q.tryGetText(x.title);
 			if (ss.isNullOrUndefined($t2)) {
-				$t2 = y.name;
+				var $t1 = x.title;
+				if (ss.isNullOrUndefined($t1)) {
+					$t1 = x.name;
+				}
+				$t2 = $t1;
 			}
-			return ss.compare($t1, $t2);
+			var $t4 = Q.tryGetText(y.title);
+			if (ss.isNullOrUndefined($t4)) {
+				var $t3 = y.title;
+				if (ss.isNullOrUndefined($t3)) {
+					$t3 = y.name;
+				}
+				$t4 = $t3;
+			}
+			return Q$Externals.turkishLocaleCompare($t2, $t4);
 		});
 		this.set_fieldByName({});
-		var $t3 = ss.getEnumerator(fields);
+		var $t5 = ss.getEnumerator(fields);
 		try {
-			while ($t3.moveNext()) {
-				var field = $t3.current();
+			while ($t5.moveNext()) {
+				var field = $t5.current();
 				this.get_fieldByName()[field.name] = field;
 			}
 		}
 		finally {
-			$t3.dispose();
+			$t5.dispose();
 		}
 	};
 	$Serenity_FilterStore.__typeName = 'Serenity.FilterStore';
@@ -3414,10 +3734,7 @@
 			if (!$Serenity_UploadHelper.checkImageConstraints(response, this.options)) {
 				return;
 			}
-			var $t1 = new $Serenity_UploadedFile();
-			$t1.set_originalName(name);
-			$t1.set_filename(response.TemporaryFile);
-			var newEntity = $t1;
+			var newEntity = { originalName: name, filename: response.TemporaryFile };
 			self.entity = newEntity;
 			self.populate();
 			self.updateInterface();
@@ -3445,6 +3762,7 @@
 		$this.maxSize = 0;
 		$this.originalNameProperty = null;
 		$this.urlPrefix = null;
+		$this.allowNonImage = false;
 		return $this;
 	};
 	global.Serenity.ImageUploadEditorOptions = $Serenity_ImageUploadEditorOptions;
@@ -3672,6 +3990,7 @@
 	$Serenity_LookupEditorOptions.$ctor = function() {
 		var $this = {};
 		$this.lookupKey = null;
+		$this.minimumResultsForSearch = null;
 		return $this;
 	};
 	global.Serenity.LookupEditorOptions = $Serenity_LookupEditorOptions;
@@ -3767,7 +4086,7 @@
 			if (ss.isNullOrUndefined(value)) {
 				return null;
 			}
-			return $Serenity_PhoneEditor.$validate(value, this.options.multiple, this.options.internal, this.options.mobile);
+			return this.validate(value);
 		}));
 		var hint = (this.options.internal ? "Dahili telefon numarası '456, 8930, 12345' formatlarında" : (this.options.mobile ? "Cep telefonu numarası '(533) 342 01 89' formatında" : "Telefon numarası '(216) 432 10 98' formatında"));
 		if (this.options.multiple) {
@@ -3784,6 +4103,33 @@
 		input.bind('blur', ss.mkdel(this, function(e2) {
 			if (this.element.hasClass('valid')) {
 				this.formatValue();
+			}
+		}));
+		input.bind('keyup', ss.mkdel(this, function(e3) {
+			if (this.options.internal) {
+				return;
+			}
+			var val = ss.coalesce(input.val(), '');
+			if (!!(val.length > 0 && ss.referenceEquals(input[0].selectionEnd, val.length) && (e3.which >= 48 && e3.which <= 57 || e3.which >= 96 && e3.which <= 105) && val.charCodeAt(val.length - 1) >= 48 && val.charCodeAt(val.length - 1) <= 57 && !ss.startsWithString(val, '+') && val.indexOf(String.fromCharCode(47)) < 0)) {
+				if (ss.isNullOrUndefined(this.validate(val))) {
+					this.formatValue();
+				}
+				else {
+					for (var i = 1; i <= 7; i++) {
+						val += '9';
+						if (ss.isNullOrUndefined(this.validate(val))) {
+							this.set_value(val);
+							this.formatValue();
+							val = this.get_value();
+							for (var j = 1; j <= i; j++) {
+								val = val.trim();
+								val = val.substr(0, val.length - 1);
+							}
+							this.set_value(val);
+							break;
+						}
+					}
+				}
 			}
 		}));
 	};
@@ -3854,7 +4200,7 @@
 	$Serenity_PhoneEditor.$isValidPhoneInternalMulti = function(phone) {
 		return $Serenity_PhoneEditor.$isValidMulti(phone, $Serenity_PhoneEditor.$isValidPhoneInternal);
 	};
-	$Serenity_PhoneEditor.$validate = function(phone, isMultiple, isInternal, isMobile) {
+	$Serenity_PhoneEditor.$validate = function(phone, isMultiple, isInternal, isMobile, allowInternational, allowExtension) {
 		var validateFunc;
 		if (isInternal) {
 			validateFunc = $Serenity_PhoneEditor.$isValidPhoneInternal;
@@ -3865,7 +4211,39 @@
 		else {
 			validateFunc = $Serenity_PhoneEditor.$isValidPhoneTurkey;
 		}
-		var valid = (isMultiple ? $Serenity_PhoneEditor.$isValidMulti(phone, validateFunc) : validateFunc(phone));
+		var myValidateFunc = function(s) {
+			if (!validateFunc(s)) {
+				if (isInternal) {
+					return false;
+				}
+				s = ss.coalesce(s, '').trim();
+				if (ss.startsWithString(s, '+')) {
+					if (allowInternational && s.length > 7) {
+						return true;
+					}
+					return false;
+				}
+				if (allowExtension && s.indexOf(String.fromCharCode(47)) > 0) {
+					var p = ss.netSplit(s, [47].map(function(i) {
+						return String.fromCharCode(i);
+					}));
+					if (p.length !== 2) {
+						return false;
+					}
+					if (p[0].length < 5 || !validateFunc(p[0])) {
+						return false;
+					}
+					var x = {};
+					if (!ss.Int32.tryParse(p[1].trim(), x)) {
+						return false;
+					}
+					return true;
+				}
+				return false;
+			}
+			return true;
+		};
+		var valid = (isMultiple ? $Serenity_PhoneEditor.$isValidMulti(phone, myValidateFunc) : myValidateFunc(phone));
 		if (valid) {
 			return null;
 		}
@@ -3983,6 +4361,8 @@
 		$this.multiple = false;
 		$this.internal = false;
 		$this.mobile = false;
+		$this.allowExtension = false;
+		$this.allowInternational = false;
 		return $this;
 	};
 	global.Serenity.PhoneEditorOptions = $Serenity_PhoneEditorOptions;
@@ -4703,6 +5083,10 @@
 			if (ss.isValue(item.formatterParams)) {
 				$Serenity_ReflectionOptionsSetter.set(formatter, item.formatterParams);
 			}
+			var initializer = ss.safeCast(formatter, Serenity.IInitializeColumn);
+			if (ss.isValue(initializer)) {
+				initializer.initializeColumn(result);
+			}
 			result.format = ss.mkdel(formatter, formatter.format);
 		}
 		return result;
@@ -4786,6 +5170,12 @@
 			this.$field = this.options.fields[0];
 			this.$updateInputPlaceHolder();
 		}
+		this.element.bind('execute-search.' + this.uniqueName, ss.mkdel(this, function(e1) {
+			if (!!this.$timer) {
+				window.clearTimeout(this.$timer);
+			}
+			this.$searchNow(Q.trim(ss.coalesce(this.element.val(), '')));
+		}));
 	};
 	$Serenity_QuickSearchInput.__typeName = 'Serenity.QuickSearchInput';
 	global.Serenity.QuickSearchInput = $Serenity_QuickSearchInput;
@@ -4972,15 +5362,15 @@
 				var emptyItemText = this.emptyItemText();
 				var queryTimeout = 0;
 				return { minimumResultsForSearch: 10, placeHolder: (!Q.isEmptyOrNull(emptyItemText) ? emptyItemText : null), allowClear: ss.isValue(emptyItemText), query: ss.mkdel(this, function(query) {
-					var request = { ContainsText: Q.trimToNull(query.term), Skip: (query.page - 1) * this.pageSize, Take: this.pageSize };
+					var request = { ContainsText: Q.trimToNull(query.term), Skip: (query.page - 1) * this.pageSize, Take: this.pageSize + 1 };
 					if (queryTimeout !== 0) {
 						window.clearTimeout(queryTimeout);
 					}
 					queryTimeout = window.setTimeout(ss.mkdel(this, function() {
 						this.query(request, ss.mkdel(this, function(response) {
-							query.callback({ results: Enumerable.from(response.Entities).select(ss.mkdel(this, function(x) {
+							query.callback({ results: Enumerable.from(response.Entities).take(this.pageSize).select(ss.mkdel(this, function(x) {
 								return { id: this.getItemKey(x), text: this.getItemText(x), source: x };
-							})).toArray(), more: response.TotalCount >= query.page * this.pageSize });
+							})).toArray(), more: response.Entities.length >= this.pageSize });
 						}));
 					}), this.getTypeDelay());
 				}), initSelection: ss.mkdel(this, function(element, callback) {
@@ -5054,7 +5444,7 @@
 			},
 			getSelect2Options: function() {
 				var emptyItemText = this.emptyItemText();
-				return { data: this.items, minimumResultsForSearch: 10, placeHolder: (!Q.isEmptyOrNull(emptyItemText) ? emptyItemText : null), allowClear: ss.isValue(emptyItemText), query: ss.mkdel(this, function(query) {
+				return { data: this.items, placeHolder: (!Q.isEmptyOrNull(emptyItemText) ? emptyItemText : null), allowClear: ss.isValue(emptyItemText), query: ss.mkdel(this, function(query) {
 					var term = (Q.isEmptyOrNull(query.term) ? '' : Select2.util.stripDiacritics(ss.coalesce(query.term, '')).toUpperCase());
 					var results = this.items.filter(function(item) {
 						return ss.isNullOrUndefined(term) || ss.startsWithString(Select2.util.stripDiacritics(ss.coalesce(item.text, '')).toUpperCase(), term);
@@ -5143,7 +5533,6 @@
 		var $this = {};
 		$this.items = null;
 		$this.emptyOptionText = null;
-		$this.emptyOptionText = '--seçiniz--';
 		$this.items = [];
 		return $this;
 	};
@@ -5523,7 +5912,7 @@
 			},
 			getDialogOptions: function() {
 				var opt = {};
-				var dialogClass = 's-Dialog s-' + ss.getTypeName(ss.getInstanceType(this));
+				var dialogClass = 's-Dialog ' + this.getCssClass();
 				opt.dialogClass = dialogClass;
 				opt.width = 920;
 				$type.$applyCssSizes(opt, dialogClass);
@@ -5643,6 +6032,25 @@
 	};
 	global.Serenity.TextAreaEditorOptions = $Serenity_TextAreaEditorOptions;
 	////////////////////////////////////////////////////////////////////////////////
+	// Serenity.TimeEditor
+	var $Serenity_TimeEditor = function(input, opt) {
+		this.$minutes = null;
+		ss.makeGenericType($Serenity_Widget$1, [Object]).call(this, input, opt);
+		input.addClass('editor s-TimeEditor hour');
+		if (!this.options.noEmptyOption) {
+			Q.addOption(input, '', '--');
+		}
+		for (var h = ss.coalesce(this.options.startHour, 0); h <= ss.coalesce(this.options.endHour, 23); h++) {
+			Q.addOption(input, h.toString(), ((h < 10) ? ('0' + h) : h.toString()));
+		}
+		this.$minutes = $('<select/>').addClass('editor s-TimeEditor minute').insertAfter(input);
+		for (var m = 0; m <= 59; m += ss.coalesce(this.options.intervalMinutes, 5)) {
+			Q.addOption(this.$minutes, m.toString(), ((m < 10) ? ('0' + m) : m.toString()));
+		}
+	};
+	$Serenity_TimeEditor.__typeName = 'Serenity.TimeEditor';
+	global.Serenity.TimeEditor = $Serenity_TimeEditor;
+	////////////////////////////////////////////////////////////////////////////////
 	// Serenity.Toolbar
 	var $Serenity_Toolbar = function(div, options) {
 		ss.makeGenericType($Serenity_Widget$1, [Object]).call(this, div, options);
@@ -5655,14 +6063,6 @@
 	};
 	$Serenity_Toolbar.__typeName = 'Serenity.Toolbar';
 	global.Serenity.Toolbar = $Serenity_Toolbar;
-	////////////////////////////////////////////////////////////////////////////////
-	// Serenity.UploadedFile
-	var $Serenity_UploadedFile = function() {
-		this.$1$FilenameField = null;
-		this.$1$OriginalNameField = null;
-	};
-	$Serenity_UploadedFile.__typeName = 'Serenity.UploadedFile';
-	global.Serenity.UploadedFile = $Serenity_UploadedFile;
 	////////////////////////////////////////////////////////////////////////////////
 	// Serenity.UploadHelper
 	var $Serenity_UploadHelper = function() {
@@ -5704,7 +6104,7 @@
 		return uploadInput;
 	};
 	$Serenity_UploadHelper.checkImageConstraints = function(file, opt) {
-		if (!file.IsImage) {
+		if (!file.IsImage && !opt.allowNonImage) {
 			Q.alert('Yüklemeye çalıştığınız dosya bir resim değil!');
 			return false;
 		}
@@ -5715,6 +6115,9 @@
 		if (opt.maxSize > 0 && file.Size > opt.maxSize) {
 			Q.alert(ss.formatString('Yükleyeceğiniz dosya en çok {0} boyutunda olabilir!', opt.maxSize));
 			return false;
+		}
+		if (!file.IsImage) {
+			return true;
 		}
 		if (opt.minWidth > 0 && file.Width < opt.minWidth) {
 			Q.alert(ss.formatString('Yükleyeceğiniz resim en az {0} genişliğinde olmalı!', opt.minWidth));
@@ -5782,7 +6185,7 @@
 		for (var index = 0; index < items.length; index++) {
 			var item = items[index];
 			var li = $('<li/>').addClass('file-item').data('index', index);
-			var isImage = $Serenity_UploadHelper.hasImageExtension(item.get_filename());
+			var isImage = $Serenity_UploadHelper.hasImageExtension(item.filename);
 			if (isImage) {
 				li.addClass('file-image');
 			}
@@ -5791,9 +6194,9 @@
 			}
 			var editLink = '#' + index;
 			var thumb = $('<a/>').addClass('thumb').appendTo(li);
-			var originalName = ss.coalesce(item.get_originalName(), '');
+			var originalName = ss.coalesce(item.originalName, '');
 			if (isImage) {
-				var fileName = item.get_filename();
+				var fileName = item.filename;
 				if (ss.isValue(urlPrefix) && ss.isValue(fileName) && !ss.startsWithString(fileName, 'temporary/')) {
 					fileName = urlPrefix + fileName;
 				}
@@ -5802,7 +6205,7 @@
 				if (!Q.isEmptyOrNull(originalName)) {
 					thumb.attr('title', originalName);
 				}
-				thumb.css('backgroundImage', 'url(' + $Serenity_UploadHelper.dbFileUrl($Serenity_UploadHelper.thumbFileName(item.get_filename())) + ')');
+				thumb.css('backgroundImage', 'url(' + $Serenity_UploadHelper.dbFileUrl($Serenity_UploadHelper.thumbFileName(item.filename)) + ')');
 				$Serenity_UploadHelper.colorBox(thumb, new Object());
 			}
 			if (displayOriginalName) {
@@ -6016,44 +6419,51 @@
 	$Serenity_WX.__typeName = 'Serenity.WX';
 	$Serenity_WX.getWidget = function(TWidget) {
 		return function(element) {
-			return ss.cast($Serenity_WX.getWidget$1(element, TWidget), TWidget);
+			if (ss.isNullOrUndefined(element)) {
+				throw new ss.ArgumentNullException('element');
+			}
+			if (element.length === 0) {
+				throw new ss.Exception(ss.formatString("Searching for widget of type '{0}' on a non-existent element! ({1})", ss.getTypeFullName(TWidget), element.selector));
+			}
+			var widget = $Serenity_WX.tryGetWidget(TWidget).call(null, element);
+			if (ss.isNullOrUndefined(widget)) {
+				throw new ss.Exception(ss.formatString("Element has no widget of type '{0}'!", ss.getTypeFullName(TWidget)));
+			}
+			return widget;
 		};
-	};
-	$Serenity_WX.getWidget$1 = function(element, widgetType) {
-		if (ss.isNullOrUndefined(element)) {
-			throw new ss.ArgumentNullException('element');
-		}
-		if (element.length === 0) {
-			throw new ss.Exception(ss.formatString("Searching for widget of type '{0}' on a non-existent element!", $Serenity_WX.getWidgetName(widgetType)));
-		}
-		var widget = $Serenity_WX.tryGetWidget$1(element, widgetType);
-		if (ss.isNullOrUndefined(widget)) {
-			throw new ss.Exception(ss.formatString("Element has no widget of type '{0}'!", $Serenity_WX.getWidgetName(widgetType)));
-		}
-		return widget;
 	};
 	$Serenity_WX.tryGetWidget = function(TWidget) {
 		return function(element) {
 			if (ss.isNullOrUndefined(element)) {
 				throw new ss.Exception("Argument 'element' is null!");
 			}
-			var widgetName = $Serenity_WX.getWidgetName(TWidget);
-			return ss.safeCast(element.data(widgetName), TWidget);
-		};
-	};
-	$Serenity_WX.tryGetWidget$1 = function(element, widgetType) {
-		if (ss.isNullOrUndefined(widgetType)) {
-			throw new ss.Exception("Argument 'widgetType' is null!");
-		}
-		if (ss.isNullOrUndefined(element)) {
-			throw new ss.Exception("Argument 'element' is null!");
-		}
-		var widgetName = $Serenity_WX.getWidgetName(widgetType);
-		var widget = element.data(widgetName);
-		if (ss.isValue(widget) && !ss.isAssignableFrom(widgetType, ss.getInstanceType(widget))) {
+			var widget;
+			if (ss.isAssignableFrom(TWidget, $Serenity_Widget)) {
+				var widgetName = $Serenity_WX.getWidgetName(TWidget);
+				widget = ss.safeCast(element.data(widgetName), TWidget);
+				if (ss.isValue(widget)) {
+					return widget;
+				}
+			}
+			var data = element.data();
+			if (ss.isNullOrUndefined(data)) {
+				return null;
+			}
+			var $t1 = ss.getEnumerator(Object.keys(data));
+			try {
+				while ($t1.moveNext()) {
+					var key = $t1.current();
+					widget = ss.safeCast(data[key], TWidget);
+					if (ss.isValue(widget)) {
+						return widget;
+					}
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
 			return null;
-		}
-		return widget;
+		};
 	};
 	$Serenity_WX.getWidgetName = function(type) {
 		return ss.replaceAllString(ss.getTypeFullName(type), '.', '_');
@@ -6279,7 +6689,23 @@
 			this.asyncPromise = null;
 		},
 		addCssClass: function() {
-			this.element.addClass('s-' + ss.getTypeName(ss.getInstanceType(this)));
+			this.element.addClass(this.getCssClass());
+		},
+		getCssClass: function() {
+			var klass = 's-' + ss.getTypeName(ss.getInstanceType(this));
+			var fullClass = ss.replaceAllString(ss.getTypeFullName(ss.getInstanceType(this)), '.', '-');
+			for (var $t1 = 0; $t1 < Q$Config.rootNamespaces.length; $t1++) {
+				var k = Q$Config.rootNamespaces[$t1];
+				if (ss.startsWithString(fullClass, k + '-')) {
+					fullClass = fullClass.substr(k.length + 1);
+					break;
+				}
+			}
+			fullClass = 's-' + fullClass;
+			if (ss.referenceEquals(klass, fullClass)) {
+				return klass;
+			}
+			return klass + ' ' + fullClass;
 		},
 		get_element: function() {
 			return this.element;
@@ -6575,7 +7001,7 @@
 		}
 	}, ss.makeGenericType($Serenity_Widget$1, [$Serenity_CheckListEditorOptions]), [$Serenity_IGetEditValue, $Serenity_ISetEditValue]);
 	ss.initClass($Serenity_CheckListEditorOptions, $asm, {});
-	ss.initInterface($Serenity_IDataGrid, $asm, {});
+	ss.initInterface($Serenity_IDataGrid, $asm, { getElement: null, getGrid: null, getView: null, getFilterStore: null });
 	ss.initClass($Serenity_CustomValidation, $asm, {});
 	ss.initInterface($Serenity_IReadOnly, $asm, { get_readOnly: null, set_readOnly: null });
 	ss.initClass($Serenity_DateEditor, $asm, {
@@ -6597,6 +7023,18 @@
 				this.element.val(Q.formatDate(Q$Externals.parseISODateTime(value), null));
 			}
 		},
+		get_valueAsDate: function() {
+			if (ss.isNullOrEmptyString(this.get_value())) {
+				return null;
+			}
+			return Q.parseISODateTime(this.get_value());
+		},
+		set_valueAsDate: function(value) {
+			if (ss.staticEquals(value, null)) {
+				this.set_value(null);
+			}
+			this.set_value(Q.formatDate(value, 'yyyy-MM-dd'));
+		},
 		get_readOnly: function() {
 			return this.element.hasClass('readonly');
 		},
@@ -6610,6 +7048,43 @@
 					this.element.removeClass('readonly').removeAttr('readonly');
 					this.element.nextAll('.ui-datepicker-trigger').css('opacity', '1');
 				}
+			}
+		},
+		get_minValue: function() {
+			return this.$4$MinValueField;
+		},
+		set_minValue: function(value) {
+			this.$4$MinValueField = value;
+		},
+		get_maxValue: function() {
+			return this.$4$MaxValueField;
+		},
+		set_maxValue: function(value) {
+			this.$4$MaxValueField = value;
+		},
+		get_minDate: function() {
+			return Q.parseISODateTime(this.get_minValue());
+		},
+		set_minDate: function(value) {
+			this.set_minValue(Q.formatDate(value, 'yyyy-MM-dd'));
+		},
+		get_maxDate: function() {
+			return Q.parseISODateTime(this.get_maxValue());
+		},
+		set_maxDate: function(value) {
+			this.set_maxValue(Q.formatDate(value, 'yyyy-MM-dd'));
+		},
+		get_sqlMinMax: function() {
+			return this.get_minValue() === '1753-01-01' && this.get_maxValue() === '9999-12-31';
+		},
+		set_sqlMinMax: function(value) {
+			if (value) {
+				this.set_minValue('1753-01-01');
+				this.set_maxValue('9999-12-31');
+			}
+			else {
+				this.set_minValue(null);
+				this.set_maxValue(null);
 			}
 		}
 	}, ss.makeGenericType($Serenity_Widget$1, [Object]), [$Serenity_IStringValue, $Serenity_IReadOnly]);
@@ -6642,8 +7117,57 @@
 				this.element.val(Q.formatDate(val, null));
 				this.$time.val(Q.formatDate(val, 'HH:mm'));
 			}
+		},
+		get_valueAsDate: function() {
+			if (ss.isNullOrEmptyString(this.get_value())) {
+				return null;
+			}
+			return Q.parseISODateTime(this.get_value());
+		},
+		set_valueAsDate: function(value) {
+			if (ss.staticEquals(value, null)) {
+				this.set_value(null);
+			}
+			this.set_value(Q.formatDate(value, 'yyyy-MM-ddTHH:mm'));
+		},
+		get_minValue: function() {
+			return this.$4$MinValueField;
+		},
+		set_minValue: function(value) {
+			this.$4$MinValueField = value;
+		},
+		get_maxValue: function() {
+			return this.$4$MaxValueField;
+		},
+		set_maxValue: function(value) {
+			this.$4$MaxValueField = value;
+		},
+		get_minDate: function() {
+			return Q.parseISODateTime(this.get_minValue());
+		},
+		set_minDate: function(value) {
+			this.set_minValue(Q.formatDate(value, 'yyyy-MM-ddTHH:mm:ss'));
+		},
+		get_maxDate: function() {
+			return Q.parseISODateTime(this.get_maxValue());
+		},
+		set_maxDate: function(value) {
+			this.set_maxValue(Q.formatDate(value, 'yyyy-MM-ddTHH:mm:ss'));
+		},
+		get_sqlMinMax: function() {
+			return this.get_minValue() === '1753-01-01' && this.get_maxValue() === '9999-12-31';
+		},
+		set_sqlMinMax: function(value) {
+			if (value) {
+				this.set_minValue('1753-01-01');
+				this.set_maxValue('9999-12-31');
+			}
+			else {
+				this.set_minValue(null);
+				this.set_maxValue(null);
+			}
 		}
-	}, $Serenity_Widget, [$Serenity_IStringValue]);
+	}, ss.makeGenericType($Serenity_Widget$1, [Object]), [$Serenity_IStringValue]);
 	ss.initClass($Serenity_DateTimeFiltering, $asm, {
 		getOperators: function() {
 			return this.appendNullableOperators(this.appendComparisonOperators([]));
@@ -6697,7 +7221,10 @@
 			return this.options.items || [];
 		},
 		emptyItemText: function() {
-			return this.options.emptyOptionText;
+			if (!ss.isNullOrEmptyString(this.options.emptyOptionText)) {
+				return this.options.emptyOptionText;
+			}
+			return ss.makeGenericType($Serenity_Select2Editor$2, [$Serenity_SelectEditorOptions, Object]).prototype.emptyItemText.call(this);
 		},
 		updateItems: function() {
 			var items = this.getItems();
@@ -6768,9 +7295,6 @@
 				}
 			}
 			return years;
-		},
-		emptyItemText: function() {
-			return this.options.emptyOptionText;
 		}
 	}, $Serenity_SelectEditor, [$Serenity_IStringValue]);
 	ss.initClass($Serenity_SelectEditorOptions, $asm, {});
@@ -6793,6 +7317,9 @@
 			else {
 				this.element.autoNumeric('set', value);
 			}
+		},
+		get_isValid: function() {
+			return !isNaN(this.get_value());
 		}
 	}, ss.makeGenericType($Serenity_Widget$1, [$Serenity_DecimalEditorOptions]), [$Serenity_IDoubleValue]);
 	ss.initClass($Serenity_DecimalEditorOptions, $asm, {});
@@ -6845,7 +7372,7 @@
 		getEditorOptions: function() {
 			var opt = ss.makeGenericType($Serenity_BaseEditorFiltering$1, [$Serenity_Widget]).prototype.getEditorOptions.call(this);
 			if (this.useEditor() && ss.referenceEquals(this.get_editorType(), this.get_field().editorType)) {
-				opt = $.extend(opt, this.get_field().filteringParams);
+				opt = $.extend(opt, this.get_field().editorParams);
 			}
 			return opt;
 		},
@@ -6935,8 +7462,27 @@
 					this.element.val(parts[0]);
 				}
 			}
+		},
+		get_readOnly: function() {
+			var domain = this.element.nextAll('.emaildomain');
+			return !(ss.isNullOrUndefined(this.element.attr('readonly')) && (!this.options.readOnlyDomain || ss.isNullOrUndefined(domain.attr('readonly'))));
+		},
+		set_readOnly: function(value) {
+			var domain = this.element.nextAll('.emaildomain');
+			if (value) {
+				this.element.attr('readonly', 'readonly').addClass('readonly');
+				if (!this.options.readOnlyDomain) {
+					domain.attr('readonly', 'readonly').addClass('readonly');
+				}
+			}
+			else {
+				this.element.removeAttr('readonly').removeClass('readonly');
+				if (!this.options.readOnlyDomain) {
+					domain.removeAttr('readonly').removeClass('readonly');
+				}
+			}
 		}
-	}, ss.makeGenericType($Serenity_Widget$1, [$Serenity_EmailEditorOptions]), [$Serenity_IStringValue]);
+	}, ss.makeGenericType($Serenity_Widget$1, [$Serenity_EmailEditorOptions]), [$Serenity_IStringValue, $Serenity_IReadOnly]);
 	ss.initClass($Serenity_EmailEditorOptions, $asm, {});
 	ss.initInterface($Serenity_IDialog, $asm, { dialogOpen: null });
 	ss.initInterface($Serenity_IEditDialog, $asm, { load: null }, [$Serenity_IDialog]);
@@ -7034,6 +7580,10 @@
 				var item = $t1[$t2];
 				this.$addEmptyRow(false);
 				var row = this.$rowsDiv.children().last();
+				var divl = row.children('div.l');
+				divl.children('.leftparen').toggleClass('active', !!item.leftParen);
+				divl.children('.rightparen').toggleClass('active', !!item.rightParen);
+				divl.children('.andor').toggleClass('or', !!item.isOr).text(Q.text((!!item.isOr ? 'Controls.FilterPanel.Or' : 'Controls.FilterPanel.And')));
 				var fieldSelect = $Serenity_WX.getWidget($Serenity_$FilterPanel$FieldSelect).call(null, row.children('div.f').find('input.field-select'));
 				fieldSelect.set_value(item.field);
 				this.$rowFieldChange(row);
@@ -7049,6 +7599,7 @@
 			if (this.get_showInitialLine() && this.$rowsDiv.children().length === 0) {
 				this.$addEmptyRow(false);
 			}
+			this.$updateParens();
 		},
 		get_showSearchButton: function() {
 			return this.$showSearchButton;
@@ -7126,7 +7677,7 @@
 			}
 			// if an error occured, display it, otherwise set current filters
 			if (ss.isValue(errorText)) {
-				$('<span/>').addClass('error').text(errorText).appendTo(row.children('div.v'));
+				$('<span/>').addClass('error').attr('title', errorText).appendTo(row.children('div.v'));
 				row.children('div.v').find('input:first').focus();
 				return;
 			}
@@ -7688,16 +8239,16 @@
 			if (ss.isNullOrUndefined(this.entity)) {
 				return null;
 			}
-			var copy = $.extend(new $Serenity_UploadedFile(), this.entity);
+			var copy = $.extend({}, this.entity);
 			return copy;
 		},
 		set_value: function(value) {
 			if (ss.isValue(value)) {
-				if (ss.isNullOrUndefined(value.get_filename())) {
+				if (ss.isNullOrUndefined(value.filename)) {
 					this.entity = null;
 				}
 				else {
-					this.entity = $.extend(new $Serenity_UploadedFile(), value);
+					this.entity = $.extend({}, value);
 				}
 			}
 			else {
@@ -7707,12 +8258,12 @@
 			this.updateInterface();
 		},
 		getEditValue: function(property, target) {
-			target[property.name] = (ss.isNullOrUndefined(this.entity) ? null : Q.trimToNull(this.entity.get_filename()));
+			target[property.name] = (ss.isNullOrUndefined(this.entity) ? null : Q.trimToNull(this.entity.filename));
 		},
 		setEditValue: function(source, property) {
-			var value = new $Serenity_UploadedFile();
-			value.set_filename(ss.cast(source[property.name], String));
-			value.set_originalName(ss.cast(source[this.options.originalNameProperty], String));
+			var value = {};
+			value.filename = ss.cast(source[property.name], String);
+			value.originalName = ss.cast(source[this.options.originalNameProperty], String);
 			this.set_value(value);
 		}
 	}, ss.makeGenericType($Serenity_Widget$1, [$Serenity_ImageUploadEditorOptions]), [$Serenity_IGetEditValue, $Serenity_ISetEditValue, $Serenity_IReadOnly]);
@@ -7757,6 +8308,13 @@
 				$t1 = ss.makeGenericType($Serenity_LookupEditorBase$2, [$Serenity_LookupEditorOptions, Object]).prototype.getLookupKey.call(this);
 			}
 			return $t1;
+		},
+		getSelect2Options: function() {
+			var opt = ss.makeGenericType($Serenity_Select2Editor$2, [$Serenity_LookupEditorOptions, Object]).prototype.getSelect2Options.call(this);
+			if (ss.isValue(this.options.minimumResultsForSearch)) {
+				opt.minimumResultsForSearch = ss.unbox(this.options.minimumResultsForSearch);
+			}
+			return opt;
 		}
 	}, ss.makeGenericType($Serenity_LookupEditorBase$2, [$Serenity_LookupEditorOptions, Object]), [$Serenity_IStringValue]);
 	ss.initClass($Serenity_LookupEditorOptions, $asm, {});
@@ -7882,28 +8440,57 @@
 		}
 	}, ss.makeGenericType($Serenity_Widget$1, [Object]), [$Serenity_IStringValue]);
 	ss.initClass($Serenity_PhoneEditor, $asm, {
+		validate: function(value) {
+			return $Serenity_PhoneEditor.$validate(value, this.options.multiple, this.options.internal, this.options.mobile, this.options.allowInternational, this.options.allowExtension);
+		},
 		formatValue: function() {
 			this.element.val(this.getFormattedValue());
 		},
 		getFormattedValue: function() {
 			var value = this.element.val();
-			if (!this.options.multiple && !this.options.internal && !this.options.mobile) {
-				return $Serenity_PhoneEditor.$formatPhoneTurkey(value);
+			var formatter = null;
+			var myFormatter = ss.mkdel(this, function(s) {
+				if (ss.isNullOrEmptyString(s) || this.options.internal) {
+					return formatter(s);
+				}
+				s = ss.coalesce(s, '').trim();
+				if (ss.startsWithString(s, '+')) {
+					return s;
+				}
+				if (s.indexOf(String.fromCharCode(47)) > 0) {
+					var p = ss.netSplit(s, [47].map(function(i) {
+						return String.fromCharCode(i);
+					}));
+					if (p.length !== 2) {
+						return s;
+					}
+					if (p[0].length < 5) {
+						return s;
+					}
+					var x = {};
+					if (!ss.Int32.tryParse(p[1], x)) {
+						return s;
+					}
+					return p[0] + ' / ' + x.$.toString();
+				}
+				return formatter(s);
+			});
+			if (!this.options.internal && !this.options.mobile) {
+				formatter = $Serenity_PhoneEditor.$formatPhoneTurkey;
 			}
-			else if (this.options.multiple && !this.options.mobile && !this.options.internal) {
-				return $Serenity_PhoneEditor.$formatPhoneTurkeyMulti(value);
+			else if (this.options.mobile) {
+				formatter = $Serenity_PhoneEditor.$formatMobileTurkey;
 			}
-			else if (this.options.mobile && !this.options.multiple) {
-				return $Serenity_PhoneEditor.$formatMobileTurkey(value);
+			else if (this.options.internal) {
+				formatter = $Serenity_PhoneEditor.$formatPhoneInternal;
 			}
-			else if (this.options.mobile && this.options.multiple) {
-				return $Serenity_PhoneEditor.$formatMobileTurkeyMulti(value);
-			}
-			else if (this.options.internal && !this.options.multiple) {
-				return $Serenity_PhoneEditor.$formatPhoneInternal(value);
-			}
-			else if (this.options.internal && this.options.multiple) {
-				return $Serenity_PhoneEditor.$formatPhoneInternalMulti(value);
+			if (!ss.staticEquals(formatter, null)) {
+				if (this.options.multiple) {
+					return $Serenity_PhoneEditor.$formatMulti(value, myFormatter);
+				}
+				else {
+					return myFormatter(value);
+				}
 			}
 			return value;
 		},
@@ -8199,13 +8786,16 @@
 				window.clearTimeout(this.$timer);
 			}
 			var self = this;
-			this.$timer = window.setTimeout(ss.mkdel(this, function() {
-				if (!ss.staticEquals(self.options.onSearch, null)) {
-					self.options.onSearch(((ss.isValue(this.$field) && !Q.isEmptyOrNull(this.$field.name)) ? this.$field.name : null), value);
-				}
-				self.element.removeClass(ss.coalesce(self.options.loadingParentClass, ''));
-			}), this.options.typeDelay);
+			this.$timer = window.setTimeout(function() {
+				self.$searchNow(value);
+			}, this.options.typeDelay);
 			this.$lastValue = value;
+		},
+		$searchNow: function(value) {
+			if (!ss.staticEquals(this.options.onSearch, null)) {
+				this.options.onSearch(((ss.isValue(this.$field) && !Q.isEmptyOrNull(this.$field.name)) ? this.$field.name : null), value);
+			}
+			this.element.removeClass(ss.coalesce(this.options.loadingParentClass, ''));
 		}
 	}, ss.makeGenericType($Serenity_Widget$1, [$Serenity_QuickSearchInputOptions]));
 	ss.initClass($Serenity_QuickSearchInputOptions, $asm, {});
@@ -8234,6 +8824,32 @@
 		}
 	}, ss.makeGenericType($Serenity_Widget$1, [$Serenity_TextAreaEditorOptions]), [$Serenity_IStringValue]);
 	ss.initClass($Serenity_TextAreaEditorOptions, $asm, {});
+	ss.initClass($Serenity_TimeEditor, $asm, {
+		get_value: function() {
+			var hour = Serenity.IdExtensions.convertToId(this.element.val());
+			var minute = Serenity.IdExtensions.convertToId(this.$minutes.val());
+			if (ss.isNullOrUndefined(hour) || ss.isNullOrUndefined(minute)) {
+				return null;
+			}
+			return ss.unbox(hour) * 60 + ss.unbox(minute);
+		},
+		set_value: function(value) {
+			if (ss.isNullOrUndefined(value)) {
+				if (this.options.noEmptyOption) {
+					this.element.val(this.options.startHour.toString());
+					this.$minutes.val('0');
+				}
+				else {
+					this.element.val('');
+					this.$minutes.val('0');
+				}
+			}
+			else {
+				this.element.val(Math.floor(ss.unbox(value) / 60).toString());
+				this.$minutes.val((ss.unbox(value) % 60).toString());
+			}
+		}
+	}, ss.makeGenericType($Serenity_Widget$1, [Object]), [$Serenity_IDoubleValue]);
 	ss.initClass($Serenity_Toolbar, $asm, {
 		$createButton: function(container, b) {
 			var cssClass = ss.coalesce(b.cssClass, '');
@@ -8270,20 +8886,6 @@
 			return $('div.tool-button.' + className, this.element);
 		}
 	}, ss.makeGenericType($Serenity_Widget$1, [Object]));
-	ss.initClass($Serenity_UploadedFile, $asm, {
-		get_filename: function() {
-			return this.$1$FilenameField;
-		},
-		set_filename: function(value) {
-			this.$1$FilenameField = value;
-		},
-		get_originalName: function() {
-			return this.$1$OriginalNameField;
-		},
-		set_originalName: function(value) {
-			this.$1$OriginalNameField = value;
-		}
-	});
 	ss.initClass($Serenity_UploadHelper, $asm, {});
 	ss.initClass($Serenity_URLEditor, $asm, {}, $Serenity_StringEditor, [$Serenity_IStringValue]);
 	ss.initClass($Serenity_ValidationHelper, $asm, {});
@@ -8571,8 +9173,8 @@
 	ss.setMetadata($Serenity_CheckListEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute("Checkbox'lı Liste"), new Serenity.OptionsTypeAttribute($Serenity_CheckListEditorOptions), new Serenity.ElementAttribute('<ul/>')] });
 	ss.setMetadata($Serenity_CheckListEditorOptions, { members: [{ attr: [new $Serenity_ComponentModel_HiddenAttribute()], name: 'Items', type: 16, returnType: Array, getter: { name: 'get_Items', type: 8, params: [], returnType: Array, fget: 'items' }, setter: { name: 'set_Items', type: 8, params: [Array], returnType: Object, fset: 'items' }, fname: 'items' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Tümünü Seç Metni')], name: 'SelectAllOptionText', type: 16, returnType: String, getter: { name: 'get_SelectAllOptionText', type: 8, params: [], returnType: String, fget: 'selectAllOptionText' }, setter: { name: 'set_SelectAllOptionText', type: 8, params: [String], returnType: Object, fset: 'selectAllOptionText' }, fname: 'selectAllOptionText' }] });
 	ss.setMetadata($Serenity_CheckTreeEditor$2, { attr: [new Serenity.ElementAttribute('<div/>'), new Serenity.IdPropertyAttribute('id')] });
-	ss.setMetadata($Serenity_DateEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Tarih'), new Serenity.ElementAttribute('<input type="text"/>')] });
-	ss.setMetadata($Serenity_DateTimeEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Tarih/Zaman'), new Serenity.ElementAttribute('<input type="text"/>')] });
+	ss.setMetadata($Serenity_DateEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Tarih'), new Serenity.ElementAttribute('<input type="text"/>')], members: [{ attr: [new Serenity.ComponentModel.OptionAttribute()], name: 'MaxValue', type: 16, returnType: String, getter: { name: 'get_MaxValue', type: 8, sname: 'get_maxValue', returnType: String, params: [] }, setter: { name: 'set_MaxValue', type: 8, sname: 'set_maxValue', returnType: Object, params: [String] } }, { attr: [new Serenity.ComponentModel.OptionAttribute()], name: 'MinValue', type: 16, returnType: String, getter: { name: 'get_MinValue', type: 8, sname: 'get_minValue', returnType: String, params: [] }, setter: { name: 'set_MinValue', type: 8, sname: 'set_minValue', returnType: Object, params: [String] } }, { attr: [new Serenity.ComponentModel.OptionAttribute()], name: 'SqlMinMax', type: 16, returnType: Boolean, getter: { name: 'get_SqlMinMax', type: 8, sname: 'get_sqlMinMax', returnType: Boolean, params: [] }, setter: { name: 'set_SqlMinMax', type: 8, sname: 'set_sqlMinMax', returnType: Object, params: [Boolean] } }] });
+	ss.setMetadata($Serenity_DateTimeEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Tarih/Zaman'), new Serenity.ElementAttribute('<input type="text"/>')], members: [{ attr: [new Serenity.ComponentModel.OptionAttribute()], name: 'MaxValue', type: 16, returnType: String, getter: { name: 'get_MaxValue', type: 8, sname: 'get_maxValue', returnType: String, params: [] }, setter: { name: 'set_MaxValue', type: 8, sname: 'set_maxValue', returnType: Object, params: [String] } }, { attr: [new Serenity.ComponentModel.OptionAttribute()], name: 'MinValue', type: 16, returnType: String, getter: { name: 'get_MinValue', type: 8, sname: 'get_minValue', returnType: String, params: [] }, setter: { name: 'set_MinValue', type: 8, sname: 'set_minValue', returnType: Object, params: [String] } }, { attr: [new Serenity.ComponentModel.OptionAttribute()], name: 'SqlMinMax', type: 16, returnType: Boolean, getter: { name: 'get_SqlMinMax', type: 8, sname: 'get_sqlMinMax', returnType: Boolean, params: [] }, setter: { name: 'set_SqlMinMax', type: 8, sname: 'set_sqlMinMax', returnType: Object, params: [Boolean] } }] });
 	ss.setMetadata($Serenity_DateYearEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Yıl'), new Serenity.OptionsTypeAttribute($Serenity_DateYearEditorOptions), new Serenity.ElementAttribute('<input type="hidden"/>')] });
 	ss.setMetadata($Serenity_DecimalEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Ondalıklı Sayı'), new Serenity.OptionsTypeAttribute($Serenity_DecimalEditorOptions), new Serenity.ElementAttribute('<input type="text"/>')] });
 	ss.setMetadata($Serenity_DecimalEditorOptions, { members: [{ attr: [new $System_ComponentModel_DisplayNameAttribute('Ondalık'), new $Serenity_ComponentModel_EditorTypeAttribute('Integer')], name: 'Decimals', type: 16, returnType: ss.makeGenericType(ss.Nullable$1, [ss.Int32]), getter: { name: 'get_Decimals', type: 8, params: [], returnType: ss.makeGenericType(ss.Nullable$1, [ss.Int32]), fget: 'decimals' }, setter: { name: 'set_Decimals', type: 8, params: [ss.makeGenericType(ss.Nullable$1, [ss.Int32])], returnType: Object, fset: 'decimals' }, fname: 'decimals' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Max Değer')], name: 'MaxValue', type: 16, returnType: String, getter: { name: 'get_MaxValue', type: 8, params: [], returnType: String, fget: 'maxValue' }, setter: { name: 'set_MaxValue', type: 8, params: [String], returnType: Object, fset: 'maxValue' }, fname: 'maxValue' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Min Değer')], name: 'MinValue', type: 16, returnType: String, getter: { name: 'get_MinValue', type: 8, params: [], returnType: String, fget: 'minValue' }, setter: { name: 'set_MinValue', type: 8, params: [String], returnType: Object, fset: 'minValue' }, fname: 'minValue' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Ondalıkları Sıfırla Doldur'), new $Serenity_ComponentModel_EditorTypeAttribute('Boolean')], name: 'PadDecimals', type: 16, returnType: ss.makeGenericType(ss.Nullable$1, [Boolean]), getter: { name: 'get_PadDecimals', type: 8, params: [], returnType: ss.makeGenericType(ss.Nullable$1, [Boolean]), fget: 'padDecimals' }, setter: { name: 'set_PadDecimals', type: 8, params: [ss.makeGenericType(ss.Nullable$1, [Boolean])], returnType: Object, fset: 'padDecimals' }, fname: 'padDecimals' }] });
@@ -8586,18 +9188,18 @@
 	ss.setMetadata($Serenity_HtmlContentEditorOptions, { members: [{ attr: [new $Serenity_ComponentModel_HiddenAttribute()], name: 'Cols', type: 16, returnType: ss.makeGenericType(ss.Nullable$1, [ss.Int32]), getter: { name: 'get_Cols', type: 8, params: [], returnType: ss.makeGenericType(ss.Nullable$1, [ss.Int32]), fget: 'cols' }, setter: { name: 'set_Cols', type: 8, params: [ss.makeGenericType(ss.Nullable$1, [ss.Int32])], returnType: Object, fset: 'cols' }, fname: 'cols' }, { attr: [new $Serenity_ComponentModel_HiddenAttribute()], name: 'Rows', type: 16, returnType: ss.makeGenericType(ss.Nullable$1, [ss.Int32]), getter: { name: 'get_Rows', type: 8, params: [], returnType: ss.makeGenericType(ss.Nullable$1, [ss.Int32]), fget: 'rows' }, setter: { name: 'set_Rows', type: 8, params: [ss.makeGenericType(ss.Nullable$1, [ss.Int32])], returnType: Object, fset: 'rows' }, fname: 'rows' }] });
 	ss.setMetadata($Serenity_HtmlReportContentEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Html İçerik (Rapor Uyumlu Kısıtlı Set)'), new Serenity.OptionsTypeAttribute($Serenity_HtmlContentEditorOptions), new Serenity.ElementAttribute('<textarea />')] });
 	ss.setMetadata($Serenity_ImageUploadEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Image Upload'), new Serenity.OptionsTypeAttribute($Serenity_ImageUploadEditorOptions), new Serenity.ElementAttribute('<div/>')] });
-	ss.setMetadata($Serenity_ImageUploadEditorOptions, { members: [{ attr: [new $System_ComponentModel_DisplayNameAttribute('Max Height')], name: 'MaxHeight', type: 16, returnType: ss.Int32, getter: { name: 'get_MaxHeight', type: 8, params: [], returnType: ss.Int32, fget: 'maxHeight' }, setter: { name: 'set_MaxHeight', type: 8, params: [ss.Int32], returnType: Object, fset: 'maxHeight' }, fname: 'maxHeight' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Max Size')], name: 'MaxSize', type: 16, returnType: ss.Int32, getter: { name: 'get_MaxSize', type: 8, params: [], returnType: ss.Int32, fget: 'maxSize' }, setter: { name: 'set_MaxSize', type: 8, params: [ss.Int32], returnType: Object, fset: 'maxSize' }, fname: 'maxSize' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Min Width')], name: 'MaxWidth', type: 16, returnType: ss.Int32, getter: { name: 'get_MaxWidth', type: 8, params: [], returnType: ss.Int32, fget: 'maxWidth' }, setter: { name: 'set_MaxWidth', type: 8, params: [ss.Int32], returnType: Object, fset: 'maxWidth' }, fname: 'maxWidth' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Max Height')], name: 'MinHeight', type: 16, returnType: ss.Int32, getter: { name: 'get_MinHeight', type: 8, params: [], returnType: ss.Int32, fget: 'minHeight' }, setter: { name: 'set_MinHeight', type: 8, params: [ss.Int32], returnType: Object, fset: 'minHeight' }, fname: 'minHeight' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Min Size')], name: 'MinSize', type: 16, returnType: ss.Int32, getter: { name: 'get_MinSize', type: 8, params: [], returnType: ss.Int32, fget: 'minSize' }, setter: { name: 'set_MinSize', type: 8, params: [ss.Int32], returnType: Object, fset: 'minSize' }, fname: 'minSize' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Min Width')], name: 'MinWidth', type: 16, returnType: ss.Int32, getter: { name: 'get_MinWidth', type: 8, params: [], returnType: ss.Int32, fget: 'minWidth' }, setter: { name: 'set_MinWidth', type: 8, params: [ss.Int32], returnType: Object, fset: 'minWidth' }, fname: 'minWidth' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Original Name Property')], name: 'OriginalNameProperty', type: 16, returnType: String, getter: { name: 'get_OriginalNameProperty', type: 8, params: [], returnType: String, fget: 'originalNameProperty' }, setter: { name: 'set_OriginalNameProperty', type: 8, params: [String], returnType: Object, fset: 'originalNameProperty' }, fname: 'originalNameProperty' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('UrlPrefix')], name: 'UrlPrefix', type: 16, returnType: String, getter: { name: 'get_UrlPrefix', type: 8, params: [], returnType: String, fget: 'urlPrefix' }, setter: { name: 'set_UrlPrefix', type: 8, params: [String], returnType: Object, fset: 'urlPrefix' }, fname: 'urlPrefix' }] });
+	ss.setMetadata($Serenity_ImageUploadEditorOptions, { members: [{ attr: [new $System_ComponentModel_DisplayNameAttribute('Allow Non Image Files')], name: 'AllowNonImage', type: 16, returnType: Boolean, getter: { name: 'get_AllowNonImage', type: 8, params: [], returnType: Boolean, fget: 'allowNonImage' }, setter: { name: 'set_AllowNonImage', type: 8, params: [Boolean], returnType: Object, fset: 'allowNonImage' }, fname: 'allowNonImage' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Max Height')], name: 'MaxHeight', type: 16, returnType: ss.Int32, getter: { name: 'get_MaxHeight', type: 8, params: [], returnType: ss.Int32, fget: 'maxHeight' }, setter: { name: 'set_MaxHeight', type: 8, params: [ss.Int32], returnType: Object, fset: 'maxHeight' }, fname: 'maxHeight' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Max Size')], name: 'MaxSize', type: 16, returnType: ss.Int32, getter: { name: 'get_MaxSize', type: 8, params: [], returnType: ss.Int32, fget: 'maxSize' }, setter: { name: 'set_MaxSize', type: 8, params: [ss.Int32], returnType: Object, fset: 'maxSize' }, fname: 'maxSize' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Min Width')], name: 'MaxWidth', type: 16, returnType: ss.Int32, getter: { name: 'get_MaxWidth', type: 8, params: [], returnType: ss.Int32, fget: 'maxWidth' }, setter: { name: 'set_MaxWidth', type: 8, params: [ss.Int32], returnType: Object, fset: 'maxWidth' }, fname: 'maxWidth' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Max Height')], name: 'MinHeight', type: 16, returnType: ss.Int32, getter: { name: 'get_MinHeight', type: 8, params: [], returnType: ss.Int32, fget: 'minHeight' }, setter: { name: 'set_MinHeight', type: 8, params: [ss.Int32], returnType: Object, fset: 'minHeight' }, fname: 'minHeight' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Min Size')], name: 'MinSize', type: 16, returnType: ss.Int32, getter: { name: 'get_MinSize', type: 8, params: [], returnType: ss.Int32, fget: 'minSize' }, setter: { name: 'set_MinSize', type: 8, params: [ss.Int32], returnType: Object, fset: 'minSize' }, fname: 'minSize' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Min Width')], name: 'MinWidth', type: 16, returnType: ss.Int32, getter: { name: 'get_MinWidth', type: 8, params: [], returnType: ss.Int32, fget: 'minWidth' }, setter: { name: 'set_MinWidth', type: 8, params: [ss.Int32], returnType: Object, fset: 'minWidth' }, fname: 'minWidth' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Original Name Property')], name: 'OriginalNameProperty', type: 16, returnType: String, getter: { name: 'get_OriginalNameProperty', type: 8, params: [], returnType: String, fget: 'originalNameProperty' }, setter: { name: 'set_OriginalNameProperty', type: 8, params: [String], returnType: Object, fset: 'originalNameProperty' }, fname: 'originalNameProperty' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('UrlPrefix')], name: 'UrlPrefix', type: 16, returnType: String, getter: { name: 'get_UrlPrefix', type: 8, params: [], returnType: String, fget: 'urlPrefix' }, setter: { name: 'set_UrlPrefix', type: 8, params: [String], returnType: Object, fset: 'urlPrefix' }, fname: 'urlPrefix' }] });
 	ss.setMetadata($Serenity_IntegerEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Tamsayı'), new Serenity.OptionsTypeAttribute($Serenity_IntegerEditorOptions), new Serenity.ElementAttribute('<input type="text"/>')] });
 	ss.setMetadata($Serenity_IntegerEditorOptions, { members: [{ attr: [new $System_ComponentModel_DisplayNameAttribute('Max Değer')], name: 'MaxValue', type: 16, returnType: ss.Int32, getter: { name: 'get_MaxValue', type: 8, params: [], returnType: ss.Int32, fget: 'maxValue' }, setter: { name: 'set_MaxValue', type: 8, params: [ss.Int32], returnType: Object, fset: 'maxValue' }, fname: 'maxValue' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Min Değer')], name: 'MinValue', type: 16, returnType: ss.Int32, getter: { name: 'get_MinValue', type: 8, params: [], returnType: ss.Int32, fget: 'minValue' }, setter: { name: 'set_MinValue', type: 8, params: [ss.Int32], returnType: Object, fset: 'minValue' }, fname: 'minValue' }] });
 	ss.setMetadata($Serenity_LookupEditor, { attr: [new Serenity.EditorAttribute(), new Serenity.OptionsTypeAttribute($Serenity_LookupEditorOptions)] });
 	ss.setMetadata($Serenity_LookupEditorBase$2, { attr: [new Serenity.ElementAttribute('<input type="hidden"/>')] });
 	ss.setMetadata($Serenity_MaskedEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Maskeli Giriş'), new Serenity.OptionsTypeAttribute($Serenity_MaskedEditorOptions), new Serenity.ElementAttribute('<input type="text"/>')] });
 	ss.setMetadata($Serenity_MaskedEditorOptions, { members: [{ attr: [new $System_ComponentModel_DisplayNameAttribute('Giriş Maskesi')], name: 'Mask', type: 16, returnType: String, getter: { name: 'get_Mask', type: 8, params: [], returnType: String, fget: 'mask' }, setter: { name: 'set_Mask', type: 8, params: [String], returnType: Object, fset: 'mask' }, fname: 'mask' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Yer Tutucu Karakter')], name: 'Placeholder', type: 16, returnType: String, getter: { name: 'get_Placeholder', type: 8, params: [], returnType: String, fget: 'placeholder' }, setter: { name: 'set_Placeholder', type: 8, params: [String], returnType: Object, fset: 'placeholder' }, fname: 'placeholder' }] });
-	ss.setMetadata($Serenity_MultipleImageUploadEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('3Image Upload'), new Serenity.OptionsTypeAttribute($Serenity_ImageUploadEditorOptions), new Serenity.ElementAttribute('<div/>')], members: [{ attr: [new Serenity.ComponentModel.OptionAttribute()], name: 'JsonEncodeValue', type: 16, returnType: Boolean, getter: { name: 'get_JsonEncodeValue', type: 8, sname: 'get_jsonEncodeValue', returnType: Boolean, params: [] }, setter: { name: 'set_JsonEncodeValue', type: 8, sname: 'set_jsonEncodeValue', returnType: Object, params: [Boolean] } }] });
+	ss.setMetadata($Serenity_MultipleImageUploadEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('MultipleImage Upload'), new Serenity.OptionsTypeAttribute($Serenity_ImageUploadEditorOptions), new Serenity.ElementAttribute('<div/>')], members: [{ attr: [new Serenity.ComponentModel.OptionAttribute()], name: 'JsonEncodeValue', type: 16, returnType: Boolean, getter: { name: 'get_JsonEncodeValue', type: 8, sname: 'get_jsonEncodeValue', returnType: Boolean, params: [] }, setter: { name: 'set_JsonEncodeValue', type: 8, sname: 'set_jsonEncodeValue', returnType: Object, params: [Boolean] } }] });
 	ss.setMetadata($Serenity_PasswordEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Şifre')] });
 	ss.setMetadata($Serenity_PersonNameEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Kişi İsim'), new Serenity.ElementAttribute('<input type="text"/>')] });
 	ss.setMetadata($Serenity_PhoneEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Telefon'), new Serenity.OptionsTypeAttribute($Serenity_PhoneEditorOptions), new Serenity.ElementAttribute('<input type="text"/>')] });
-	ss.setMetadata($Serenity_PhoneEditorOptions, { members: [{ attr: [new $System_ComponentModel_DisplayNameAttribute('Dahili Telefon')], name: 'Internal', type: 16, returnType: Boolean, getter: { name: 'get_Internal', type: 8, params: [], returnType: Boolean, fget: 'internal' }, setter: { name: 'set_Internal', type: 8, params: [Boolean], returnType: Object, fset: 'internal' }, fname: 'internal' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Cep Telefonu')], name: 'Mobile', type: 16, returnType: Boolean, getter: { name: 'get_Mobile', type: 8, params: [], returnType: Boolean, fget: 'mobile' }, setter: { name: 'set_Mobile', type: 8, params: [Boolean], returnType: Object, fset: 'mobile' }, fname: 'mobile' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Birden Çok Girişe İzin Ver')], name: 'Multiple', type: 16, returnType: Boolean, getter: { name: 'get_Multiple', type: 8, params: [], returnType: Boolean, fget: 'multiple' }, setter: { name: 'set_Multiple', type: 8, params: [Boolean], returnType: Object, fset: 'multiple' }, fname: 'multiple' }] });
+	ss.setMetadata($Serenity_PhoneEditorOptions, { members: [{ attr: [new $System_ComponentModel_DisplayNameAttribute('Dahili Girişine İzin Ver')], name: 'AllowExtension', type: 16, returnType: Boolean, getter: { name: 'get_AllowExtension', type: 8, params: [], returnType: Boolean, fget: 'allowExtension' }, setter: { name: 'set_AllowExtension', type: 8, params: [Boolean], returnType: Object, fset: 'allowExtension' }, fname: 'allowExtension' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Uluslararası Telefon Girişine İzin Ver')], name: 'AllowInternational', type: 16, returnType: Boolean, getter: { name: 'get_AllowInternational', type: 8, params: [], returnType: Boolean, fget: 'allowInternational' }, setter: { name: 'set_AllowInternational', type: 8, params: [Boolean], returnType: Object, fset: 'allowInternational' }, fname: 'allowInternational' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Dahili Telefon')], name: 'Internal', type: 16, returnType: Boolean, getter: { name: 'get_Internal', type: 8, params: [], returnType: Boolean, fget: 'internal' }, setter: { name: 'set_Internal', type: 8, params: [Boolean], returnType: Object, fset: 'internal' }, fname: 'internal' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Cep Telefonu')], name: 'Mobile', type: 16, returnType: Boolean, getter: { name: 'get_Mobile', type: 8, params: [], returnType: Boolean, fget: 'mobile' }, setter: { name: 'set_Mobile', type: 8, params: [Boolean], returnType: Object, fset: 'mobile' }, fname: 'mobile' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Birden Çok Girişe İzin Ver')], name: 'Multiple', type: 16, returnType: Boolean, getter: { name: 'get_Multiple', type: 8, params: [], returnType: Boolean, fget: 'multiple' }, setter: { name: 'set_Multiple', type: 8, params: [Boolean], returnType: Object, fset: 'multiple' }, fname: 'multiple' }] });
 	ss.setMetadata($Serenity_Select2AjaxEditor$2, { attr: [new Serenity.ElementAttribute('<input type="hidden"/>')] });
 	ss.setMetadata($Serenity_Select2Editor$2, { attr: [new Serenity.ElementAttribute('<input type="hidden"/>')] });
 	ss.setMetadata($Serenity_SelectEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Açılır Liste'), new Serenity.OptionsTypeAttribute($Serenity_SelectEditorOptions), new Serenity.ElementAttribute('<input type="hidden"/>')] });
@@ -8605,6 +9207,7 @@
 	ss.setMetadata($Serenity_StringEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Metin'), new Serenity.ElementAttribute('<input type="text"/>')] });
 	ss.setMetadata($Serenity_TextAreaEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Çok Satırlı Metin'), new Serenity.OptionsTypeAttribute($Serenity_TextAreaEditorOptions), new Serenity.ElementAttribute('<textarea />')] });
 	ss.setMetadata($Serenity_TextAreaEditorOptions, { members: [{ attr: [new $Serenity_ComponentModel_HiddenAttribute()], name: 'Cols', type: 16, returnType: ss.Int32, getter: { name: 'get_Cols', type: 8, params: [], returnType: ss.Int32, fget: 'cols' }, setter: { name: 'set_Cols', type: 8, params: [ss.Int32], returnType: Object, fset: 'cols' }, fname: 'cols' }, { attr: [new $Serenity_ComponentModel_HiddenAttribute()], name: 'Rows', type: 16, returnType: ss.Int32, getter: { name: 'get_Rows', type: 8, params: [], returnType: ss.Int32, fget: 'rows' }, setter: { name: 'set_Rows', type: 8, params: [ss.Int32], returnType: Object, fset: 'rows' }, fname: 'rows' }] });
+	ss.setMetadata($Serenity_TimeEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Zaman'), new Serenity.OptionsTypeAttribute(Object), new Serenity.ElementAttribute('<select/>')] });
 	ss.setMetadata($Serenity_URLEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('URL')] });
 	ss.setMetadata($Serenity_ComponentModel_EditorOptionAttribute, { attrAllowMultiple: true });
 	(function() {
@@ -8628,6 +9231,7 @@
 		$Serenity_FilterOperators.toCriteriaOperator = null;
 		$Serenity_FilterOperators.toCriteriaOperator = {};
 		$Serenity_FilterOperators.toCriteriaOperator[$Serenity_FilterOperators.EQ] = '=';
+		$Serenity_FilterOperators.toCriteriaOperator[$Serenity_FilterOperators.NE] = '!=';
 		$Serenity_FilterOperators.toCriteriaOperator[$Serenity_FilterOperators.GT] = '>';
 		$Serenity_FilterOperators.toCriteriaOperator[$Serenity_FilterOperators.GE] = '>=';
 		$Serenity_FilterOperators.toCriteriaOperator[$Serenity_FilterOperators.LT] = '<';

@@ -12,6 +12,10 @@ namespace Gimnet.Sertifika
     [Imported, Serializable, PreserveMemberCase]
     public partial class FirmaRow
     {
+        [InlineConstant] public const string IdProperty = "Id";
+        [InlineConstant] public const string NameProperty = "FirmaAdi";
+        [InlineConstant] public const string LocalTextPrefix = "Sertifika.Firma";
+    
         public Int32? Id { get; set; }
         public String FirmaAdi { get; set; }
         public String KucukLogo { get; set; }

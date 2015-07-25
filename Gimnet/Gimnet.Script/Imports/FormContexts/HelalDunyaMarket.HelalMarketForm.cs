@@ -8,12 +8,11 @@ namespace Gimnet.HelalDunyaMarket
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using Gimnet.Sertifika;
-    using Gimnet.Sertifika.Kategori;
-    using Gimnet.Sertifika.Firma;
 
     public partial class HelalMarketForm : PrefixedContext
     {
+        [InlineConstant] public const string FormKey = "HelalDunyaMarket.HelalMarket";
+    
         public HelalMarketForm(string idPrefix) : base(idPrefix) {}
     
         public StringEditor Adi { get { return ById<StringEditor>("Adi"); } }

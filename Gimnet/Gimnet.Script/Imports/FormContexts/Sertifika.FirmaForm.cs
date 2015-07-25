@@ -8,15 +8,16 @@ namespace Gimnet.Sertifika
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using Gimnet.Sertifika;
-    using Gimnet.Sertifika.Kategori;
-    using Gimnet.Sertifika.Firma;
 
     public partial class FirmaForm : PrefixedContext
     {
+        [InlineConstant] public const string FormKey = "Sertifika.Firma";
+    
         public FirmaForm(string idPrefix) : base(idPrefix) {}
     
         public StringEditor FirmaAdi { get { return ById<StringEditor>("FirmaAdi"); } }
+        public StringEditor KucukLogo { get { return ById<StringEditor>("KucukLogo"); } }
+        public StringEditor OrtaLogo { get { return ById<StringEditor>("OrtaLogo"); } }
         public FirmaLogoUploadEditor BuyukLogo { get { return ById<FirmaLogoUploadEditor>("BuyukLogo"); } }
         public StringEditor KonumSehir { get { return ById<StringEditor>("KonumSehir"); } }
         public StringEditor Telefon { get { return ById<StringEditor>("Telefon"); } }

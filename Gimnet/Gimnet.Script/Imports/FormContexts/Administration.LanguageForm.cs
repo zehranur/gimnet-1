@@ -8,12 +8,11 @@ namespace Gimnet.Administration
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using Gimnet.Sertifika;
-    using Gimnet.Sertifika.Kategori;
-    using Gimnet.Sertifika.Firma;
 
     public partial class LanguageForm : PrefixedContext
     {
+        [InlineConstant] public const string FormKey = "Administration.Language";
+    
         public LanguageForm(string idPrefix) : base(idPrefix) {}
     
         public StringEditor LanguageId { get { return ById<StringEditor>("LanguageId"); } }

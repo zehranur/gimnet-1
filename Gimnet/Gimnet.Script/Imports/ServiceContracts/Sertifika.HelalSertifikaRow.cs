@@ -12,6 +12,10 @@ namespace Gimnet.Sertifika
     [Imported, Serializable, PreserveMemberCase]
     public partial class HelalSertifikaRow
     {
+        [InlineConstant] public const string IdProperty = "Id";
+        [InlineConstant] public const string NameProperty = "Marka";
+        [InlineConstant] public const string LocalTextPrefix = "Sertifika.HelalSertifika";
+    
         public Int32? Id { get; set; }
         public Int32? KategoriId { get; set; }
         public Int32? FirmaId { get; set; }
@@ -33,6 +37,7 @@ namespace Gimnet.Sertifika
         public String FirmaTelefon { get; set; }
         public String FirmaWebSayfasi { get; set; }
         public String FirmaIletisimEmail { get; set; }
+        public String SertifikaResimleri { get; set; }
     
         [Imported, PreserveMemberCase]
         public static class Fields
@@ -58,6 +63,7 @@ namespace Gimnet.Sertifika
             [InlineConstant] public const string FirmaTelefon = "FirmaTelefon";
             [InlineConstant] public const string FirmaWebSayfasi = "FirmaWebSayfasi";
             [InlineConstant] public const string FirmaIletisimEmail = "FirmaIletisimEmail";
+            [InlineConstant] public const string SertifikaResimleri = "SertifikaResimleri";
         }
     }
     

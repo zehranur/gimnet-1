@@ -39,7 +39,7 @@ namespace Gimnet
 
         public static void ApplicationEnd()
         {
-            Log.Dispose();
+            //Log.Dispose();
         }
 
         private static void EnsureDatabase()

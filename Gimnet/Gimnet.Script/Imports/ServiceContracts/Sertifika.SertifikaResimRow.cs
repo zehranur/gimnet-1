@@ -12,6 +12,10 @@ namespace Gimnet.Sertifika
     [Imported, Serializable, PreserveMemberCase]
     public partial class SertifikaResimRow
     {
+        [InlineConstant] public const string IdProperty = "Id";
+        [InlineConstant] public const string NameProperty = "ResimKonumu";
+        [InlineConstant] public const string LocalTextPrefix = "Sertifika.SertifikaResim";
+    
         public Int32? Id { get; set; }
         public String ResimKonumu { get; set; }
         public String EklenmeTarihi { get; set; }

@@ -8,12 +8,11 @@ namespace Gimnet.Duyuru
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using Gimnet.Sertifika;
-    using Gimnet.Sertifika.Kategori;
-    using Gimnet.Sertifika.Firma;
 
     public partial class DuyuruForm : PrefixedContext
     {
+        [InlineConstant] public const string FormKey = "Duyuru.Duyuru";
+    
         public DuyuruForm(string idPrefix) : base(idPrefix) {}
     
         public StringEditor Baslik { get { return ById<StringEditor>("Baslik"); } }
