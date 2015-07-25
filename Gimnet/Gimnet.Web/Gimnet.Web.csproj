@@ -1054,6 +1054,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Modules\Enums\" />
     <Folder Include="Scripts\CKEditor\samples\assets\inlineall\" />
     <Folder Include="Scripts\CKEditor\samples\assets\outputxhtml\" />
     <Folder Include="Scripts\CKEditor\samples\assets\uilanguages\" />

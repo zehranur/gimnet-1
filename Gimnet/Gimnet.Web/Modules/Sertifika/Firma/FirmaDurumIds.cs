@@ -1,15 +1,18 @@
-﻿using Serenity.Data;
+﻿using Serenity.ComponentModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
 
-namespace Gimnet.Modules.Sertifika.Firma
+namespace Gimnet.Sertifika
 {
-    public enum FirmaDurumIds
+    [ScriptInclude]
+    public enum FirmaDurumIds : long
     {
+        [Description("Seçiniz")]
         None = 0,
+        [Description("Normal")]
         Normal = 1,
+        [Description("Çalışmakta")]
         Yasakli = 2
     }
 }
+

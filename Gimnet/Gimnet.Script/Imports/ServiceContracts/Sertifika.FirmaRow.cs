@@ -21,6 +21,7 @@ namespace Gimnet.Sertifika
         public String Telefon { get; set; }
         public String WebSayfasi { get; set; }
         public String IletisimEmail { get; set; }
+        public FirmaDurumIds? Durum { get; set; }
     
         [Imported, PreserveMemberCase]
         public static class Fields
@@ -34,6 +35,7 @@ namespace Gimnet.Sertifika
             [InlineConstant] public const string Telefon = "Telefon";
             [InlineConstant] public const string WebSayfasi = "WebSayfasi";
             [InlineConstant] public const string IletisimEmail = "IletisimEmail";
+            [InlineConstant] public const string Durum = "Durum";
         }
     }
     

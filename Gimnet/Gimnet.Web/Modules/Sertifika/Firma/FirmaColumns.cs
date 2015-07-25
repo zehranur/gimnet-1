@@ -15,11 +15,9 @@ namespace Gimnet.Sertifika.Forms
     {
         [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
         public Int32 Id { get; set; }
-        [EditLink,DisplayName("Firma Adı")]
+        [EditLink, DisplayName("Firma Adı")]
         public String FirmaAdi { get; set; }
-        public String KucukLogo { get; set; }
-        public String OrtaLogo { get; set; }
-        public String BuyukLogo { get; set; }
+        public FirmaDurumIds Durum { get; set; }
         [DisplayName("Bulunduğu Şehir")]
         public String KonumSehir { get; set; }
         public String Telefon { get; set; }

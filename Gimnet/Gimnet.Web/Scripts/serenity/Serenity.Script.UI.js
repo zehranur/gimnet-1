@@ -3708,6 +3708,35 @@
 	};
 	global.Serenity.MaskedEditorOptions = $Serenity_MaskedEditorOptions;
 	////////////////////////////////////////////////////////////////////////////////
+	// Serenity.MultipleImageUploadEditor
+	var $Serenity_MultipleImageUploadEditor = function(div, opt) {
+		this.entities = null;
+		this.toolbar = null;
+		this.fileSymbols = null;
+		this.uploadInput = null;
+		this.$4$JsonEncodeValueField = false;
+		ss.makeGenericType($Serenity_Widget$1, [$Serenity_ImageUploadEditorOptions]).call(this, div, opt);
+		this.entities = [];
+		div.addClass('s-MultipleImageUploadEditor');
+		var self = this;
+		this.toolbar = new $Serenity_Toolbar($('<div/>').appendTo(this.get_element()), { buttons: this.getToolButtons() });
+		var progress = $('<div><div></div></div>').addClass('upload-progress').prependTo(this.toolbar.get_element());
+		var addFileButton = this.toolbar.findButton('add-file-button');
+		this.uploadInput = $Serenity_UploadHelper.addUploadInput({ container: addFileButton, inputName: this.uniqueName, progress: progress, fileDone: ss.mkdel(this, function(response, name, data) {
+			if (!$Serenity_UploadHelper.checkImageConstraints(response, this.options)) {
+				return;
+			}
+			var newEntity = { originalName: name, filename: response.TemporaryFile };
+			self.entities.push(newEntity);
+			self.populate();
+			self.updateInterface();
+		}) });
+		this.fileSymbols = $('<ul/>').appendTo(this.element);
+		this.updateInterface();
+	};
+	$Serenity_MultipleImageUploadEditor.__typeName = 'Serenity.MultipleImageUploadEditor';
+	global.Serenity.MultipleImageUploadEditor = $Serenity_MultipleImageUploadEditor;
+	////////////////////////////////////////////////////////////////////////////////
 	// Serenity.PasswordEditor
 	var $Serenity_PasswordEditor = function(input) {
 		$Serenity_StringEditor.call(this, input);
@@ -7763,6 +7792,78 @@
 		}
 	}, ss.makeGenericType($Serenity_Widget$1, [$Serenity_MaskedEditorOptions]), [$Serenity_IStringValue]);
 	ss.initClass($Serenity_MaskedEditorOptions, $asm, {});
+	ss.initClass($Serenity_MultipleImageUploadEditor, $asm, {
+		addFileButtonText: function() {
+			return Q.text('Controls.ImageUpload.AddFileButton');
+		},
+		getToolButtons: function() {
+			var self = this;
+			var $t1 = [];
+			$t1.push({
+				title: this.addFileButtonText(),
+				cssClass: 'add-file-button',
+				onClick: function() {
+				}
+			});
+			return $t1;
+		},
+		populate: function() {
+			$Serenity_UploadHelper.populateFileSymbols(this.fileSymbols, this.entities, true, this.options.urlPrefix);
+		},
+		updateInterface: function() {
+			var addButton = this.toolbar.findButton('add-file-button');
+			addButton.toggleClass('disabled', this.get_readOnly());
+		},
+		get_readOnly: function() {
+			return !ss.isNullOrUndefined(this.uploadInput.attr('disabled'));
+		},
+		set_readOnly: function(value) {
+			if (this.get_readOnly() !== value) {
+				if (value) {
+					this.uploadInput.attr('disabled', 'disabled');
+				}
+				else {
+					this.uploadInput.removeAttr('disabled');
+				}
+				this.updateInterface();
+			}
+		},
+		get_value: function() {
+			return Enumerable.from(this.entities).select(function(x) {
+				return $.extend({}, x);
+			}).toArray();
+		},
+		set_value: function(value) {
+			this.entities = Enumerable.from(value || []).select(function(x) {
+				return $.extend({}, x);
+			}).toArray();
+			this.populate();
+			this.updateInterface();
+		},
+		getEditValue: function(property, target) {
+			if (this.get_jsonEncodeValue()) {
+				target[property.name] = $.toJSON(this.get_value());
+			}
+			else {
+				target[property.name] = this.get_value();
+			}
+		},
+		setEditValue: function(source, property) {
+			if (this.get_jsonEncodeValue()) {
+				var json = ss.coalesce(Q.trimToNull(ss.safeCast(source[property.name], String)), '[]');
+				this.set_value($.parseJSON(json));
+			}
+			else {
+				this.set_value(ss.cast(source[property.name], Array));
+			}
+		},
+		get_jsonEncodeValue: function() {
+			return this.$4$JsonEncodeValueField;
+		},
+		set_jsonEncodeValue: function(value) {
+			this.$4$JsonEncodeValueField = value;
+		}
+	}, ss.makeGenericType($Serenity_Widget$1, [$Serenity_ImageUploadEditorOptions]), [$Serenity_IGetEditValue, $Serenity_ISetEditValue, $Serenity_IReadOnly]);
 	ss.initClass($Serenity_StringEditor, $asm, {
 		get_value: function() {
 			return this.element.val();
@@ -8492,6 +8593,7 @@
 	ss.setMetadata($Serenity_LookupEditorBase$2, { attr: [new Serenity.ElementAttribute('<input type="hidden"/>')] });
 	ss.setMetadata($Serenity_MaskedEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Maskeli Giriş'), new Serenity.OptionsTypeAttribute($Serenity_MaskedEditorOptions), new Serenity.ElementAttribute('<input type="text"/>')] });
 	ss.setMetadata($Serenity_MaskedEditorOptions, { members: [{ attr: [new $System_ComponentModel_DisplayNameAttribute('Giriş Maskesi')], name: 'Mask', type: 16, returnType: String, getter: { name: 'get_Mask', type: 8, params: [], returnType: String, fget: 'mask' }, setter: { name: 'set_Mask', type: 8, params: [String], returnType: Object, fset: 'mask' }, fname: 'mask' }, { attr: [new $System_ComponentModel_DisplayNameAttribute('Yer Tutucu Karakter')], name: 'Placeholder', type: 16, returnType: String, getter: { name: 'get_Placeholder', type: 8, params: [], returnType: String, fget: 'placeholder' }, setter: { name: 'set_Placeholder', type: 8, params: [String], returnType: Object, fset: 'placeholder' }, fname: 'placeholder' }] });
+	ss.setMetadata($Serenity_MultipleImageUploadEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('3Image Upload'), new Serenity.OptionsTypeAttribute($Serenity_ImageUploadEditorOptions), new Serenity.ElementAttribute('<div/>')], members: [{ attr: [new Serenity.ComponentModel.OptionAttribute()], name: 'JsonEncodeValue', type: 16, returnType: Boolean, getter: { name: 'get_JsonEncodeValue', type: 8, sname: 'get_jsonEncodeValue', returnType: Boolean, params: [] }, setter: { name: 'set_JsonEncodeValue', type: 8, sname: 'set_jsonEncodeValue', returnType: Object, params: [Boolean] } }] });
 	ss.setMetadata($Serenity_PasswordEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Şifre')] });
 	ss.setMetadata($Serenity_PersonNameEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Kişi İsim'), new Serenity.ElementAttribute('<input type="text"/>')] });
 	ss.setMetadata($Serenity_PhoneEditor, { attr: [new Serenity.EditorAttribute(), new $System_ComponentModel_DisplayNameAttribute('Telefon'), new Serenity.OptionsTypeAttribute($Serenity_PhoneEditorOptions), new Serenity.ElementAttribute('<input type="text"/>')] });

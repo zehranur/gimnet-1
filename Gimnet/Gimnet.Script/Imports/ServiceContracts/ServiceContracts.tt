@@ -13,7 +13,7 @@
 <#@ output extension=".log" #>
 <# 
     var manager = Manager.Create(Host, GenerationEnvironment);
-
+	
 	var contractGenerator = new ScriptDtoGenerator(typeof(Gimnet.SiteInitialization).Assembly);
     contractGenerator.RootNamespaces.Add("Gimnet");
     var contractCodes = contractGenerator.GenerateCode();

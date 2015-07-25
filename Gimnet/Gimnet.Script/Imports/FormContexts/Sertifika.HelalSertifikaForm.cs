@@ -8,6 +8,7 @@ namespace Gimnet.Sertifika
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using Gimnet.Sertifika;
     using Gimnet.Sertifika.Kategori;
     using Gimnet.Sertifika.Firma;
 
@@ -20,7 +21,7 @@ namespace Gimnet.Sertifika
         public StringEditor Marka { get { return ById<StringEditor>("Marka"); } }
         public DateEditor İlkBasvuruTarihi { get { return ById<DateEditor>("İlkBasvuruTarihi"); } }
         public DateEditor YenilemeTarihi { get { return ById<DateEditor>("YenilemeTarihi"); } }
-        public StringEditor SertifikaKapsami { get { return ById<StringEditor>("SertifikaKapsami"); } }
+        public TextAreaEditor SertifikaKapsami { get { return ById<TextAreaEditor>("SertifikaKapsami"); } }
         public StringEditor Durum { get { return ById<StringEditor>("Durum"); } }
         public StringEditor KapsamDisi { get { return ById<StringEditor>("KapsamDisi"); } }
         public DateEditor BitisTarihi { get { return ById<DateEditor>("BitisTarihi"); } }

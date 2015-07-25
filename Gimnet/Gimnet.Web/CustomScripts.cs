@@ -40,7 +40,7 @@ namespace Gimnet
 
         public static IDynamicScript Firmalar =
            new DbLookupScript<FirmaRow>(
-               name: "Sertifika.Firma",
+               name: "Sertifika.Firmalar",
                getItems: cnn =>
                {
                    var row = new FirmaRow();

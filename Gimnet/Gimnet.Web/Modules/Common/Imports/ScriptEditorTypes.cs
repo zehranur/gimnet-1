@@ -44,6 +44,65 @@ namespace Gimnet.Common
     }
 }
 
+namespace Gimnet.Sertifika
+{
+    public partial class FirmaLogoUploadEditorAttribute : CustomEditorAttribute
+    {
+        public FirmaLogoUploadEditorAttribute()
+            : base("Gimnet.Sertifika.FirmaLogoUploadEditor")
+        {
+        }
+    
+        public Int32 MaxHeight
+        {
+            get { return GetOption<Int32>("maxHeight"); }
+            set { SetOption("maxHeight", value); }
+        }
+    
+        public Int32 MaxSize
+        {
+            get { return GetOption<Int32>("maxSize"); }
+            set { SetOption("maxSize", value); }
+        }
+    
+        public Int32 MaxWidth
+        {
+            get { return GetOption<Int32>("maxWidth"); }
+            set { SetOption("maxWidth", value); }
+        }
+    
+        public Int32 MinHeight
+        {
+            get { return GetOption<Int32>("minHeight"); }
+            set { SetOption("minHeight", value); }
+        }
+    
+        public Int32 MinSize
+        {
+            get { return GetOption<Int32>("minSize"); }
+            set { SetOption("minSize", value); }
+        }
+    
+        public Int32 MinWidth
+        {
+            get { return GetOption<Int32>("minWidth"); }
+            set { SetOption("minWidth", value); }
+        }
+    
+        public String OriginalNameProperty
+        {
+            get { return GetOption<String>("originalNameProperty"); }
+            set { SetOption("originalNameProperty", value); }
+        }
+    
+        public String UrlPrefix
+        {
+            get { return GetOption<String>("urlPrefix"); }
+            set { SetOption("urlPrefix", value); }
+        }
+    }
+}
+
 namespace Gimnet.Sertifika.Firma
 {
     public partial class FirmaLookupEditorAttribute : CustomEditorAttribute
@@ -85,6 +144,68 @@ namespace Serenity.ComponentModel
         {
             get { return GetOption<Int32>("rows"); }
             set { SetOption("rows", value); }
+        }
+    }
+
+    public partial class MultipleImageUploadEditorAttribute : CustomEditorAttribute
+    {
+        public MultipleImageUploadEditorAttribute()
+            : base("Serenity.MultipleImageUploadEditor")
+        {
+        }
+    
+        public Boolean JsonEncodeValue
+        {
+            get { return GetOption<Boolean>("jsonEncodeValue"); }
+            set { SetOption("jsonEncodeValue", value); }
+        }
+    
+        public Int32 MaxHeight
+        {
+            get { return GetOption<Int32>("maxHeight"); }
+            set { SetOption("maxHeight", value); }
+        }
+    
+        public Int32 MaxSize
+        {
+            get { return GetOption<Int32>("maxSize"); }
+            set { SetOption("maxSize", value); }
+        }
+    
+        public Int32 MaxWidth
+        {
+            get { return GetOption<Int32>("maxWidth"); }
+            set { SetOption("maxWidth", value); }
+        }
+    
+        public Int32 MinHeight
+        {
+            get { return GetOption<Int32>("minHeight"); }
+            set { SetOption("minHeight", value); }
+        }
+    
+        public Int32 MinSize
+        {
+            get { return GetOption<Int32>("minSize"); }
+            set { SetOption("minSize", value); }
+        }
+    
+        public Int32 MinWidth
+        {
+            get { return GetOption<Int32>("minWidth"); }
+            set { SetOption("minWidth", value); }
+        }
+    
+        public String OriginalNameProperty
+        {
+            get { return GetOption<String>("originalNameProperty"); }
+            set { SetOption("originalNameProperty", value); }
+        }
+    
+        public String UrlPrefix
+        {
+            get { return GetOption<String>("urlPrefix"); }
+            set { SetOption("urlPrefix", value); }
         }
     }
 }

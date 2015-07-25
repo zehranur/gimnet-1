@@ -166,6 +166,9 @@
     <Compile Include="Imports\ServiceContracts\Membership.LoginRequest.cs">
       <DependentUpon>ServiceContracts.tt</DependentUpon>
     </Compile>
+    <Compile Include="Imports\ServiceContracts\Sertifika.FirmaDurumIds.cs">
+      <DependentUpon>ServiceContracts.tt</DependentUpon>
+    </Compile>
     <Compile Include="Imports\ServiceContracts\Sertifika.FirmaRow.cs">
       <DependentUpon>ServiceContracts.tt</DependentUpon>
     </Compile>
@@ -206,15 +209,19 @@
     <Compile Include="Sertifika\Firma\FirmaGrid.cs" />
     <Compile Include="Sertifika\Firma\FirmaDialog.cs" />
     <Compile Include="Sertifika\Firma\FirmaLookupEditor.cs" />
+    <Compile Include="Sertifika\Firma\FirmaLogoUploadEditor.cs" />
     <Compile Include="Sertifika\Kategori\KategoriGrid.cs" />
     <Compile Include="Sertifika\Kategori\KategoriDialog.cs" />
     <Compile Include="Sertifika\Kategori\KategoriLookupEditor.cs" />
+    <Compile Include="Sertifika\MultipleImageUploadEditor.cs" />
     <Compile Include="Sertifika\SertifikaResim\SertifikaResimGrid.cs" />
     <Compile Include="Sertifika\SertifikaResim\SertifikaResimDialog.cs" />
     <Compile Include="HelalDunyaMarket\HelalMarket\HelalMarketGrid.cs" />
     <Compile Include="HelalDunyaMarket\HelalMarket\HelalMarketDialog.cs" />
     <Compile Include="Sertifika\HelalSertifika\HelalSertifikaGrid.cs" />
     <Compile Include="Sertifika\HelalSertifika\HelalSertifikaDialog.cs" />
+    <Compile Include="Sertifika\SertifikaResim\SertifikaResimGridDialog.cs" />
+    <Compile Include="Sertifika\SupportUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Imports\FormContexts\FormContexts.log">

@@ -1,6 +1,4 @@
-﻿using Gimnet.Modules.Sertifika.Firma;
-
-namespace Gimnet.Sertifika.Entities
+﻿namespace Gimnet.Sertifika.Entities
 {
     using Newtonsoft.Json;
     using Serenity;
@@ -81,6 +79,14 @@ namespace Gimnet.Sertifika.Entities
         }
 
 
+        [DisplayName("Durum"), NotNull]
+        public FirmaDurumIds Durum
+        {
+            get { return (FirmaDurumIds)Fields.Durum[this]; }
+            set { Fields.Durum[this] = (Int64)value; }
+        }
+    
+
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -109,6 +115,7 @@ namespace Gimnet.Sertifika.Entities
             public readonly StringField Telefon;
             public readonly StringField WebSayfasi;
             public readonly StringField IletisimEmail;
+            public readonly Int64Field Durum;
 
             public RowFields()
                 : base("Firma")

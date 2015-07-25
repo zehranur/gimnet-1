@@ -9,6 +9,7 @@ namespace Gimnet.Sertifika.Forms
     using System.Collections.Generic;
     using System.IO;
 
+
     [FormScript("Sertifika.Firma")]
     [BasedOnRow(typeof(Entities.FirmaRow))]
     public class FirmaForm
@@ -19,7 +20,7 @@ namespace Gimnet.Sertifika.Forms
         public String KucukLogo { get; set; }
         [Hidden()]
         public String OrtaLogo { get; set; }
-        [ImageUploadEditor, DisplayName("Logo")]
+        [FirmaLogoUploadEditor, DisplayName("Logo")]
         public String BuyukLogo { get; set; }
         [DisplayName("Bulunduğu Şehir")]
         public String KonumSehir { get; set; }
@@ -28,5 +29,6 @@ namespace Gimnet.Sertifika.Forms
         public String WebSayfasi { get; set; }
         [DisplayName("Email Adresi")]
         public String IletisimEmail { get; set; }
+        public FirmaDurumIds Durum { get; set; }
     }
 }

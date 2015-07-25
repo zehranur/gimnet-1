@@ -58,7 +58,7 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.YenilemeTarihi[this] = value; }
         }
 
-        [DisplayName("Sertifika Kapsamı"), NotNull]
+        [DisplayName("Sertifika Kapsamı"), TextAreaEditor, NotNull]
         public String SertifikaKapsami
         {
             get { return Fields.SertifikaKapsami[this]; }
@@ -163,6 +163,13 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.FirmaIletisimEmail[this] = value; }
         }
 
+        [DisplayName("Sertifika Resimleri")]
+        public String SertifikaResimleri
+        {
+            get { return Fields.SertifikaResimleri[this]; }
+            set { Fields.SertifikaResimleri[this] = value; }
+        }
+
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -206,6 +213,7 @@ namespace Gimnet.Sertifika.Entities
             public readonly StringField FirmaTelefon;
             public readonly StringField FirmaWebSayfasi;
             public readonly StringField FirmaIletisimEmail;
+            public readonly StringField SertifikaResimleri;
 
 
             public RowFields()
