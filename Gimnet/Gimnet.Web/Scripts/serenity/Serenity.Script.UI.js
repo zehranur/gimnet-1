@@ -9231,7 +9231,6 @@
 		$Serenity_FilterOperators.toCriteriaOperator = null;
 		$Serenity_FilterOperators.toCriteriaOperator = {};
 		$Serenity_FilterOperators.toCriteriaOperator[$Serenity_FilterOperators.EQ] = '=';
-		$Serenity_FilterOperators.toCriteriaOperator[$Serenity_FilterOperators.NE] = '!=';
 		$Serenity_FilterOperators.toCriteriaOperator[$Serenity_FilterOperators.GT] = '>';
 		$Serenity_FilterOperators.toCriteriaOperator[$Serenity_FilterOperators.GE] = '>=';
 		$Serenity_FilterOperators.toCriteriaOperator[$Serenity_FilterOperators.LT] = '<';

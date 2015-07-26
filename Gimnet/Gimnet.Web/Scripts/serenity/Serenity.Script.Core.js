@@ -1222,14 +1222,11 @@
 	};
 	$Serenity_NumberFormatter.__typeName = 'Serenity.NumberFormatter';
 	$Serenity_NumberFormatter.format = function(value, format) {
-		format = ss.coalesce(format, '0.##');
-		if (!ss.isValue(value)) {
+		format = ss.coalesce(format, '');
+		if (!ss.isValue(value) || isNaN(value)) {
 			return '';
 		}
 		if (typeof(value) === 'number') {
-			if (isNaN(value)) {
-				return '';
-			}
 			return $Q.htmlEncode($Q.formatNumber(value, format));
 		}
 		var dbl = $Q.parseDecimal(value.toString());

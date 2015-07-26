@@ -267,23 +267,21 @@
     <Reference Include="Saltarelle.Web">
       <HintPath>..\..\packages\Saltarelle.Web.3.1.0\lib\Saltarelle.Web.dll</HintPath>
     </Reference>
+    <Reference Include="Serenity.Script.Core, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Serenity.Script.1.5.0\lib\net20\Serenity.Script.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Serenity.Script.Imports, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Serenity.Script.1.5.0\lib\net20\Serenity.Script.Imports.dll</HintPath>
+    </Reference>
+    <Reference Include="Serenity.Script.UI, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Serenity.Script.1.5.0\lib\net20\Serenity.Script.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="DATABASE\DB Oluştur.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Serenity\Serenity.Script.Core\Serenity.Script.Core.csproj">
-      <Project>{55fcc86f-c622-4909-819f-19ddd5263579}</Project>
-      <Name>Serenity.Script.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Serenity\Serenity.Script.Imports\Serenity.Script.Imports.csproj">
-      <Project>{1e32ed5b-d96e-41d9-b532-577005b0ddb0}</Project>
-      <Name>Serenity.Script.Imports</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Serenity\Serenity.Script.UI\Serenity.Script.UI.csproj">
-      <Project>{56e9e208-55d9-4a50-a5b9-6eb22df6af0e}</Project>
-      <Name>Serenity.Script.UI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="!Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.6.2\tools\Saltarelle.Compiler.targets')" />
   <Import Project="$(SolutionDir)packages\Saltarelle.Compiler.2.6.2\tools\Saltarelle.Compiler.targets" Condition="Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.6.2\tools\Saltarelle.Compiler.targets')" />
