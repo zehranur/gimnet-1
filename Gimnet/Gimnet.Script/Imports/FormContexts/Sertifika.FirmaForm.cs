@@ -18,7 +18,7 @@ namespace Gimnet.Sertifika
         public StringEditor FirmaAdi { get { return ById<StringEditor>("FirmaAdi"); } }
         public StringEditor KucukLogo { get { return ById<StringEditor>("KucukLogo"); } }
         public StringEditor OrtaLogo { get { return ById<StringEditor>("OrtaLogo"); } }
-        public FirmaLogoUploadEditor BuyukLogo { get { return ById<FirmaLogoUploadEditor>("BuyukLogo"); } }
+        public StringEditor BuyukLogo { get { return ById<StringEditor>("BuyukLogo"); } }
         public StringEditor KonumSehir { get { return ById<StringEditor>("KonumSehir"); } }
         public StringEditor Telefon { get { return ById<StringEditor>("Telefon"); } }
         public StringEditor WebSayfasi { get { return ById<StringEditor>("WebSayfasi"); } }

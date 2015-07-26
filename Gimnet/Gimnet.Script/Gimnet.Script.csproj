@@ -39,7 +39,11 @@
     <Compile Include="Common\Helper\CascadedEditorHelper.cs" />
     <Compile Include="Common\Navigation\LanguageSelection.cs" />
     <Compile Include="Common\Navigation\SidebarSearch.cs" />
+    <Compile Include="Duyuru\Duyuru\DuyuruDialog.cs" />
+    <Compile Include="Duyuru\Duyuru\DuyuruGrid.cs" />
     <Compile Include="Duyuru\Duyuru\HtmlBasicContentEditor.cs" />
+    <Compile Include="HelalDunyaMarket\HelalMarket\HelalMarketDialog.cs" />
+    <Compile Include="HelalDunyaMarket\HelalMarket\HelalMarketGrid.cs" />
     <Compile Include="Imports\FormContexts\Administration.LanguageForm.cs">
       <DependentUpon>FormContexts.tt</DependentUpon>
     </Compile>
@@ -157,12 +161,6 @@
     <Compile Include="Imports\ServiceContracts\HelalDunyaMarket.HelalMarketService.cs">
       <DependentUpon>ServiceContracts.tt</DependentUpon>
     </Compile>
-    <Compile Include="Imports\ServiceContracts\Marmara.Common.Pages.FileController.cs">
-      <DependentUpon>ServiceContracts.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Imports\ServiceContracts\Marmara.Common.Pages.UploadResponse.cs">
-      <DependentUpon>ServiceContracts.tt</DependentUpon>
-    </Compile>
     <Compile Include="Imports\ServiceContracts\Membership.LoginRequest.cs">
       <DependentUpon>ServiceContracts.tt</DependentUpon>
     </Compile>
@@ -207,23 +205,19 @@
     <Compile Include="Administration\Role\RoleGrid.cs" />
     <Compile Include="Administration\Role\RoleDialog.cs" />
     <Compile Include="Administration\UserPermission\UserPermissionDialog.cs" />
-    <Compile Include="Duyuru\Duyuru\DuyuruGrid.cs" />
-    <Compile Include="Duyuru\Duyuru\DuyuruDialog.cs" />
-    <Compile Include="Sertifika\Firma\FirmaGrid.cs" />
     <Compile Include="Sertifika\Firma\FirmaDialog.cs" />
-    <Compile Include="Sertifika\Firma\FirmaLookupEditor.cs" />
+    <Compile Include="Sertifika\Firma\FirmaGrid.cs" />
     <Compile Include="Sertifika\Firma\FirmaLogoUploadEditor.cs" />
-    <Compile Include="Sertifika\Kategori\KategoriGrid.cs" />
-    <Compile Include="Sertifika\Kategori\KategoriDialog.cs" />
-    <Compile Include="Sertifika\Kategori\KategoriLookupEditor.cs" />
-    <Compile Include="Sertifika\SertifikaResim\SertifikaResimleriUploadEditor.cs" />
-    <Compile Include="Sertifika\SertifikaResim\SertifikaResimGrid.cs" />
-    <Compile Include="Sertifika\SertifikaResim\SertifikaResimDialog.cs" />
-    <Compile Include="HelalDunyaMarket\HelalMarket\HelalMarketGrid.cs" />
-    <Compile Include="HelalDunyaMarket\HelalMarket\HelalMarketDialog.cs" />
-    <Compile Include="Sertifika\HelalSertifika\HelalSertifikaGrid.cs" />
+    <Compile Include="Sertifika\Firma\FirmaLookupEditor.cs" />
     <Compile Include="Sertifika\HelalSertifika\HelalSertifikaDialog.cs" />
+    <Compile Include="Sertifika\HelalSertifika\HelalSertifikaGrid.cs" />
+    <Compile Include="Sertifika\Kategori\KategoriDialog.cs" />
+    <Compile Include="Sertifika\Kategori\KategoriGrid.cs" />
+    <Compile Include="Sertifika\Kategori\KategoriLookupEditor.cs" />
+    <Compile Include="Sertifika\SertifikaResim\SertifikaResimDialog.cs" />
+    <Compile Include="Sertifika\SertifikaResim\SertifikaResimGrid.cs" />
     <Compile Include="Sertifika\SertifikaResim\SertifikaResimGridDialog.cs" />
+    <Compile Include="Sertifika\SertifikaResim\SertifikaResimleriUploadEditor.cs" />
     <Compile Include="Sertifika\SupportUtility.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@ namespace Gimnet.Duyuru.Forms
     public class DuyuruForm
     {
         public String Baslik { get; set; }
-        [HtmlBasicContentEditor(Rows= 15)]
+        [HtmlBasicContentEditor(Rows = 15)]
         public String DuyuruMetni { get; set; }
         public DateTime SonTarih { get; set; }
         public DateTime EklemeTarihi { get; set; }

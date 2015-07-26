@@ -8,8 +8,6 @@ namespace Gimnet.Sertifika.Forms
     using System.ComponentModel;
     using System.Collections.Generic;
     using System.IO;
-    using Gimnet.Sertifika.Kategori;
-    using Gimnet.Sertifika.Firma;
 
     [ColumnsScript("Sertifika.HelalSertifika")]
     [BasedOnRow(typeof(Entities.HelalSertifikaRow))]

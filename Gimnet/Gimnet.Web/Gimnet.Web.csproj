@@ -38,22 +38,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentMigrator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+    <Reference Include="FluentMigrator, Version=1.5.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\FluentMigrator.1.6.0\lib\40\FluentMigrator.dll</HintPath>
+      <HintPath>..\..\packages\FluentMigrator.1.5.0.0\lib\40\FluentMigrator.dll</HintPath>
     </Reference>
-    <Reference Include="FluentMigrator.Runner, Version=1.6.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+    <Reference Include="FluentMigrator.Runner, Version=1.5.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\FluentMigrator.Runner.1.6.0\lib\40\FluentMigrator.Runner.dll</HintPath>
+      <HintPath>..\..\packages\FluentMigrator.Runner.1.5.0.0\lib\40\FluentMigrator.Runner.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Serenity.Core, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -85,27 +85,27 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -514,6 +514,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\Simple-Line-Icons.dev.svg" />
     <Content Include="fonts\Simple-Line-Icons.svg" />
+    <Content Include="Icon.png" />
     <Content Include="Modules\Common\Imports\ScriptEditorTypes.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ScriptEditorTypes.log</LastGenOutput>
@@ -526,13 +527,38 @@
     <Content Include="Modules\Common\Imports\MultipleOutputHelper.ttinclude" />
     <Content Include="Content\site\site.administration.less" />
     <Content Include="Content\site\site.theme.light.less" />
-    <Content Include="Readme.CodeGenerator.txt" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Modules\Common\Imports\ScriptFormatterTypes.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ScriptFormatterTypes.log</LastGenOutput>
+    </Content>
+    <Content Include="Modules\Common\Imports\ScriptFormatterTypes.log">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScriptFormatterTypes.tt</DependentUpon>
+    </Content>
+    <Content Include="fonts\Simple-Line-Icons.woff" />
+    <Content Include="fonts\Simple-Line-Icons.ttf" />
+    <Content Include="fonts\Simple-Line-Icons.eot" />
     <Content Include="Scripts\CKEditor\CHANGES.md" />
     <Content Include="Scripts\CKEditor\LICENSE.md" />
     <Content Include="Scripts\CKEditor\README.md" />
     <Content Include="Scripts\CKEditor\skins\moono\readme.md" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Modules\Duyuru\Duyuru\DuyuruIndex.cshtml" />
+    <Content Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketIndex.cshtml" />
+    <Content Include="Modules\Sertifika\Firma\FirmaIndex.cshtml" />
+    <Content Include="Modules\Sertifika\HelalSertifika\HelalSertifikaIndex.cshtml" />
+    <Content Include="Modules\Sertifika\Kategori\KategoriIndex.cshtml" />
+    <Content Include="Modules\Sertifika\SertifikaResim\SertifikaResimIndex.cshtml" />
+    <Content Include="Readme.CodeGenerator.txt" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CKEditor\adapters\jquery.js" />
     <Content Include="Scripts\CKEditor\adapters\jquery.min.js" />
     <Content Include="Scripts\CKEditor\build-config.js" />
@@ -693,20 +719,10 @@
     <Content Include="Scripts\CKEditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\CKEditor\styles.js" />
     <Content Include="Scripts\CKEditor\styles.min.js" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\toastr.scss" />
-    <Content Include="Content\toastr.less" />
-    <Content Include="fonts\Simple-Line-Icons.woff" />
-    <Content Include="fonts\Simple-Line-Icons.ttf" />
-    <Content Include="fonts\Simple-Line-Icons.eot" />
-    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jlayout.border.js" />
     <Content Include="Scripts\jlayout.border.min.js" />
-    <Content Include="Scripts\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery-ui-i18n.js" />
@@ -732,7 +748,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.fileupload.js" />
     <Content Include="Scripts\jquery.fileupload.min.js" />
@@ -752,6 +768,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jsrender.js" />
     <Content Include="Scripts\jsrender.min.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\pace.js" />
     <Content Include="Scripts\pace.min.js" />
     <Content Include="Scripts\rsvp.js" />
@@ -927,12 +944,6 @@
     <Content Include="Modules\Administration\Language\LanguageIndex.cshtml" />
     <Content Include="Modules\Administration\Translation\TranslationIndex.cshtml" />
     <Content Include="Modules\Administration\Role\RoleIndex.cshtml" />
-    <Content Include="Modules\Duyuru\Duyuru\DuyuruIndex.cshtml" />
-    <Content Include="Modules\Sertifika\Firma\FirmaIndex.cshtml" />
-    <Content Include="Modules\Sertifika\Kategori\KategoriIndex.cshtml" />
-    <Content Include="Modules\Sertifika\SertifikaResim\SertifikaResimIndex.cshtml" />
-    <Content Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketIndex.cshtml" />
-    <Content Include="Modules\Sertifika\HelalSertifika\HelalSertifikaIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -960,7 +971,12 @@
     <Compile Include="Modules\Administration\UserRole\UserRoleListResponse.cs" />
     <Compile Include="Modules\Administration\UserRole\UserRoleListRequest.cs" />
     <Compile Include="Modules\Administration\UserRole\UserRoleEndpoint.cs" />
-    <Compile Include="Modules\Common\File\FileController.cs" />
+    <Compile Include="Modules\Common\Imports\ScriptEditorTypes.cs">
+      <DependentUpon>ScriptEditorTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Common\Imports\ScriptFormatterTypes.cs">
+      <DependentUpon>ScriptFormatterTypes.tt</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Common\Migrations\DefaultDB\DefaultDB_20141123_155100_ProductImage.cs" />
     <Compile Include="Modules\Common\Migrations\DefaultDB\DefaultDB_20141111_113000_Permissions.cs" />
     <Compile Include="Modules\Common\Migrations\DefaultDB\DefaultDB_20141103_140000_Initial.cs" />
@@ -969,13 +985,122 @@
     <Compile Include="Modules\Administration\Translation\TranslationItem.cs" />
     <Compile Include="Modules\Common\Dashboard\DashboardPage.cs" />
     <Compile Include="Modules\Common\Helpers\SqlExceptionHelper.cs" />
-    <Compile Include="Modules\Common\Imports\ScriptEditorTypes.cs">
-      <DependentUpon>ScriptEditorTypes.tt</DependentUpon>
-    </Compile>
     <Compile Include="Modules\Common\Navigation\NavigationItems.cs" />
     <Compile Include="Modules\Common\Navigation\NavigationModel.cs" />
-    <Compile Include="Modules\Sertifika\Firma\FirmaDurumIds.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\SertifikaDurumIds.cs" />
+    <Compile Include="Modules\Duyuru\Duyuru\DuyuruColumns.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Duyuru\Duyuru\DuyuruEndpoint.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Duyuru\Duyuru\DuyuruForm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Duyuru\Duyuru\DuyuruPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Duyuru\Duyuru\DuyuruRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Duyuru\Duyuru\DuyuruRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketColumns.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketEndpoint.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketForm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Firma\FirmaColumns.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Firma\FirmaDurumIds.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Firma\FirmaEndpoint.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Firma\FirmaForm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Firma\FirmaPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Firma\FirmaRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Firma\FirmaRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaColumns.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaEndpoint.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaForm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\HelalSertifika\SertifikaDurumIds.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Kategori\KategoriColumns.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Kategori\KategoriEndpoint.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Kategori\KategoriForm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Kategori\KategoriPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Kategori\KategoriRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\Kategori\KategoriRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimColumns.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimEndpoint.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimForm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Modules\Texts.cs" />
     <Compile Include="Modules\Membership\Account\AccountPage.cs" />
     <Compile Include="Modules\Administration\User\AuthorizationService.cs" />
@@ -1016,46 +1141,9 @@
     <Compile Include="Modules\Administration\UserPermission\UserPermissionRow.cs" />
     <Compile Include="Modules\Administration\UserPermission\UserPermissionRepository.cs" />
     <Compile Include="Modules\Administration\UserPermission\UserPermissionEndpoint.cs" />
-    <Compile Include="Modules\Duyuru\Duyuru\DuyuruRow.cs" />
-    <Compile Include="Modules\Duyuru\Duyuru\DuyuruColumns.cs" />
-    <Compile Include="Modules\Duyuru\Duyuru\DuyuruForm.cs" />
-    <Compile Include="Modules\Duyuru\Duyuru\DuyuruRepository.cs" />
-    <Compile Include="Modules\Duyuru\Duyuru\DuyuruEndpoint.cs" />
-    <Compile Include="Modules\Duyuru\Duyuru\DuyuruPage.cs" />
-    <Compile Include="Modules\Sertifika\Firma\FirmaRow.cs" />
-    <Compile Include="Modules\Sertifika\Firma\FirmaColumns.cs" />
-    <Compile Include="Modules\Sertifika\Firma\FirmaForm.cs" />
-    <Compile Include="Modules\Sertifika\Firma\FirmaRepository.cs" />
-    <Compile Include="Modules\Sertifika\Firma\FirmaEndpoint.cs" />
-    <Compile Include="Modules\Sertifika\Firma\FirmaPage.cs" />
-    <Compile Include="Modules\Sertifika\Kategori\KategoriRow.cs" />
-    <Compile Include="Modules\Sertifika\Kategori\KategoriColumns.cs" />
-    <Compile Include="Modules\Sertifika\Kategori\KategoriForm.cs" />
-    <Compile Include="Modules\Sertifika\Kategori\KategoriRepository.cs" />
-    <Compile Include="Modules\Sertifika\Kategori\KategoriEndpoint.cs" />
-    <Compile Include="Modules\Sertifika\Kategori\KategoriPage.cs" />
-    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimRow.cs" />
-    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimColumns.cs" />
-    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimForm.cs" />
-    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimRepository.cs" />
-    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimEndpoint.cs" />
-    <Compile Include="Modules\Sertifika\SertifikaResim\SertifikaResimPage.cs" />
-    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketRow.cs" />
-    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketColumns.cs" />
-    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketForm.cs" />
-    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketRepository.cs" />
-    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketEndpoint.cs" />
-    <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketPage.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaRow.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaColumns.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaForm.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaRepository.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaEndpoint.cs" />
-    <Compile Include="Modules\Sertifika\HelalSertifika\HelalSertifikaPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Modules\Enums\" />
     <Folder Include="Scripts\CKEditor\samples\assets\inlineall\" />
     <Folder Include="Scripts\CKEditor\samples\assets\outputxhtml\" />
     <Folder Include="Scripts\CKEditor\samples\assets\uilanguages\" />
@@ -1085,7 +1173,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:8517/</IISUrl>
+          <IISUrl>http://localhost:59837/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

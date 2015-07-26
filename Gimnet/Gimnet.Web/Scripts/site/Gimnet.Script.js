@@ -1601,9 +1601,6 @@
 			dialogOptions.resizable = true;
 			return dialogOptions;
 		},
-		getTemplateName: function() {
-			return 'GridDialog';
-		},
 		updateTitle: function() {
 			if (ss.isNullOrUndefined(this.get_sertifika())) {
 				return;

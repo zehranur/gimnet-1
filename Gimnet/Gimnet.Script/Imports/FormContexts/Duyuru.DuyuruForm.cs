@@ -16,7 +16,7 @@ namespace Gimnet.Duyuru
         public DuyuruForm(string idPrefix) : base(idPrefix) {}
     
         public StringEditor Baslik { get { return ById<StringEditor>("Baslik"); } }
-        public HtmlBasicContentEditor DuyuruMetni { get { return ById<HtmlBasicContentEditor>("DuyuruMetni"); } }
+        public StringEditor DuyuruMetni { get { return ById<StringEditor>("DuyuruMetni"); } }
         public DateEditor SonTarih { get { return ById<DateEditor>("SonTarih"); } }
         public DateEditor EklemeTarihi { get { return ById<DateEditor>("EklemeTarihi"); } }
     }

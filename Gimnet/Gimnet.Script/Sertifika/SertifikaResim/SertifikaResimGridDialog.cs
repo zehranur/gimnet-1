@@ -47,10 +47,10 @@
             return dialogOptions;
         }
 
-        protected override string GetTemplateName()
-        {
-            return "GridDialog";
-        }
+        //protected override string GetTemplateName()
+        //{
+        //    return "GridDialog";
+        //}
 
         public void UpdateTitle()
         {

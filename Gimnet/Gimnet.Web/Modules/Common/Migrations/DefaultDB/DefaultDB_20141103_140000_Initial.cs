@@ -37,15 +37,6 @@ namespace Gimnet.Migrations.DefaultDB
                 IsActive = 1
             });
 
-            Create.Table("Sertifika")
-               .WithColumn("Id").AsInt32().Identity().PrimaryKey().NotNullable()
-               .WithColumn("Firma").AsString(100).NotNullable()
-               .WithColumn("Marka").AsString(100).NotNullable()
-               .WithColumn("Model").AsString(100).Nullable()
-               .WithColumn("Detay").AsString(4).NotNullable()
-               .WithColumn("Tarih").AsDateTime().NotNullable()
-               .WithColumn("IsActive").AsInt16().NotNullable().WithDefaultValue(1);
-
             Create.Table("Languages")
                 .WithColumn("Id").AsInt32().Identity().PrimaryKey().NotNullable()
                 .WithColumn("LanguageId").AsString(10).NotNullable()

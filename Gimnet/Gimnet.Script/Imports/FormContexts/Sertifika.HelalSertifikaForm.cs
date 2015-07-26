@@ -15,8 +15,8 @@ namespace Gimnet.Sertifika
     
         public HelalSertifikaForm(string idPrefix) : base(idPrefix) {}
     
-        public Kategori.KategoriLookupEditor KategoriId { get { return ById<Kategori.KategoriLookupEditor>("KategoriId"); } }
-        public Firma.FirmaLookupEditor FirmaId { get { return ById<Firma.FirmaLookupEditor>("FirmaId"); } }
+        public IntegerEditor KategoriId { get { return ById<IntegerEditor>("KategoriId"); } }
+        public IntegerEditor FirmaId { get { return ById<IntegerEditor>("FirmaId"); } }
         public StringEditor Marka { get { return ById<StringEditor>("Marka"); } }
         public DateEditor İlkBasvuruTarihi { get { return ById<DateEditor>("İlkBasvuruTarihi"); } }
         public DateEditor YenilemeTarihi { get { return ById<DateEditor>("YenilemeTarihi"); } }
