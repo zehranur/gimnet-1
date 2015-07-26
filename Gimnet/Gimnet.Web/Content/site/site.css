@@ -1046,3 +1046,655 @@ a,
   background-color: #ccc;
   border-color: #2f79aa;
 }
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-DuyuruDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-DuyuruDialog .tab-pane {
+  height: auto;
+}
+.s-DuyuruDialog .caption {
+  width: 150px;
+}
+.s-DuyuruDialog .editor {
+  width: 400px;
+}
+.s-DuyuruDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-DuyuruDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-DuyuruDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-DuyuruDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-DuyuruDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-DuyuruDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-DuyuruDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-DuyuruDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-FirmaDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-FirmaDialog .tab-pane {
+  height: auto;
+}
+.s-FirmaDialog .caption {
+  width: 150px;
+}
+.s-FirmaDialog .editor {
+  width: 400px;
+}
+.s-FirmaDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-FirmaDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-FirmaDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-FirmaDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-FirmaDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-FirmaDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-FirmaDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-FirmaDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-HelalSertifikaDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-HelalSertifikaDialog .tab-pane {
+  height: auto;
+}
+.s-HelalSertifikaDialog .caption {
+  width: 150px;
+}
+.s-HelalSertifikaDialog .editor {
+  width: 400px;
+}
+.s-HelalSertifikaDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-HelalSertifikaDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-HelalSertifikaDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-KategoriDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-KategoriDialog .tab-pane {
+  height: auto;
+}
+.s-KategoriDialog .caption {
+  width: 150px;
+}
+.s-KategoriDialog .editor {
+  width: 400px;
+}
+.s-KategoriDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-KategoriDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-KategoriDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-KategoriDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-KategoriDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-KategoriDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-KategoriDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-KategoriDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-SertifikaResimDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-SertifikaResimDialog .tab-pane {
+  height: auto;
+}
+.s-SertifikaResimDialog .caption {
+  width: 150px;
+}
+.s-SertifikaResimDialog .editor {
+  width: 400px;
+}
+.s-SertifikaResimDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-SertifikaResimDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-SertifikaResimDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-SertifikaResimDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-SertifikaResimDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-SertifikaResimDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-SertifikaResimDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-SertifikaResimDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-HelalMarketDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-HelalMarketDialog .tab-pane {
+  height: auto;
+}
+.s-HelalMarketDialog .caption {
+  width: 150px;
+}
+.s-HelalMarketDialog .editor {
+  width: 400px;
+}
+.s-HelalMarketDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-HelalMarketDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-HelalMarketDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-HelalMarketDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-HelalMarketDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-HelalMarketDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-HelalMarketDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-HelalMarketDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-HelalSertifikaDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-HelalSertifikaDialog .tab-pane {
+  height: auto;
+}
+.s-HelalSertifikaDialog .caption {
+  width: 150px;
+}
+.s-HelalSertifikaDialog .editor {
+  width: 400px;
+}
+.s-HelalSertifikaDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-HelalSertifikaDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-HelalSertifikaDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-HelalSertifikaDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-HelalSertifikaDialog .tab-pane {
+  height: auto;
+}
+.s-HelalSertifikaDialog .caption {
+  width: 150px;
+}
+.s-HelalSertifikaDialog .editor {
+  width: 400px;
+}
+.s-HelalSertifikaDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-HelalSertifikaDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-HelalSertifikaDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-HelalSertifikaDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-HelalSertifikaDialog .tab-pane {
+  height: auto;
+}
+.s-HelalSertifikaDialog .caption {
+  width: 150px;
+}
+.s-HelalSertifikaDialog .editor {
+  width: 400px;
+}
+.s-HelalSertifikaDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-HelalSertifikaDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-HelalSertifikaDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-HelalSertifikaDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-HelalSertifikaDialog .tab-pane {
+  height: auto;
+}
+.s-HelalSertifikaDialog .caption {
+  width: 150px;
+}
+.s-HelalSertifikaDialog .editor {
+  width: 400px;
+}
+.s-HelalSertifikaDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-HelalSertifikaDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-HelalSertifikaDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-HelalSertifikaDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-HelalSertifikaDialog .tab-pane {
+  height: auto;
+}
+.s-HelalSertifikaDialog .caption {
+  width: 150px;
+}
+.s-HelalSertifikaDialog .editor {
+  width: 400px;
+}
+.s-HelalSertifikaDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-HelalSertifikaDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-HelalSertifikaDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-HelalSertifikaDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-HelalSertifikaDialog .tab-pane {
+  height: auto;
+}
+.s-HelalSertifikaDialog .caption {
+  width: 150px;
+}
+.s-HelalSertifikaDialog .editor {
+  width: 400px;
+}
+.s-HelalSertifikaDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-HelalSertifikaDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-HelalSertifikaDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-HelalSertifikaDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-HelalSertifikaDialog .tab-pane {
+  height: auto;
+}
+.s-HelalSertifikaDialog .caption {
+  width: 150px;
+}
+.s-HelalSertifikaDialog .editor {
+  width: 400px;
+}
+.s-HelalSertifikaDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-HelalSertifikaDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-HelalSertifikaDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-HelalSertifikaDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-HelalSertifikaDialog .tab-pane {
+  height: auto;
+}
+.s-HelalSertifikaDialog .caption {
+  width: 150px;
+}
+.s-HelalSertifikaDialog .editor {
+  width: 400px;
+}
+.s-HelalSertifikaDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-HelalSertifikaDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-HelalSertifikaDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-HelalSertifikaDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-HelalSertifikaDialog .tab-pane {
+  height: auto;
+}
+.s-HelalSertifikaDialog .caption {
+  width: 150px;
+}
+.s-HelalSertifikaDialog .editor {
+  width: 400px;
+}
+.s-HelalSertifikaDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-HelalSertifikaDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-HelalSertifikaDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-HelalSertifikaDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-SertifikaResimGridDialog .tab-pane {
+  height: 100%;
+}
+.s-SertifikaResimGridDialog .caption {
+  width: 160px;
+}
+.s-SertifikaResimGridDialog .editor {
+  width: 410px;
+}
+.s-SertifikaResimGridDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-SertifikaResimGridDialog .s-Form .editor.dateQ {
+  width: 393px;
+}
+.s-SertifikaResimGridDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-SertifikaResimGridDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 333px;
+}
+.s-SertifikaResimGridDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-SertifikaResimGridDialog .s-Form .editor.has-inplace-button {
+  width: 388px;
+}
+.s-SertifikaResimGridDialog .s-Form .emaildomain {
+  width: 225px;
+}
+.s-SertifikaResimGridDialog .ui-dialog-content {
+  overflow: hidden;
+}

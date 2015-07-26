@@ -14,19 +14,18 @@
          
         public SertifikaResimGridDialog()
         {
-            SupportUtility.AddLinkToTitle(this.element);
-            ById("GridDiv").Height(359).FlexHeightOnly();
+            //ById("GridDiv").Height(359).FlexHeightOnly();
             SertifikaResimGrid = new SertifikaResimGrid(ById("GridDiv"));
         }
 
-        protected override void InitDialog()
-        {
-            base.InitDialog();
+        //protected override void InitDialog()
+        //{
+        //    base.InitDialog();
 
-            this.element.DialogFlexify()
-                .DialogResizable(w: 875, h: 400, mw: 700, mh: 400)
-                .DialogMaximizable();
-        }
+        //    this.element.DialogFlexify()
+        //        .DialogResizable(w: 875, h: 400, mw: 700, mh: 400)
+        //        .DialogMaximizable();
+        //}
 
         protected override void OnDialogOpen()
         {
@@ -47,10 +46,10 @@
             return dialogOptions;
         }
 
-        //protected override string GetTemplateName()
-        //{
-        //    return "GridDialog";
-        //}
+        protected override string GetTemplateName()
+        {
+            return "GridDialog";
+        }
 
         public void UpdateTitle()
         {
@@ -87,9 +86,6 @@
                 }
             }
         }
-
-
-
     }
 }
    

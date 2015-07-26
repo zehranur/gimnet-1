@@ -1,0 +1,35 @@
+﻿@model Marmara.MasterDB.KullaniciOlusturulduMailModel
+
+<html>
+<head>
+    <title>Yeni BYS Kullanıcı Hesabınız Oluşturuldu</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+</head>
+<body>
+    <table bgcolor="#dfe7f0" width="800" border="0" align="center" cellpadding="0" cellspacing="0"
+        style="font-family: Segoe UI; padding-left: 30px; padding-right: 30px; font-size: 13px; color: #464747;" >
+    <tr>
+        <td colspan="2">&nbsp;<br /><br /><br /></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            Sayın @Model.AdiSoyadi,<br /><br />
+            @Model.KullaniciAdi kullanıcı adına sahip BYS hesabınız oluşturulmuştur.<br /><br />
+            <a href="@Model.ActivationUrl" style='color: blue;'>@Model.ActivationUrlShort</a> adresinden şifrenizi oluşturup sisteme giriş yapabilirsiniz.<br/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;<br /><br /></td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;<br /><br /><br /></td>
+    </tr>
+    <tr style="background-color: #436593; color: white; height: 30px;">
+        <td colspan="2" style="padding: 10px;">
+            Marmara Üniversitesi Bilgi Yönetim Sistemi 
+            <a href="https://bys.marmara.edu.tr" style="color: white;">https://bys.marmara.edu.tr</a>
+        </td>
+    </tr>
+    </table>
+</body>
+</html>

@@ -706,8 +706,11 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.SertifikaResimDialog
 	var $Gimnet_Sertifika_SertifikaResimDialog = function() {
+		this.$form = null;
 		this.$8$SertifikaIdField = null;
 		ss.makeGenericType(Serenity.EntityDialog$1, [Object]).call(this);
+		this.$form = new $Gimnet_Sertifika_SertifikaResimForm(this.idPrefix);
+		this.$form.get_sertifikaId().set_value$1(this.get_sertifikaId());
 	};
 	$Gimnet_Sertifika_SertifikaResimDialog.__typeName = 'Gimnet.Sertifika.SertifikaResimDialog';
 	global.Gimnet.Sertifika.SertifikaResimDialog = $Gimnet_Sertifika_SertifikaResimDialog;
@@ -786,8 +789,7 @@
 		this.$7$SertifikaField = null;
 		this.$7$SertifikaResimGridField = null;
 		Serenity.TemplatedDialog.call(this);
-		$Gimnet_Sertifika_SupportUtility.addLinkToTitle(this.element);
-		Serenity.FLX.flexHeightOnly(this.byId$1('GridDiv').height(359), 1);
+		//ById("GridDiv").Height(359).FlexHeightOnly();
 		this.set_sertifikaResimGrid(new $Gimnet_Sertifika_SertifikaResimGrid(this.byId$1('GridDiv')));
 	};
 	$Gimnet_Sertifika_SertifikaResim_SertifikaResimGridDialog.__typeName = 'Gimnet.Sertifika.SertifikaResim.SertifikaResimGridDialog';
@@ -1498,6 +1500,11 @@
 	ss.initClass($Gimnet_Sertifika_KategoriService, $asm, {});
 	ss.initEnum($Gimnet_Sertifika_SertifikaDurumIds, $asm, { None: 0, Gecerli: 1, SuresiGecmis: 2 });
 	ss.initClass($Gimnet_Sertifika_SertifikaResimDialog, $asm, {
+		loadEntity: function(entity) {
+			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
+			this.$form.get_sertifikaId().set_value$1(this.get_sertifikaId());
+			//entity.SertifikaId = SertifikaId;
+		},
 		getSaveEntity: function() {
 			var entity = ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.getSaveEntity.call(this);
 			entity.SertifikaId = this.get_sertifikaId();
@@ -1585,10 +1592,6 @@
 		set_sertifikaResimGrid: function(value) {
 			this.$7$SertifikaResimGridField = value;
 		},
-		initDialog: function() {
-			ss.makeGenericType(Serenity.TemplatedDialog$1, [Object]).prototype.initDialog.call(this);
-			Serenity.DialogExtensions.dialogMaximizable(Serenity.DialogExtensions.dialogResizable(Serenity.DialogExtensions.dialogFlexify(this.element), 875, 400, 700, 400));
-		},
 		onDialogOpen: function() {
 			ss.makeGenericType(Serenity.TemplatedDialog$1, [Object]).prototype.onDialogOpen.call(this);
 			$('.ui-widget-overlay.ui-front').last().css('opacity', '0.5');
@@ -1600,6 +1603,9 @@
 			var dialogOptions = ss.makeGenericType(Serenity.TemplatedDialog$1, [Object]).prototype.getDialogOptions.call(this);
 			dialogOptions.resizable = true;
 			return dialogOptions;
+		},
+		getTemplateName: function() {
+			return 'GridDialog';
 		},
 		updateTitle: function() {
 			if (ss.isNullOrUndefined(this.get_sertifika())) {

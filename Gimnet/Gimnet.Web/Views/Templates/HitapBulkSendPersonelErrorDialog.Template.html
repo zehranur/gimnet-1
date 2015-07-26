@@ -1,0 +1,31 @@
+﻿<div class="s-DialogContent" id="HitapBulkBulkSendPersonelErrorDialog">
+    <style type="text/css" scoped>
+        .s-HitapBulkSendPersonelErrorDialog .s-DialogContent {
+            padding: 6px;
+        }
+
+        #HitapBulkBulkSendPersonelErrorDialog p {
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        #HitapBulkBulkSendPersonelErrorDialog .messages {
+            background-color: bisque;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    
+    <div class="messages">
+        <p id="~/SuccessMessage" class="success-message">Seçilen personellerin gönderim işlemi tamamlandı (<b><span id="~_SuccessCount">0</span></b> kişi başarılı).</p>
+
+        <p class="error-info">Aşağıda gönderim sırasında hata alınan personeller listelenmiştir. Dilerseniz
+            bu kişileri isimlerine tıklayarak inceleyebilir, ya da Excel dosyası olarak listeyi indirip
+            daha sonra kontrol edebilirsiniz.
+        </p>
+    </div>
+
+    <div id="~_ErrorGrid">
+    </div>
+</div>

@@ -924,7 +924,13 @@
     <Content Include="tools\Node\less\lib\less\visitor.js" />
     <Content Include="tools\Node\node.exe" />
     <Content Include="Views\Templates\EntityDialog.Template.html" />
+    <Content Include="Views\Templates\GridDialog.Template.html" />
+    <Content Include="Views\Templates\HitapBulkProgressDialog.Template.html" />
+    <Content Include="Views\Templates\HitapBulkSendPersonelErrorDialog.Template.html" />
+    <Content Include="Views\Templates\HitapSenkronizasyonLegendDialog.Template.html" />
     <Content Include="Views\Templates\PropertyDialog.Template.html" />
+    <Content Include="Views\Templates\ReportDesignPanel.Template.html" />
+    <Content Include="Views\Templates\ReportDialog.Template.html" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -934,6 +940,13 @@
     <Content Include="Views\Shared\_LayoutNoNavigation.cshtml" />
     <Content Include="tools\Node\less\bin\lessc" />
     <Content Include="tools\Node\lessc.cmd" />
+    <Content Include="Views\Email\KullaniciOlusturuldu.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Error\ApplicationError.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Shared\SupportScript.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

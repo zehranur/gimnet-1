@@ -8,6 +8,9 @@ namespace Gimnet.Sertifika
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+    using Gimnet.Sertifika;
+    using Gimnet.Sertifika.Kategori;
+    using Gimnet.Sertifika.Firma;
 
     public partial class FirmaForm : PrefixedContext
     {
@@ -18,7 +21,7 @@ namespace Gimnet.Sertifika
         public StringEditor FirmaAdi { get { return ById<StringEditor>("FirmaAdi"); } }
         public StringEditor KucukLogo { get { return ById<StringEditor>("KucukLogo"); } }
         public StringEditor OrtaLogo { get { return ById<StringEditor>("OrtaLogo"); } }
-        public StringEditor BuyukLogo { get { return ById<StringEditor>("BuyukLogo"); } }
+        public FirmaLogoUploadEditor BuyukLogo { get { return ById<FirmaLogoUploadEditor>("BuyukLogo"); } }
         public StringEditor KonumSehir { get { return ById<StringEditor>("KonumSehir"); } }
         public StringEditor Telefon { get { return ById<StringEditor>("Telefon"); } }
         public StringEditor WebSayfasi { get { return ById<StringEditor>("WebSayfasi"); } }

@@ -1,0 +1,80 @@
+﻿@{ 
+   bool isTestServer = this.Context != null && this.Context.IsDebuggingEnabled;
+   Func<string, IHtmlString> json = x => new HtmlString(Serenity.JSON.Stringify(x));
+   var destekBaseUrl =  isTestServer ? "http://destektest.int.marmara.edu.tr" : "https://destek.marmara.edu.tr";
+   var logged = Serenity.Authorization.Username;
+   string firstName = null;
+   string lastName = null;  
+   if (logged != null)
+   {
+       var user = Serenity.Authorization.UserDefinition;
+       if (user != null)
+       {
+           logged = user.DisplayName;
+           var displayName = (user.DisplayName ?? "").Trim();
+           int lastSpace = displayName.LastIndexOf(" ");
+           if (lastSpace > 0)
+           {
+               lastName = displayName.Substring(lastSpace + 1);
+               firstName = displayName.Substring(0, lastSpace);
+           }
+       }
+   }
+}
+
+<script type="text/javascript">
+
+    function supportClickInit() {
+
+        if ($('#supportCss').length == 0) {
+            $('<link type="text/css" href="@(destekBaseUrl)/Content/SupportService.css" rel="stylesheet" id="supportCss" />').appendTo(document.head);
+        }
+
+        var unblocked = false; 
+
+        function timedUnblock() {
+            if (!unblocked) {
+                unblocked = true; 
+                Q.blockUndo(); 
+            }
+        }
+
+        function timedBlock() {
+            Q.blockUI(); 
+            setTimeout(timedUnblock, 10000);
+        }
+
+        if ($('#supportJs').length == 0) {
+                        
+            $('<script src="@(destekBaseUrl)/Home/SupportScript?ApplicationGuid=7f891cc5-aa43-47f1-b538-0d38b6c7d8b9" type="text/javascript" id="supportJs"><\/script>')
+                .appendTo(document.body);
+
+            timedBlock();
+
+            $(document).bind('supportLoaded', function() {
+                timedUnblock();
+                try {
+                    $('.btn-Support-Destek').support({
+                        MachineName: 'OBYS-N1-06',
+                        ApplicationUserName: @(json(Serenity.Authorization.Username)),
+                        Name: @json(firstName),
+                        Surname: @json(lastName)
+                    });
+                } catch (e) { console.log(e); }
+
+                $('.btn-Support-Destek').click();
+            });
+
+            return false;
+        }
+
+        if ($.fn.support) {
+            timedBlock(); $(document).bind('html2canvasRendered', function() {  timedUnblock(); });
+        }
+    }
+
+    function supportClick() {
+        $('.btn-Support-Destek').click();
+        return false;
+    }
+</script>

@@ -1,0 +1,25 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "Sistem Hatası";
+    ViewBag.PageId = "ApplicationError";
+    Layout = "~/Views/Shared/_LayoutNoNavigation.cshtml";
+}
+
+<div class="page-content">
+    <div class="message">
+        <a href="javascript:;" onclick="supportClickInit()" class="btn-Support-Destek">
+            <i class="fa icon-support"></i>
+            <span>Destek</span>
+        </a>
+        <h1>Sistem Hatası</h1>
+        <h3>İsteğiniz yerine getirilirken beklenmeyen bir sorunla karşılaşıldı!</h3>
+        <a class="redirect" href="/~">Ana sayfaya dönmek için tıklayınız...</a>    
+        <div class="date-time">
+            @DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+@{Html.RenderPartial("~/Views/Shared/SupportScript.cshtml");}

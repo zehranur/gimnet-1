@@ -1,0 +1,95 @@
+﻿<div class="s-DialogContent" id="HitapSenkronizasyonLegendDialog">
+    <style type="text/css" scoped>
+        #HitapSenkronizasyonLegendDialog {
+            padding: 12px;
+        }
+        
+        #HitapSenkronizasyonLegendDialog li {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 4px;
+            display: block;
+            height: 45px;
+            font-size: 12px;
+        }
+
+        #HitapSenkronizasyonLegendDialog h3 {
+            display: block;
+            height: 27px;
+            line-height: 27px;
+            font-size: 14px;
+            font-weight: bold;
+            width: 88px;
+            float: left;
+        }
+
+        #HitapSenkronizasyonLegendDialog h3 b {
+            display: block;
+            float: left;
+            width: 20px;
+            height: 35px;
+            border: 1px solid #ddd;
+            margin-right: 4px;
+        }
+
+        #HitapSenkronizasyonLegendDialog p {
+            float: left;
+            width: 730px;
+            margin-left: 8px;
+        }
+    </style>
+    <ul>
+        <li>
+            <h3 style="color: tomato;"><b style="background-color: #f86d55;"></b>Kırmızı</h3>
+            <p>PBYS’de olup HİTAP’ta karşılığı olmayan ya da HİTAP’ta olup PBYS’de karşılığı 
+               olmayan kayıtları ifade etmektedir. Bu kayıtlar için eşleştirme, HİTAP’tan 
+               aktarım ya da HİTAP'tan silme işlemi yapılabilir.
+            </p>
+            <div class="clear"></div>
+        </li>
+
+        <li>
+            <h3 style="color: sandybrown;"><b style="background-color: #ffb690;"></b>Turuncu</h3>
+            <p>PBYS’de bulunup HİTAP’ta karşılığı olan ve HİTAP kayıt numaraları eşleşen, 
+               ancak bazı alanları farklı olduğu için güncelleme yapılması gereken kayıtları 
+               ifade etmektedir. Kayıtlar eşleştirilip gönderime hazır hale getirilebilir.
+            </p>
+            <div class="clear"></div>
+        </li>
+
+        <li>
+            <h3 style="color: darkgray; text-decoration: line-through;"><b style="background-color: #eee;"></b>Gri Çizgili</h3>
+            <p>HİTAP’ta bulunan ve daha önce PBYS'deki kaydı silinmiş olup, HİTAP'tan silinmek için 
+               bir sonraki gönderimi bekleyen kayıtları ifade etmektedir. Gönderim yapılarak, bu kayıtların 
+               HİTAP’tan silinmesi sağlanabilir.
+            </p>
+            <div class="clear"></div>
+        </li>
+
+        <li>
+            <h3 style="color: steelblue;"><b style="background-color: #9cc8fe;"></b>Mavi</h3>
+            <p>PBYS’de bulunup HİTAP'a ilk kez gönderilecek kayıtları ifade etmektedir. HİTAP’ta mükerrer 
+               kayıt oluşmasına engel olmak için öncelikle HİTAP alanından kırmızı renkteki kayıtlar 
+               incelenip, uygun kayıt varsa eşleştirilebilir yoksa gönderim işlemi yapılabilir.
+            </p>
+            <div class="clear"></div>
+        </li>
+
+        <li>
+            <h3 style="color: darkturquoise;"><b style="background-color: #92d8d1;"></b>Turkuaz</h3>
+            <p>PBYS’de ve HİTAP'ta bulunup HİTAP kayıt numaraları eşleşen, ancak bazı alanları farklı 
+               olduğundan güncellenmesi gereken kayıtları ifade etmektedir. Gönderim işlemi yapılabilir.
+            </p>
+            <div class="clear"></div>
+        </li>
+
+        <li>
+            <h3 style="color: mediumseagreen;"><b style="background-color: #d7ffd7;"></b>Yeşil</h3>
+            <p>PBYS’de ve HİTAP’ta bulunup hem HİTAP kayıt numaraları hem de tüm alanları eşleşen 
+               kayıtları ifade etmektedir. Herhangi bir işlem yapılmasına gerek yoktur.
+            </p>
+            <div class="clear"></div>
+        </li>
+
+    </ul>
+</div>
