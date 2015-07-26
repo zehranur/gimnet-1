@@ -8,6 +8,8 @@ namespace Gimnet.Sertifika.Forms
     using System.ComponentModel;
     using System.Collections.Generic;
     using System.IO;
+    using Gimnet.Sertifika.Kategori;
+    using Gimnet.Sertifika.Firma;
 
     [ColumnsScript("Sertifika.HelalSertifika")]
     [BasedOnRow(typeof(Entities.HelalSertifikaRow))]
@@ -15,14 +17,16 @@ namespace Gimnet.Sertifika.Forms
     {
         [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
         public Int32 Id { get; set; }
-        public Int32 KategoriId { get; set; }
-        public Int32 FirmaId { get; set; }
+        [EditLink]
+        public String KategoriKategoriAdi { get; set; }
+        [EditLink]
+        public String FirmaFirmaAdi { get; set; }
         [EditLink]
         public String Marka { get; set; }
         public DateTime İlkBasvuruTarihi { get; set; }
         public DateTime YenilemeTarihi { get; set; }
         public String SertifikaKapsami { get; set; }
-        public Int16 Durum { get; set; }
+        public SertifikaDurumIds Durum { get; set; }
         public String KapsamDisi { get; set; }
         public DateTime BitisTarihi { get; set; }
         public String İptalAciklamasi { get; set; }

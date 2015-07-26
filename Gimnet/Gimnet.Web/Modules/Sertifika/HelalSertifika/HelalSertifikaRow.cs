@@ -10,7 +10,7 @@ namespace Gimnet.Sertifika.Entities
     using System.ComponentModel;
     using System.IO;
 
-    [ConnectionKey("Default"), DisplayName("HelalSertifika"), InstanceName("HelalSertifika"), TwoLevelCached]
+    [ConnectionKey("Default"), DisplayName("Helal Sertifika"), InstanceName("Helal Sertifika"), TwoLevelCached]
     [ReadPermission("Default")]
     [ModifyPermission("Default")]
     [JsonConverter(typeof(JsonRowConverter))]
@@ -66,10 +66,10 @@ namespace Gimnet.Sertifika.Entities
         }
 
         [DisplayName("Durum"), NotNull]
-        public Int16? Durum
+        public SertifikaDurumIds Durum
         {
-            get { return Fields.Durum[this]; }
-            set { Fields.Durum[this] = value; }
+            get { return (SertifikaDurumIds)Fields.Durum[this]; }
+            set { Fields.Durum[this] = (Int64)value; }
         }
 
         [DisplayName("Kapsam Dışı")]
@@ -93,7 +93,7 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.İptalAciklamasi[this] = value; }
         }
 
-        [DisplayName("Kategori Kategori Adı"), Expression("jKategori.KategoriAdi")]
+        [DisplayName("Kategori Adı"), Expression("jKategori.KategoriAdi")]
         public String KategoriKategoriAdi
         {
             get { return Fields.KategoriKategoriAdi[this]; }
@@ -196,7 +196,7 @@ namespace Gimnet.Sertifika.Entities
             public readonly DateTimeField İlkBasvuruTarihi;
             public readonly DateTimeField YenilemeTarihi;
             public readonly StringField SertifikaKapsami;
-            public readonly Int16Field Durum;
+            public readonly Int64Field Durum;
             public readonly StringField KapsamDisi;
             public readonly DateTimeField BitisTarihi;
             public readonly StringField İptalAciklamasi;

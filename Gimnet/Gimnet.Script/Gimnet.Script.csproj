@@ -187,6 +187,9 @@
     <Compile Include="Imports\ServiceContracts\Sertifika.KategoriService.cs">
       <DependentUpon>ServiceContracts.tt</DependentUpon>
     </Compile>
+    <Compile Include="Imports\ServiceContracts\Sertifika.SertifikaDurumIds.cs">
+      <DependentUpon>ServiceContracts.tt</DependentUpon>
+    </Compile>
     <Compile Include="Imports\ServiceContracts\Sertifika.SertifikaResimRow.cs">
       <DependentUpon>ServiceContracts.tt</DependentUpon>
     </Compile>

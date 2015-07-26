@@ -23,11 +23,11 @@ namespace Gimnet.Sertifika.Forms
         public DateTime İlkBasvuruTarihi { get; set; }
         public DateTime YenilemeTarihi { get; set; }
         public String SertifikaKapsami { get; set; }
-        public Int16 Durum { get; set; }
+        public SertifikaDurumIds Durum { get; set; }
         public String KapsamDisi { get; set; }
         public DateTime BitisTarihi { get; set; }
         public String İptalAciklamasi { get; set; }
-        //[SertifikaResimleriUploadEditor]
+        //[EditorType("MultipleImageUploadEditor")]
         public String SertifikaResimleri { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace Gimnet.Sertifika
         public DateEditor İlkBasvuruTarihi { get { return ById<DateEditor>("İlkBasvuruTarihi"); } }
         public DateEditor YenilemeTarihi { get { return ById<DateEditor>("YenilemeTarihi"); } }
         public TextAreaEditor SertifikaKapsami { get { return ById<TextAreaEditor>("SertifikaKapsami"); } }
-        public StringEditor Durum { get { return ById<StringEditor>("Durum"); } }
+        public EnumEditor Durum { get { return ById<EnumEditor>("Durum"); } }
         public StringEditor KapsamDisi { get { return ById<StringEditor>("KapsamDisi"); } }
         public DateEditor BitisTarihi { get { return ById<DateEditor>("BitisTarihi"); } }
         public StringEditor İptalAciklamasi { get { return ById<StringEditor>("İptalAciklamasi"); } }

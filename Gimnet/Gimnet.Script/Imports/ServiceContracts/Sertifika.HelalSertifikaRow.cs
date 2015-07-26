@@ -23,7 +23,7 @@ namespace Gimnet.Sertifika
         public String İlkBasvuruTarihi { get; set; }
         public String YenilemeTarihi { get; set; }
         public String SertifikaKapsami { get; set; }
-        public Int16? Durum { get; set; }
+        public SertifikaDurumIds? Durum { get; set; }
         public String KapsamDisi { get; set; }
         public String BitisTarihi { get; set; }
         public String İptalAciklamasi { get; set; }

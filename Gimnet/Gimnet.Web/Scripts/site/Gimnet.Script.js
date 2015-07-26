@@ -698,6 +698,12 @@
 	};
 	global.Gimnet.Sertifika.KategoriService = $Gimnet_Sertifika_KategoriService;
 	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.SertifikaDurumIds
+	var $Gimnet_Sertifika_SertifikaDurumIds = function() {
+	};
+	$Gimnet_Sertifika_SertifikaDurumIds.__typeName = 'Gimnet.Sertifika.SertifikaDurumIds';
+	global.Gimnet.Sertifika.SertifikaDurumIds = $Gimnet_Sertifika_SertifikaDurumIds;
+	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.SertifikaResimDialog
 	var $Gimnet_Sertifika_SertifikaResimDialog = function() {
 		this.$8$SertifikaIdField = null;
@@ -1455,7 +1461,7 @@
 			return this.byId(Serenity.TextAreaEditor).call(this, 'SertifikaKapsami');
 		},
 		get_durum: function() {
-			return this.byId(Serenity.StringEditor).call(this, 'Durum');
+			return this.byId(Serenity.EnumEditor).call(this, 'Durum');
 		},
 		get_kapsamDisi: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'KapsamDisi');
@@ -1467,7 +1473,7 @@
 			return this.byId(Serenity.StringEditor).call(this, 'İptalAciklamasi');
 		},
 		get_sertifikaResimleri: function() {
-			return this.byId(Serenity.MultipleImageUploadEditor).call(this, 'SertifikaResimleri');
+			return this.byId(Serenity.StringEditor).call(this, 'SertifikaResimleri');
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_HelalSertifikaGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
@@ -1490,6 +1496,7 @@
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_KategoriGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
 	ss.initClass($Gimnet_Sertifika_KategoriService, $asm, {});
+	ss.initEnum($Gimnet_Sertifika_SertifikaDurumIds, $asm, { None: 0, Gecerli: 1, SuresiGecmis: 2 });
 	ss.initClass($Gimnet_Sertifika_SertifikaResimDialog, $asm, {
 		getSaveEntity: function() {
 			var entity = ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.getSaveEntity.call(this);
@@ -1653,6 +1660,7 @@
 	ss.setMetadata($Gimnet_Sertifika_HelalSertifikaGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.HelalSertifika'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Marka'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_HelalSertifikaDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.HelalSertifika'), new Serenity.ServiceAttribute('Sertifika/HelalSertifika')] });
 	ss.setMetadata($Gimnet_Sertifika_KategoriDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('KategoriAdi'), new Serenity.FormKeyAttribute('Sertifika.Kategori'), new Serenity.LocalTextPrefixAttribute('Sertifika.Kategori'), new Serenity.ServiceAttribute('Sertifika/Kategori')] });
 	ss.setMetadata($Gimnet_Sertifika_KategoriGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.Kategori'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('KategoriAdi'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_KategoriDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.Kategori'), new Serenity.ServiceAttribute('Sertifika/Kategori')] });
+	ss.setMetadata($Gimnet_Sertifika_SertifikaDurumIds, { attr: [new Serenity.EnumKeyAttribute('Gimnet.Sertifika.SertifikaDurumIds')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('ResimKonumu'), new Serenity.FormKeyAttribute('Sertifika.SertifikaResim'), new Serenity.LocalTextPrefixAttribute('Sertifika.SertifikaResim'), new Serenity.ServiceAttribute('Sertifika/SertifikaResim')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.SertifikaResim'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('ResimKonumu'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_SertifikaResimDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.SertifikaResim'), new Serenity.ServiceAttribute('Sertifika/SertifikaResim')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimleriUploadEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Sertifika Resimleri'), new Serenity.OptionsTypeAttribute(Serenity.ImageUploadEditorOptions), new Serenity.ElementAttribute('<div/>')] });

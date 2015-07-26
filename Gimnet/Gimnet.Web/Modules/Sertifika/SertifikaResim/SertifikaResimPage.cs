@@ -1,6 +1,6 @@
 ﻿
 
-//[assembly: Serenity.Navigation.NavigationLink(int.MaxValue, "Sertifikasyon/Sertifika Resimleri", typeof(Gimnet.Sertifika.Pages.SertifikaResimController))]
+[assembly: Serenity.Navigation.NavigationLink(int.MaxValue, "Sertifikasyon/Sertifika Resimleri", typeof(Gimnet.Sertifika.Pages.SertifikaResimController))]
 
 namespace Gimnet.Sertifika.Pages
 {

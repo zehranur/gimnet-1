@@ -955,6 +955,7 @@
     <Compile Include="Modules\Common\Navigation\NavigationItems.cs" />
     <Compile Include="Modules\Common\Navigation\NavigationModel.cs" />
     <Compile Include="Modules\Sertifika\Firma\FirmaDurumIds.cs" />
+    <Compile Include="Modules\Sertifika\HelalSertifika\SertifikaDurumIds.cs" />
     <Compile Include="Modules\Texts.cs" />
     <Compile Include="Modules\Membership\Account\AccountPage.cs" />
     <Compile Include="Modules\Administration\User\AuthorizationService.cs" />
