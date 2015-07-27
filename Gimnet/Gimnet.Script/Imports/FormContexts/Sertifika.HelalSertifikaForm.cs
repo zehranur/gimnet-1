@@ -28,7 +28,7 @@ namespace Gimnet.Sertifika
         public StringEditor KapsamDisi { get { return ById<StringEditor>("KapsamDisi"); } }
         public DateEditor BitisTarihi { get { return ById<DateEditor>("BitisTarihi"); } }
         public StringEditor İptalAciklamasi { get { return ById<StringEditor>("İptalAciklamasi"); } }
-        public StringEditor SertifikaResimleri { get { return ById<StringEditor>("SertifikaResimleri"); } }
+        public MultipleImageUploadEditor SertifikaResimleri { get { return ById<MultipleImageUploadEditor>("SertifikaResimleri"); } }
     }
 }
 

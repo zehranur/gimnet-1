@@ -30,7 +30,7 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.ResimKonumu[this] = value; }
         }
 
-        [DisplayName("Eklenme Tarihi"), NotNull]
+        [DisplayName("Eklenme Tarihi"),ReadOnly(true), NotNull]
         public DateTime? EklenmeTarihi
         {
             get { return Fields.EklenmeTarihi[this]; }
@@ -51,7 +51,7 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.SertifikaKategoriId[this] = value; }
         }
 
-        [DisplayName("Sertifika Firma Id"), Expression("jSertifika.FirmaId")]
+        [DisplayName("Sertifika Firma Id"),Visible(false), Expression("jSertifika.FirmaId")]
         public Int32? SertifikaFirmaId
         {
             get { return Fields.SertifikaFirmaId[this]; }
@@ -93,6 +93,20 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.SertifikaUyari[this] = value; }
         }
 
+        [DisplayName("Geçerlilik Tarihi Başlangıcı")]
+        public DateTime? GecerlilikTarihiBaslangic
+        {
+            get { return Fields.GecerlilikTarihiBaslangic[this]; }
+            set { Fields.GecerlilikTarihiBaslangic[this] = value; }
+        }
+
+        [DisplayName("Geçerlilik tarihi Bitişi")]
+        public DateTime? GecerlilikTarihiBitis
+        {
+            get { return Fields.GecerlilikTarihiBitis[this]; }
+            set { Fields.GecerlilikTarihiBitis[this] = value; }
+        }
+
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -116,6 +130,8 @@ namespace Gimnet.Sertifika.Entities
             public readonly StringField ResimKonumu;
             public readonly DateTimeField EklenmeTarihi;
             public readonly Int32Field SertifikaId;
+            public readonly DateTimeField GecerlilikTarihiBaslangic;
+            public readonly DateTimeField GecerlilikTarihiBitis;
 
             public readonly Int32Field SertifikaKategoriId;
             public readonly Int32Field SertifikaFirmaId;

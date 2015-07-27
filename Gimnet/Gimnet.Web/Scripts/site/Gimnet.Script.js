@@ -1403,14 +1403,14 @@
 		},
 		$populateFileSymbols: function(fileElement, file, displayOriginalName) {
 			fileElement.html('');
-			if (ss.isNullOrUndefined(file) || Q.isEmptyOrNull(file.filename)) {
+			if (ss.isNullOrUndefined(file) || Q.isEmptyOrNull(file.Filename)) {
 				return;
 			}
 			var li = $('<li/>');
-			var isImage = Serenity.UploadHelper.hasImageExtension(file.filename);
+			var isImage = Serenity.UploadHelper.hasImageExtension(file.Filename);
 			var thumb = $('<a/>').appendTo(li);
-			var originalName = ss.coalesce(file.originalName, '');
-			var fileName = file.filename;
+			var originalName = ss.coalesce(file.OriginalName, '');
+			var fileName = file.Filename;
 			//if (!fileName.StartsWith("temporary/"))
 			//    fileName = "personelFoto/" + fileName;
 			thumb.attr('href', Serenity.UploadHelper.dbFileUrl(fileName));
@@ -1475,7 +1475,7 @@
 			return this.byId(Serenity.StringEditor).call(this, 'İptalAciklamasi');
 		},
 		get_sertifikaResimleri: function() {
-			return this.byId(Serenity.StringEditor).call(this, 'SertifikaResimleri');
+			return this.byId(Serenity.MultipleImageUploadEditor).call(this, 'SertifikaResimleri');
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_HelalSertifikaGrid, $asm, {}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
@@ -1503,7 +1503,10 @@
 		loadEntity: function(entity) {
 			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
 			this.$form.get_sertifikaId().set_value$1(this.get_sertifikaId());
-			//entity.SertifikaId = SertifikaId;
+			if (this.get_isNew()) {
+				this.$form.get_eklenmeTarihi().set_value('Today');
+				this.$form.get_gecerlilikTarihiBaslangic().set_value('Today');
+			}
 		},
 		getSaveEntity: function() {
 			var entity = ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.getSaveEntity.call(this);
@@ -1518,14 +1521,20 @@
 		}
 	}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Sertifika_SertifikaResimForm, $asm, {
+		get_sertifikaId: function() {
+			return this.byId(Serenity.IntegerEditor).call(this, 'SertifikaId');
+		},
 		get_resimKonumu: function() {
-			return this.byId(Serenity.StringEditor).call(this, 'ResimKonumu');
+			return this.byId(Serenity.ImageUploadEditor).call(this, 'ResimKonumu');
 		},
 		get_eklenmeTarihi: function() {
 			return this.byId(Serenity.DateEditor).call(this, 'EklenmeTarihi');
 		},
-		get_sertifikaId: function() {
-			return this.byId(Serenity.IntegerEditor).call(this, 'SertifikaId');
+		get_gecerlilikTarihiBaslangic: function() {
+			return this.byId(Serenity.DateEditor).call(this, 'GecerlilikTarihiBaslangic');
+		},
+		get_gecerlilikTarihiBitis: function() {
+			return this.byId(Serenity.DateEditor).call(this, 'GecerlilikTarihiBitis');
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_SertifikaResimGrid, $asm, {

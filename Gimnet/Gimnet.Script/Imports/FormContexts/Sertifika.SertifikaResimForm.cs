@@ -18,9 +18,11 @@ namespace Gimnet.Sertifika
     
         public SertifikaResimForm(string idPrefix) : base(idPrefix) {}
     
-        public StringEditor ResimKonumu { get { return ById<StringEditor>("ResimKonumu"); } }
-        public DateEditor EklenmeTarihi { get { return ById<DateEditor>("EklenmeTarihi"); } }
         public IntegerEditor SertifikaId { get { return ById<IntegerEditor>("SertifikaId"); } }
+        public ImageUploadEditor ResimKonumu { get { return ById<ImageUploadEditor>("ResimKonumu"); } }
+        public DateEditor EklenmeTarihi { get { return ById<DateEditor>("EklenmeTarihi"); } }
+        public DateEditor GecerlilikTarihiBaslangic { get { return ById<DateEditor>("GecerlilikTarihiBaslangic"); } }
+        public DateEditor GecerlilikTarihiBitis { get { return ById<DateEditor>("GecerlilikTarihiBitis"); } }
     }
 }
 

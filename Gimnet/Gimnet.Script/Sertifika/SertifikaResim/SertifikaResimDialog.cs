@@ -21,7 +21,11 @@ namespace Gimnet.Sertifika
         {
             base.LoadEntity(entity);
             form.SertifikaId.Value = this.SertifikaId;
-            //entity.SertifikaId = SertifikaId;
+            if (IsNew)
+            {
+                form.EklenmeTarihi.Value = "Today";
+                form.GecerlilikTarihiBaslangic.Value = "Today";
+            }
         }
         protected override SertifikaResimRow GetSaveEntity()
         {

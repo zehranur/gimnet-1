@@ -20,6 +20,8 @@ namespace Gimnet.Sertifika
         public String ResimKonumu { get; set; }
         public String EklenmeTarihi { get; set; }
         public Int32? SertifikaId { get; set; }
+        public String GecerlilikTarihiBaslangic { get; set; }
+        public String GecerlilikTarihiBitis { get; set; }
         public Int32? SertifikaKategoriId { get; set; }
         public Int32? SertifikaFirmaId { get; set; }
         public String SertifikaMarka { get; set; }
@@ -35,6 +37,8 @@ namespace Gimnet.Sertifika
             [InlineConstant] public const string ResimKonumu = "ResimKonumu";
             [InlineConstant] public const string EklenmeTarihi = "EklenmeTarihi";
             [InlineConstant] public const string SertifikaId = "SertifikaId";
+            [InlineConstant] public const string GecerlilikTarihiBaslangic = "GecerlilikTarihiBaslangic";
+            [InlineConstant] public const string GecerlilikTarihiBitis = "GecerlilikTarihiBitis";
             [InlineConstant] public const string SertifikaKategoriId = "SertifikaKategoriId";
             [InlineConstant] public const string SertifikaFirmaId = "SertifikaFirmaId";
             [InlineConstant] public const string SertifikaMarka = "SertifikaMarka";

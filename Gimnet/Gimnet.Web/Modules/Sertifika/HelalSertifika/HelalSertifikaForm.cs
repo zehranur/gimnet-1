@@ -27,7 +27,7 @@ namespace Gimnet.Sertifika.Forms
         public String KapsamDisi { get; set; }
         public DateTime BitisTarihi { get; set; }
         public String İptalAciklamasi { get; set; }
-        //[EditorType("MultipleImageUploadEditor")]
+        [ImageUploadEditor(allowMultiple: true, JsonEncodeValue = true)]
         public String SertifikaResimleri { get; set; }
     }
 }

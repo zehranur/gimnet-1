@@ -13,8 +13,14 @@ namespace Gimnet.Sertifika.Forms
     [BasedOnRow(typeof(Entities.SertifikaResimRow))]
     public class SertifikaResimForm
     {
-        public String ResimKonumu { get; set; }
-        public DateTime EklenmeTarihi { get; set; }
         public Int32 SertifikaId { get; set; }
+        [ImageUploadEditor()]
+        public String ResimKonumu { get; set; }
+
+        public DateTime GecerlilikTarihiBaslangic { get; set; }
+        public DateTime GecerlilikTarihiBitis { get; set; }
+
+        public DateTime EklenmeTarihi { get; set; }
+
     }
 }
