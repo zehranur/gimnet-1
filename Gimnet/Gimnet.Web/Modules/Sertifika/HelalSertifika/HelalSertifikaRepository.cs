@@ -38,7 +38,7 @@ namespace Gimnet.Sertifika.Repositories
             return new MyListHandler().Process(connection, request);
         }
 
-        [EmbeddedFileUploadBehaviour("ProductImages", fileNameFormat: "ProductImage/{1:00000}/{0:00000000}_{2}")]
+        [EmbeddedMultiFileUploadBehaviour("SertifikaResimleri", fileNameFormat: "SertifikaResimleri/{1:00000}/{0:00000000}_{2}", copyFilesToHistory: true)]
         private class MySaveHandler : SaveRequestHandler<MyRow> { }
         private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
         private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }

@@ -20,7 +20,7 @@ namespace Gimnet.Sertifika.Forms
         public String KucukLogo { get; set; }
         [Hidden()]
         public String OrtaLogo { get; set; }
-        [FirmaLogoUploadEditor, DisplayName("Logo")]
+        [ImageUploadEditor(allowMultiple: false, JsonEncodeValue = false), DisplayName("Logo")]
         public String BuyukLogo { get; set; }
         [DisplayName("Bulunduğu Şehir")]
         public String KonumSehir { get; set; }

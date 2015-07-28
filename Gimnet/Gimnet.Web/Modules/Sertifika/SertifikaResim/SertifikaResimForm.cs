@@ -14,7 +14,8 @@ namespace Gimnet.Sertifika.Forms
     public class SertifikaResimForm
     {
         public Int32 SertifikaId { get; set; }
-        [ImageUploadEditor()]
+ 
+        [ImageUploadEditor(), DisplayName("Sertifika Belge Resmi")]
         public String ResimKonumu { get; set; }
 
         public DateTime GecerlilikTarihiBaslangic { get; set; }

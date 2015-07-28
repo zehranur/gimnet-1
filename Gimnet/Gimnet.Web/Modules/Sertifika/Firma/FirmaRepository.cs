@@ -38,7 +38,9 @@ namespace Gimnet.Sertifika.Repositories
             return new MyListHandler().Process(connection, request);
         }
 
-        private class MySaveHandler : SaveRequestHandler<MyRow> { 
+        [EmbeddedMultiFileUploadBehaviour("BuyukLogo", fileNameFormat: "Logo/{1:00000}/{0:00000000}_{2}", copyFilesToHistory: true)]
+        private class MySaveHandler : SaveRequestHandler<MyRow>
+        { 
         
         }
         private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }

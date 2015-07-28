@@ -8,9 +8,6 @@ namespace Gimnet.Sertifika
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using Gimnet.Sertifika;
-    using Gimnet.Sertifika.Kategori;
-    using Gimnet.Sertifika.Firma;
 
     public partial class SertifikaResimForm : PrefixedContext
     {
@@ -20,9 +17,9 @@ namespace Gimnet.Sertifika
     
         public IntegerEditor SertifikaId { get { return ById<IntegerEditor>("SertifikaId"); } }
         public ImageUploadEditor ResimKonumu { get { return ById<ImageUploadEditor>("ResimKonumu"); } }
-        public DateEditor EklenmeTarihi { get { return ById<DateEditor>("EklenmeTarihi"); } }
         public DateEditor GecerlilikTarihiBaslangic { get { return ById<DateEditor>("GecerlilikTarihiBaslangic"); } }
         public DateEditor GecerlilikTarihiBitis { get { return ById<DateEditor>("GecerlilikTarihiBitis"); } }
+        public DateEditor EklenmeTarihi { get { return ById<DateEditor>("EklenmeTarihi"); } }
     }
 }
 

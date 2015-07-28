@@ -8,6 +8,7 @@
 	global.Gimnet.HelalDunyaMarket = global.Gimnet.HelalDunyaMarket || {};
 	global.Gimnet.Membership = global.Gimnet.Membership || {};
 	global.Gimnet.Sertifika = global.Gimnet.Sertifika || {};
+	global.Gimnet.Sertifika.Barkod = global.Gimnet.Sertifika.Barkod || {};
 	global.Gimnet.Sertifika.Firma = global.Gimnet.Sertifika.Firma || {};
 	global.Gimnet.Sertifika.Kategori = global.Gimnet.Sertifika.Kategori || {};
 	global.Gimnet.Sertifika.SertifikaResim = global.Gimnet.Sertifika.SertifikaResim || {};
@@ -549,6 +550,51 @@
 	$Gimnet_Membership_LoginPanel.__typeName = 'Gimnet.Membership.LoginPanel';
 	global.Gimnet.Membership.LoginPanel = $Gimnet_Membership_LoginPanel;
 	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.BarkodDialog
+	var $Gimnet_Sertifika_BarkodDialog = function() {
+		this.$form = null;
+		ss.makeGenericType(Serenity.EntityDialog$1, [Object]).call(this);
+		this.$form = new $Gimnet_Sertifika_BarkodForm(this.idPrefix);
+	};
+	$Gimnet_Sertifika_BarkodDialog.__typeName = 'Gimnet.Sertifika.BarkodDialog';
+	global.Gimnet.Sertifika.BarkodDialog = $Gimnet_Sertifika_BarkodDialog;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.BarkodForm
+	var $Gimnet_Sertifika_BarkodForm = function(idPrefix) {
+		Serenity.PrefixedContext.call(this, idPrefix);
+	};
+	$Gimnet_Sertifika_BarkodForm.__typeName = 'Gimnet.Sertifika.BarkodForm';
+	global.Gimnet.Sertifika.BarkodForm = $Gimnet_Sertifika_BarkodForm;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.BarkodGrid
+	var $Gimnet_Sertifika_BarkodGrid = function(container) {
+		this.$sertifikaRow = null;
+		ss.makeGenericType(Serenity.EntityGrid$1, [Object]).call(this, container);
+	};
+	$Gimnet_Sertifika_BarkodGrid.__typeName = 'Gimnet.Sertifika.BarkodGrid';
+	global.Gimnet.Sertifika.BarkodGrid = $Gimnet_Sertifika_BarkodGrid;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.BarkodService
+	var $Gimnet_Sertifika_BarkodService = function() {
+	};
+	$Gimnet_Sertifika_BarkodService.__typeName = 'Gimnet.Sertifika.BarkodService';
+	$Gimnet_Sertifika_BarkodService.create = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Barkod/Create', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_BarkodService.update = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Barkod/Update', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_BarkodService.delete$1 = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Barkod/Delete', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_BarkodService.retrieve = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Barkod/Retrieve', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_BarkodService.list = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/Barkod/List', request, onSuccess, options);
+	};
+	global.Gimnet.Sertifika.BarkodService = $Gimnet_Sertifika_BarkodService;
+	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.FirmaDialog
 	var $Gimnet_Sertifika_FirmaDialog = function() {
 		this.$form = null;
@@ -770,6 +816,16 @@
 	};
 	global.Gimnet.Sertifika.SupportUtility = $Gimnet_Sertifika_SupportUtility;
 	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.Barkod.BarkodGridDialog
+	var $Gimnet_Sertifika_Barkod_BarkodGridDialog = function() {
+		this.$7$SertifikaField = null;
+		this.$7$BarkodGridField = null;
+		Serenity.TemplatedDialog.call(this);
+		this.set_barkodGrid(new $Gimnet_Sertifika_BarkodGrid(this.byId$1('GridDiv')));
+	};
+	$Gimnet_Sertifika_Barkod_BarkodGridDialog.__typeName = 'Gimnet.Sertifika.Barkod.BarkodGridDialog';
+	global.Gimnet.Sertifika.Barkod.BarkodGridDialog = $Gimnet_Sertifika_Barkod_BarkodGridDialog;
+	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.Firma.FirmaLookupEditor
 	var $Gimnet_Sertifika_Firma_FirmaLookupEditor = function(hidden) {
 		ss.makeGenericType(Serenity.LookupEditorBase$2, [Object, Object]).call(this, hidden, null);
@@ -789,7 +845,6 @@
 		this.$7$SertifikaField = null;
 		this.$7$SertifikaResimGridField = null;
 		Serenity.TemplatedDialog.call(this);
-		//ById("GridDiv").Height(359).FlexHeightOnly();
 		this.set_sertifikaResimGrid(new $Gimnet_Sertifika_SertifikaResimGrid(this.byId$1('GridDiv')));
 	};
 	$Gimnet_Sertifika_SertifikaResim_SertifikaResimGridDialog.__typeName = 'Gimnet.Sertifika.SertifikaResim.SertifikaResimGridDialog';
@@ -1343,6 +1398,52 @@
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Membership_LoginPanel, $asm, {}, ss.makeGenericType(Serenity.PropertyDialog$1, [Object]), [Serenity.IDialog]);
+	ss.initClass($Gimnet_Sertifika_BarkodDialog, $asm, {
+		loadEntity: function(entity) {
+			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
+			Serenity.WX.getGridField(this.$form.get_sertifikaId()).hide();
+		}
+	}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
+	ss.initClass($Gimnet_Sertifika_BarkodForm, $asm, {
+		get_barkod: function() {
+			return this.byId(Serenity.StringEditor).call(this, 'Barkod');
+		},
+		get_sertifikaId: function() {
+			return this.byId(Serenity.IntegerEditor).call(this, 'SertifikaId');
+		},
+		get_urunAdi: function() {
+			return this.byId(Serenity.StringEditor).call(this, 'UrunAdi');
+		}
+	}, Serenity.PrefixedContext);
+	ss.initClass($Gimnet_Sertifika_BarkodGrid, $asm, {
+		get_sertifikaRow: function() {
+			return this.$sertifikaRow;
+		},
+		set_sertifikaRow: function(value) {
+			this.$sertifikaRow = value;
+			this.refresh();
+		},
+		createEntityDialog: function(itemType, callback) {
+			var dialog = ss.makeGenericType(Serenity.EntityGrid$2, [Object, Object]).prototype.createEntityDialog.call(this, itemType, callback);
+			if (ss.referenceEquals(itemType, this.getItemType())) {
+				dialog.set_sertifikaId(this.$sertifikaRow.Id);
+			}
+			return dialog;
+		},
+		onViewSubmit: function() {
+			if (!ss.makeGenericType(Serenity.DataGrid$2, [Object, Object]).prototype.onViewSubmit.call(this)) {
+				return false;
+			}
+			if (ss.isNullOrUndefined(this.$sertifikaRow) || ss.isNullOrUndefined(this.$sertifikaRow.Id)) {
+				return false;
+			}
+			var eqFilter = {};
+			eqFilter['SertifikaId'] = this.$sertifikaRow.Id;
+			this.view.params.EqualityFilter = eqFilter;
+			return true;
+		}
+	}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
+	ss.initClass($Gimnet_Sertifika_BarkodService, $asm, {});
 	ss.initClass($Gimnet_Sertifika_FirmaDialog, $asm, {
 		loadEntity: function(entity) {
 			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
@@ -1360,7 +1461,7 @@
 			return this.byId(Serenity.StringEditor).call(this, 'OrtaLogo');
 		},
 		get_buyukLogo: function() {
-			return this.byId($Gimnet_Sertifika_FirmaLogoUploadEditor).call(this, 'BuyukLogo');
+			return this.byId(Serenity.ImageUploadEditor).call(this, 'BuyukLogo');
 		},
 		get_konumSehir: function() {
 			return this.byId(Serenity.StringEditor).call(this, 'KonumSehir');
@@ -1437,8 +1538,11 @@
 		},
 		getToolbarButtons: function() {
 			var buttons = ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.getToolbarButtons.call(this);
-			buttons.push({ title: 'Sertifika Resimleri', cssClass: 'quick-access-menu-button', onClick: ss.mkdel(this, function() {
+			buttons.push({ title: 'Sertifika Belge Resimleri', cssClass: 'multiple-add-button', onClick: ss.mkdel(this, function() {
 				(new $Gimnet_Sertifika_SertifikaResim_SertifikaResimGridDialog()).loadByIdAndOpenDialog(ss.unbox(this.get_entity().Id));
+			}) });
+			buttons.push({ title: 'Ürün Barkodları', cssClass: 'multiple-add-button', onClick: ss.mkdel(this, function() {
+				(new $Gimnet_Sertifika_Barkod_BarkodGridDialog()).loadByIdAndOpenDialog(ss.unbox(this.get_entity().Id));
 			}) });
 			return buttons;
 		}
@@ -1507,6 +1611,7 @@
 				this.$form.get_eklenmeTarihi().set_value('Today');
 				this.$form.get_gecerlilikTarihiBaslangic().set_value('Today');
 			}
+			Serenity.WX.getGridField(this.$form.get_sertifikaId()).hide();
 		},
 		getSaveEntity: function() {
 			var entity = ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.getSaveEntity.call(this);
@@ -1527,14 +1632,14 @@
 		get_resimKonumu: function() {
 			return this.byId(Serenity.ImageUploadEditor).call(this, 'ResimKonumu');
 		},
-		get_eklenmeTarihi: function() {
-			return this.byId(Serenity.DateEditor).call(this, 'EklenmeTarihi');
-		},
 		get_gecerlilikTarihiBaslangic: function() {
 			return this.byId(Serenity.DateEditor).call(this, 'GecerlilikTarihiBaslangic');
 		},
 		get_gecerlilikTarihiBitis: function() {
 			return this.byId(Serenity.DateEditor).call(this, 'GecerlilikTarihiBitis');
+		},
+		get_eklenmeTarihi: function() {
+			return this.byId(Serenity.DateEditor).call(this, 'EklenmeTarihi');
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_SertifikaResimGrid, $asm, {
@@ -1568,6 +1673,58 @@
 	ss.initClass($Gimnet_Sertifika_SertifikaResimleriUploadEditor, $asm, {}, Serenity.MultipleImageUploadEditor, [Serenity.IGetEditValue, Serenity.ISetEditValue, Serenity.IReadOnly]);
 	ss.initClass($Gimnet_Sertifika_SertifikaResimService, $asm, {});
 	ss.initClass($Gimnet_Sertifika_SupportUtility, $asm, {}, Serenity.ScriptContext);
+	ss.initClass($Gimnet_Sertifika_Barkod_BarkodGridDialog, $asm, {
+		get_sertifika: function() {
+			return this.$7$SertifikaField;
+		},
+		set_sertifika: function(value) {
+			this.$7$SertifikaField = value;
+		},
+		get_barkodGrid: function() {
+			return this.$7$BarkodGridField;
+		},
+		set_barkodGrid: function(value) {
+			this.$7$BarkodGridField = value;
+		},
+		onDialogOpen: function() {
+			ss.makeGenericType(Serenity.TemplatedDialog$1, [Object]).prototype.onDialogOpen.call(this);
+			$('.ui-widget-overlay.ui-front').last().css('opacity', '0.5');
+		},
+		getToolbarButtons: function() {
+			return [];
+		},
+		getDialogOptions: function() {
+			var dialogOptions = ss.makeGenericType(Serenity.TemplatedDialog$1, [Object]).prototype.getDialogOptions.call(this);
+			dialogOptions.resizable = true;
+			return dialogOptions;
+		},
+		getTemplateName: function() {
+			return 'GridDialog';
+		},
+		updateTitle: function() {
+			if (ss.isNullOrUndefined(this.get_sertifika())) {
+				return;
+			}
+			this.element.dialog().dialog('option', 'title', ss.formatString('{0} {2} Sertifikası İçin Ürün Barkodları', this.get_sertifika().FirmaFirmaAdi, this.get_sertifika().Marka));
+		},
+		loadByIdAndOpenDialog: function(sertifikaID) {
+			this.set_sertifikaID(sertifikaID);
+			this.dialogOpen();
+		},
+		get_sertifikaID: function() {
+			return (ss.isValue(this.get_sertifika()) ? this.get_sertifika().Id : null);
+		},
+		set_sertifikaID: function(value) {
+			if (ss.isNullOrUndefined(this.get_sertifika()) || !ss.referenceEquals(this.get_sertifika().Id, value)) {
+				var sertID = value;
+				$Gimnet_Sertifika_HelalSertifikaService.retrieve({ EntityId: ss.unbox(sertID) }, ss.mkdel(this, function(response) {
+					this.set_sertifika(response.Entity);
+					this.get_barkodGrid().set_sertifikaRow(this.get_sertifika());
+					this.updateTitle();
+				}), null);
+			}
+		}
+	}, Serenity.TemplatedDialog, [Serenity.IDialog]);
 	ss.initClass($Gimnet_Sertifika_Firma_FirmaLookupEditor, $asm, {
 		getLookupKey: function() {
 			return 'Sertifika.Firmalar';
@@ -1620,8 +1777,7 @@
 			if (ss.isNullOrUndefined(this.get_sertifika())) {
 				return;
 			}
-			this.element.dialog().dialog('option', 'title', 'Başlık buaraya gelecek');
-			// string.Format("Diğer Sosyal Güvenlik ({0} - {1})", Personel.AdiSoyadi, Personel.KimlikNo);
+			this.element.dialog().dialog('option', 'title', ss.formatString('{0} {2} Sertifikası İçin Belge Resimleri', this.get_sertifika().FirmaFirmaAdi, this.get_sertifika().Marka));
 		},
 		loadByIdAndOpenDialog: function(sertifikaID) {
 			this.set_sertifikaID(sertifikaID);
@@ -1664,6 +1820,8 @@
 	ss.setMetadata($Gimnet_HelalDunyaMarket_HelalMarketDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Adi'), new Serenity.FormKeyAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.LocalTextPrefixAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.ServiceAttribute('HelalDunyaMarket/HelalMarket')] });
 	ss.setMetadata($Gimnet_HelalDunyaMarket_HelalMarketGrid, { attr: [new Serenity.ColumnsKeyAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Adi'), new Serenity.DialogTypeAttribute($Gimnet_HelalDunyaMarket_HelalMarketDialog), new Serenity.LocalTextPrefixAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.ServiceAttribute('HelalDunyaMarket/HelalMarket')] });
 	ss.setMetadata($Gimnet_Membership_LoginPanel, { attr: [new Serenity.PanelAttribute(), new Serenity.FormKeyAttribute('Membership.Login')] });
+	ss.setMetadata($Gimnet_Sertifika_BarkodDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Barkod'), new Serenity.FormKeyAttribute('Sertifika.Barkod'), new Serenity.LocalTextPrefixAttribute('Sertifika.Barkod'), new Serenity.ServiceAttribute('Sertifika/Barkod')] });
+	ss.setMetadata($Gimnet_Sertifika_BarkodGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.Barkod'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Barkod'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_BarkodDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.Barkod'), new Serenity.ServiceAttribute('Sertifika/Barkod')] });
 	ss.setMetadata($Gimnet_Sertifika_FirmaDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('FirmaAdi'), new Serenity.FormKeyAttribute('Sertifika.Firma'), new Serenity.LocalTextPrefixAttribute('Sertifika.Firma'), new Serenity.ServiceAttribute('Sertifika/Firma')] });
 	ss.setMetadata($Gimnet_Sertifika_FirmaDurumIds, { attr: [new Serenity.EnumKeyAttribute('Gimnet.Sertifika.FirmaDurumIds')] });
 	ss.setMetadata($Gimnet_Sertifika_FirmaGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.Firma'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('FirmaAdi'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_FirmaDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.Firma'), new Serenity.ServiceAttribute('Sertifika/Firma')] });
@@ -1676,6 +1834,7 @@
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('ResimKonumu'), new Serenity.FormKeyAttribute('Sertifika.SertifikaResim'), new Serenity.LocalTextPrefixAttribute('Sertifika.SertifikaResim'), new Serenity.ServiceAttribute('Sertifika/SertifikaResim')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.SertifikaResim'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('ResimKonumu'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_SertifikaResimDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.SertifikaResim'), new Serenity.ServiceAttribute('Sertifika/SertifikaResim')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimleriUploadEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Sertifika Resimleri'), new Serenity.OptionsTypeAttribute(Serenity.ImageUploadEditorOptions), new Serenity.ElementAttribute('<div/>')] });
+	ss.setMetadata($Gimnet_Sertifika_Barkod_BarkodGridDialog, { attr: [new Serenity.IdPropertyAttribute('Id')] });
 	ss.setMetadata($Gimnet_Sertifika_Firma_FirmaLookupEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Firma Adı')] });
 	ss.setMetadata($Gimnet_Sertifika_Kategori_KategoriLookupEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Kategori')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResim_SertifikaResimGridDialog, { attr: [new Serenity.IdPropertyAttribute('Id')] });

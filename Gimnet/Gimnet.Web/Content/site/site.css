@@ -1698,3 +1698,44 @@ a,
 .s-SertifikaResimGridDialog .ui-dialog-content {
   overflow: hidden;
 }
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-BarkodDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-BarkodDialog .tab-pane {
+  height: auto;
+}
+.s-BarkodDialog .caption {
+  width: 150px;
+}
+.s-BarkodDialog .editor {
+  width: 400px;
+}
+.s-BarkodDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-BarkodDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-BarkodDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-BarkodDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-BarkodDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-BarkodDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-BarkodDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-BarkodDialog .s-PropertyGrid .categories {
+  height: 260px;
+}

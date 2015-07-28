@@ -1,4 +1,4 @@
-﻿namespace Gimnet.Sertifika.SertifikaResim
+﻿namespace Gimnet.Sertifika.Barkod
 {
     using System;
     using jQueryApi;
@@ -7,14 +7,14 @@
     using System.Collections.Generic;
 
     [IdProperty("Id")]
-    public class SertifikaResimGridDialog : TemplatedDialog
+    public class BarkodGridDialog : TemplatedDialog
     {
         public HelalSertifikaRow Sertifika { get; set; }
-        public SertifikaResimGrid SertifikaResimGrid { get; set; }
+        public BarkodGrid BarkodGrid { get; set; }
 
-        public SertifikaResimGridDialog()
+        public BarkodGridDialog()
         {
-            SertifikaResimGrid = new SertifikaResimGrid(ById("GridDiv"));
+            BarkodGrid = new BarkodGrid(ById("GridDiv"));
         }
 
         protected override void OnDialogOpen()
@@ -46,7 +46,7 @@
             if (this.Sertifika == null)
                 return;
 
-            element.Dialog().Title = string.Format("{0} {2} Sertifikası İçin Belge Resimleri", Sertifika.FirmaFirmaAdi, Sertifika.Marka);
+            element.Dialog().Title = string.Format("{0} {2} Sertifikası İçin Ürün Barkodları", Sertifika.FirmaFirmaAdi, Sertifika.Marka);
         }
 
 
@@ -70,7 +70,7 @@
                     }, onSuccess: response =>
                     {
                         Sertifika = response.Entity;
-                        this.SertifikaResimGrid.SertifikaRow = this.Sertifika;
+                        this.BarkodGrid.SertifikaRow = this.Sertifika;
                         UpdateTitle();
                     });
                 }
@@ -78,3 +78,4 @@
         }
     }
 }
+   

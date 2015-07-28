@@ -26,6 +26,7 @@ namespace Gimnet.Sertifika
                 form.EklenmeTarihi.Value = "Today";
                 form.GecerlilikTarihiBaslangic.Value = "Today";
             }
+            form.SertifikaId.GetGridField().Hide();
         }
         protected override SertifikaResimRow GetSaveEntity()
         {

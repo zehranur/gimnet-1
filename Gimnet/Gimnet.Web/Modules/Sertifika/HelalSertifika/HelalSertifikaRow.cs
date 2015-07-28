@@ -93,7 +93,7 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.İptalAciklamasi[this] = value; }
         }
 
-        [DisplayName("Kategori Adı"), Expression("jKategori.KategoriAdi")]
+        [DisplayName("Kategori"), Expression("jKategori.KategoriAdi")]
         public String KategoriKategoriAdi
         {
             get { return Fields.KategoriKategoriAdi[this]; }
@@ -107,7 +107,7 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.KategoriEklenmeTarihi[this] = value; }
         }
 
-        [DisplayName("Firma Firma Adı"), Expression("jFirma.FirmaAdi")]
+        [DisplayName("Firma Adı"), Expression("jFirma.FirmaAdi")]
         public String FirmaFirmaAdi
         {
             get { return Fields.FirmaFirmaAdi[this]; }

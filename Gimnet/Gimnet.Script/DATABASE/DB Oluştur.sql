@@ -196,6 +196,34 @@ CREATE TABLE [dbo].[SertifikaResimleri](
 
 GO
 
+USE [Gimnet_Default_v1]
+GO
+
+/****** Object:  Table [dbo].[Barkod]    Script Date: 28.7.2015 23:37:17 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Barkod](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[SertifikaId] [int] NOT NULL,
+	[Barkod] [nchar](25) NOT NULL,
+	[UrunAdi] [nchar](256) NOT NULL
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[Barkod]  WITH CHECK ADD  CONSTRAINT [FK_Barkod_HelalSertifika] FOREIGN KEY([SertifikaId])
+REFERENCES [dbo].[HelalSertifika] ([Id])
+GO
+
+ALTER TABLE [dbo].[Barkod] CHECK CONSTRAINT [FK_Barkod_HelalSertifika]
+GO
+
+
+
 ALTER TABLE [dbo].[SertifikaResimleri]  WITH CHECK ADD  CONSTRAINT [FK_SertifikaResimleri_HelalSertifika] FOREIGN KEY([SertifikaId])
 REFERENCES [dbo].[HelalSertifika] ([Id])
 GO

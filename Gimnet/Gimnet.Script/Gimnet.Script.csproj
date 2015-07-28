@@ -62,6 +62,9 @@
     <Compile Include="Imports\FormContexts\Membership.LoginForm.cs">
       <DependentUpon>FormContexts.tt</DependentUpon>
     </Compile>
+    <Compile Include="Imports\FormContexts\Sertifika.BarkodForm.cs">
+      <DependentUpon>FormContexts.tt</DependentUpon>
+    </Compile>
     <Compile Include="Imports\FormContexts\Sertifika.FirmaForm.cs">
       <DependentUpon>FormContexts.tt</DependentUpon>
     </Compile>
@@ -164,6 +167,12 @@
     <Compile Include="Imports\ServiceContracts\Membership.LoginRequest.cs">
       <DependentUpon>ServiceContracts.tt</DependentUpon>
     </Compile>
+    <Compile Include="Imports\ServiceContracts\Sertifika.BarkodRow.cs">
+      <DependentUpon>ServiceContracts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ServiceContracts\Sertifika.BarkodService.cs">
+      <DependentUpon>ServiceContracts.tt</DependentUpon>
+    </Compile>
     <Compile Include="Imports\ServiceContracts\Sertifika.FirmaDurumIds.cs">
       <DependentUpon>ServiceContracts.tt</DependentUpon>
     </Compile>
@@ -205,6 +214,7 @@
     <Compile Include="Administration\Role\RoleGrid.cs" />
     <Compile Include="Administration\Role\RoleDialog.cs" />
     <Compile Include="Administration\UserPermission\UserPermissionDialog.cs" />
+    <Compile Include="Sertifika\Barkod\BarkodGridDialog.cs" />
     <Compile Include="Sertifika\Firma\FirmaDialog.cs" />
     <Compile Include="Sertifika\Firma\FirmaGrid.cs" />
     <Compile Include="Sertifika\Firma\FirmaLogoUploadEditor.cs" />
@@ -219,6 +229,8 @@
     <Compile Include="Sertifika\SertifikaResim\SertifikaResimGridDialog.cs" />
     <Compile Include="Sertifika\SertifikaResim\SertifikaResimleriUploadEditor.cs" />
     <Compile Include="Sertifika\SupportUtility.cs" />
+    <Compile Include="Sertifika\Barkod\BarkodGrid.cs" />
+    <Compile Include="Sertifika\Barkod\BarkodDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Imports\FormContexts\FormContexts.log">

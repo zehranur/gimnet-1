@@ -1,6 +1,7 @@
 ﻿
 namespace Gimnet.Sertifika
 {
+    using Gimnet.Sertifika.Barkod;
     using Gimnet.Sertifika.SertifikaResim;
     using jQueryApi;
     using Serenity;
@@ -35,11 +36,21 @@ namespace Gimnet.Sertifika
             var buttons = base.GetToolbarButtons();
             buttons.Add(new ToolButton
             {
-                Title = "Sertifika Resimleri",
-                CssClass = "quick-access-menu-button",
+                Title = "Sertifika Belge Resimleri",
+                CssClass = "multiple-add-button",
                 OnClick = delegate
                 {
                     new SertifikaResimGridDialog().LoadByIdAndOpenDialog(Entity.Id.Value);
+                }
+
+            });
+            buttons.Add(new ToolButton
+            {
+                Title = "Ürün Barkodları",
+                CssClass = "multiple-add-button",
+                OnClick = delegate
+                {
+                    new BarkodGridDialog().LoadByIdAndOpenDialog(Entity.Id.Value);
                 }
 
             });
