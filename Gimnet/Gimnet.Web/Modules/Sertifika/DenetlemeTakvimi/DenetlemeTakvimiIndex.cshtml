@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = Serenity.LocalText.Get("Db.Sertifika.DenetlemeTakvimi.EntityPlural");
+}
+
+<div id="GridDiv"></div>
+
+<script type="text/javascript">
+    jQuery(function () {
+        new Gimnet.Sertifika.DenetlemeTakvimiGrid($('#GridDiv'), {}).init();
+
+        Q.initFullHeightGridPage($('#GridDiv'));
+    });
+</script>
