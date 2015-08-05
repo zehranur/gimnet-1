@@ -958,6 +958,7 @@
     <Content Include="Modules\Administration\Translation\TranslationIndex.cshtml" />
     <Content Include="Modules\Administration\Role\RoleIndex.cshtml" />
     <Content Include="Modules\Sertifika\Barkod\BarkodIndex.cshtml" />
+    <Content Include="Modules\Sertifika\DenetlemeTakvimi\DenetlemeTakvimiIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -1161,6 +1162,12 @@
     <Compile Include="Modules\Sertifika\Barkod\BarkodRepository.cs" />
     <Compile Include="Modules\Sertifika\Barkod\BarkodEndpoint.cs" />
     <Compile Include="Modules\Sertifika\Barkod\BarkodPage.cs" />
+    <Compile Include="Modules\Sertifika\DenetlemeTakvimi\DenetlemeTakvimiRow.cs" />
+    <Compile Include="Modules\Sertifika\DenetlemeTakvimi\DenetlemeTakvimiColumns.cs" />
+    <Compile Include="Modules\Sertifika\DenetlemeTakvimi\DenetlemeTakvimiForm.cs" />
+    <Compile Include="Modules\Sertifika\DenetlemeTakvimi\DenetlemeTakvimiRepository.cs" />
+    <Compile Include="Modules\Sertifika\DenetlemeTakvimi\DenetlemeTakvimiEndpoint.cs" />
+    <Compile Include="Modules\Sertifika\DenetlemeTakvimi\DenetlemeTakvimiPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

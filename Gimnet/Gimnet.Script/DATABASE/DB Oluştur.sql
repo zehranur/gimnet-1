@@ -215,6 +215,34 @@ CREATE TABLE [dbo].[Barkod](
 
 GO
 
+GO
+
+CREATE TABLE [dbo].[DenetlemeTakvimi](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[FirmaId] [int] NOT NULL,
+	[DenetlemeTarihi] [smalldatetime] NOT NULL,
+	[Denetciler] [nvarchar](1000) NOT NULL,
+	[Durumu] [int] NOT NULL,
+	[Sonuc] [nvarchar](max) NOT NULL,
+	[PlanananTarih] [smalldatetime] NOT NULL,
+ CONSTRAINT [PK_DenetlemeTakvimi] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[DenetlemeTakvimi]  WITH CHECK ADD  CONSTRAINT [FK_DenetlemeTakvimi_Firma] FOREIGN KEY([FirmaId])
+REFERENCES [dbo].[Firma] ([Id])
+GO
+
+ALTER TABLE [dbo].[DenetlemeTakvimi] CHECK CONSTRAINT [FK_DenetlemeTakvimi_Firma]
+GO
+
+
+
+
 ALTER TABLE [dbo].[Barkod]  WITH CHECK ADD  CONSTRAINT [FK_Barkod_HelalSertifika] FOREIGN KEY([SertifikaId])
 REFERENCES [dbo].[HelalSertifika] ([Id])
 GO

@@ -1,6 +1,7 @@
 ﻿
 namespace Gimnet.Sertifika
 {
+    using Gimnet.Sertifika.DenetlemeTakvimi;
     using jQueryApi;
     using Serenity;
     using System.Collections.Generic;
@@ -24,6 +25,22 @@ namespace Gimnet.Sertifika
         protected override void LoadEntity(FirmaRow entity)
         {
             base.LoadEntity(entity);
+        }
+
+        protected override List<ToolButton> GetToolbarButtons()
+        {
+            var buttons = base.GetToolbarButtons();
+            buttons.Add(new ToolButton
+            {
+                Title = "Denetleme Takvimi",
+                CssClass = "outlook-meeting-button",
+                OnClick = delegate
+                {
+                    new DenetlemeTakvimiGridDialog().LoadByIdAndOpenDialog(Entity.Id.Value);
+                }
+
+            });
+            return buttons;
         }
     }
 }

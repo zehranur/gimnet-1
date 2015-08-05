@@ -1739,3 +1739,85 @@ a,
 .s-BarkodDialog .s-PropertyGrid .categories {
   height: 260px;
 }
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-DefaultDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-DefaultDialog .tab-pane {
+  height: auto;
+}
+.s-DefaultDialog .caption {
+  width: 150px;
+}
+.s-DefaultDialog .editor {
+  width: 400px;
+}
+.s-DefaultDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-DefaultDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-DefaultDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-DefaultDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-DefaultDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-DefaultDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-DefaultDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-DefaultDialog .s-PropertyGrid .categories {
+  height: 260px;
+}
+/* ------------------------------------------------------------------------- */
+/* APPENDED BY CODE GENERATOR, MOVE TO CORRECT PLACE AND REMOVE THIS COMMENT */
+/* ------------------------------------------------------------------------- */
+.s-DenetlemeTakvimiDialog > .size {
+  min-width: 650px;
+  width: 650px;
+}
+.s-DenetlemeTakvimiDialog .tab-pane {
+  height: auto;
+}
+.s-DenetlemeTakvimiDialog .caption {
+  width: 150px;
+}
+.s-DenetlemeTakvimiDialog .editor {
+  width: 400px;
+}
+.s-DenetlemeTakvimiDialog input.editor[type=checkbox] {
+  width: auto;
+}
+.s-DenetlemeTakvimiDialog .s-Form .editor.dateQ {
+  width: 383px;
+}
+.s-DenetlemeTakvimiDialog .s-Form .editor.emailuser {
+  width: 170px;
+}
+.s-DenetlemeTakvimiDialog .s-Form .editor.dateQ.s-DateTimeEditor {
+  width: 323px;
+}
+.s-DenetlemeTakvimiDialog .s-Form .editor.s-DateTimeEditor.time {
+  width: 56px;
+  margin-left: 4px;
+}
+.s-DenetlemeTakvimiDialog .s-Form .editor.has-inplace-button {
+  width: 378px;
+}
+.s-DenetlemeTakvimiDialog .s-Form .emaildomain {
+  width: 215px;
+}
+.s-DenetlemeTakvimiDialog .s-PropertyGrid .categories {
+  height: 260px;
+}

@@ -9,6 +9,7 @@
 	global.Gimnet.Membership = global.Gimnet.Membership || {};
 	global.Gimnet.Sertifika = global.Gimnet.Sertifika || {};
 	global.Gimnet.Sertifika.Barkod = global.Gimnet.Sertifika.Barkod || {};
+	global.Gimnet.Sertifika.DenetlemeTakvimi = global.Gimnet.Sertifika.DenetlemeTakvimi || {};
 	global.Gimnet.Sertifika.Firma = global.Gimnet.Sertifika.Firma || {};
 	global.Gimnet.Sertifika.Kategori = global.Gimnet.Sertifika.Kategori || {};
 	global.Gimnet.Sertifika.SertifikaResim = global.Gimnet.Sertifika.SertifikaResim || {};
@@ -595,6 +596,49 @@
 	};
 	global.Gimnet.Sertifika.BarkodService = $Gimnet_Sertifika_BarkodService;
 	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.DenetlemeTakvimiDialog
+	var $Gimnet_Sertifika_DenetlemeTakvimiDialog = function() {
+		ss.makeGenericType(Serenity.EntityDialog$1, [Object]).call(this);
+	};
+	$Gimnet_Sertifika_DenetlemeTakvimiDialog.__typeName = 'Gimnet.Sertifika.DenetlemeTakvimiDialog';
+	global.Gimnet.Sertifika.DenetlemeTakvimiDialog = $Gimnet_Sertifika_DenetlemeTakvimiDialog;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.DenetlemeTakvimiForm
+	var $Gimnet_Sertifika_DenetlemeTakvimiForm = function(idPrefix) {
+		Serenity.PrefixedContext.call(this, idPrefix);
+	};
+	$Gimnet_Sertifika_DenetlemeTakvimiForm.__typeName = 'Gimnet.Sertifika.DenetlemeTakvimiForm';
+	global.Gimnet.Sertifika.DenetlemeTakvimiForm = $Gimnet_Sertifika_DenetlemeTakvimiForm;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.DenetlemeTakvimiGrid
+	var $Gimnet_Sertifika_DenetlemeTakvimiGrid = function(container) {
+		this.$sertifikaRow = null;
+		ss.makeGenericType(Serenity.EntityGrid$1, [Object]).call(this, container);
+	};
+	$Gimnet_Sertifika_DenetlemeTakvimiGrid.__typeName = 'Gimnet.Sertifika.DenetlemeTakvimiGrid';
+	global.Gimnet.Sertifika.DenetlemeTakvimiGrid = $Gimnet_Sertifika_DenetlemeTakvimiGrid;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.DenetlemeTakvimiService
+	var $Gimnet_Sertifika_DenetlemeTakvimiService = function() {
+	};
+	$Gimnet_Sertifika_DenetlemeTakvimiService.__typeName = 'Gimnet.Sertifika.DenetlemeTakvimiService';
+	$Gimnet_Sertifika_DenetlemeTakvimiService.create = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/DenetlemeTakvimi/Create', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_DenetlemeTakvimiService.update = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/DenetlemeTakvimi/Update', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_DenetlemeTakvimiService.delete$1 = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/DenetlemeTakvimi/Delete', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_DenetlemeTakvimiService.retrieve = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/DenetlemeTakvimi/Retrieve', request, onSuccess, options);
+	};
+	$Gimnet_Sertifika_DenetlemeTakvimiService.list = function(request, onSuccess, options) {
+		return Q.serviceRequest('Sertifika/DenetlemeTakvimi/List', request, onSuccess, options);
+	};
+	global.Gimnet.Sertifika.DenetlemeTakvimiService = $Gimnet_Sertifika_DenetlemeTakvimiService;
+	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.FirmaDialog
 	var $Gimnet_Sertifika_FirmaDialog = function() {
 		this.$form = null;
@@ -825,6 +869,16 @@
 	};
 	$Gimnet_Sertifika_Barkod_BarkodGridDialog.__typeName = 'Gimnet.Sertifika.Barkod.BarkodGridDialog';
 	global.Gimnet.Sertifika.Barkod.BarkodGridDialog = $Gimnet_Sertifika_Barkod_BarkodGridDialog;
+	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Sertifika.DenetlemeTakvimi.DenetlemeTakvimiGridDialog
+	var $Gimnet_Sertifika_DenetlemeTakvimi_DenetlemeTakvimiGridDialog = function() {
+		this.$7$SertifikaField = null;
+		this.$7$DenetlemeTakvimiGridField = null;
+		Serenity.TemplatedDialog.call(this);
+		this.set_denetlemeTakvimiGrid(new $Gimnet_Sertifika_DenetlemeTakvimiGrid(this.byId$1('GridDiv')));
+	};
+	$Gimnet_Sertifika_DenetlemeTakvimi_DenetlemeTakvimiGridDialog.__typeName = 'Gimnet.Sertifika.DenetlemeTakvimi.DenetlemeTakvimiGridDialog';
+	global.Gimnet.Sertifika.DenetlemeTakvimi.DenetlemeTakvimiGridDialog = $Gimnet_Sertifika_DenetlemeTakvimi_DenetlemeTakvimiGridDialog;
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.Firma.FirmaLookupEditor
 	var $Gimnet_Sertifika_Firma_FirmaLookupEditor = function(hidden) {
@@ -1444,9 +1498,66 @@
 		}
 	}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
 	ss.initClass($Gimnet_Sertifika_BarkodService, $asm, {});
+	ss.initClass($Gimnet_Sertifika_DenetlemeTakvimiDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
+	ss.initClass($Gimnet_Sertifika_DenetlemeTakvimiForm, $asm, {
+		get_firmaId: function() {
+			return this.byId(Serenity.IntegerEditor).call(this, 'FirmaId');
+		},
+		get_denetlemeTarihi: function() {
+			return this.byId(Serenity.DateEditor).call(this, 'DenetlemeTarihi');
+		},
+		get_denetciler: function() {
+			return this.byId(Serenity.StringEditor).call(this, 'Denetciler');
+		},
+		get_durumu: function() {
+			return this.byId(Serenity.IntegerEditor).call(this, 'Durumu');
+		},
+		get_sonuc: function() {
+			return this.byId(Serenity.StringEditor).call(this, 'Sonuc');
+		},
+		get_planananTarih: function() {
+			return this.byId(Serenity.DateEditor).call(this, 'PlanananTarih');
+		}
+	}, Serenity.PrefixedContext);
+	ss.initClass($Gimnet_Sertifika_DenetlemeTakvimiGrid, $asm, {
+		get_sertifikaRow: function() {
+			return this.$sertifikaRow;
+		},
+		set_sertifikaRow: function(value) {
+			this.$sertifikaRow = value;
+			this.refresh();
+		},
+		createEntityDialog: function(itemType, callback) {
+			var dialog = ss.makeGenericType(Serenity.EntityGrid$2, [Object, Object]).prototype.createEntityDialog.call(this, itemType, callback);
+			if (ss.referenceEquals(itemType, this.getItemType())) {
+				dialog.set_sertifikaId(this.$sertifikaRow.Id);
+			}
+			return dialog;
+		},
+		onViewSubmit: function() {
+			if (!ss.makeGenericType(Serenity.DataGrid$2, [Object, Object]).prototype.onViewSubmit.call(this)) {
+				return false;
+			}
+			if (ss.isNullOrUndefined(this.$sertifikaRow) || ss.isNullOrUndefined(this.$sertifikaRow.Id)) {
+				return false;
+			}
+			var eqFilter = {};
+			eqFilter['SertifikaId'] = this.$sertifikaRow.Id;
+			this.view.params.EqualityFilter = eqFilter;
+			return true;
+		}
+	}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
+	ss.initClass($Gimnet_Sertifika_DenetlemeTakvimiService, $asm, {});
 	ss.initClass($Gimnet_Sertifika_FirmaDialog, $asm, {
 		loadEntity: function(entity) {
 			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
+		},
+		getToolbarButtons: function() {
+			var buttons = ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.getToolbarButtons.call(this);
+			buttons.push({ title: 'Denetleme Takvimi', cssClass: 'outlook-meeting-button', onClick: ss.mkdel(this, function() {
+				(new $Gimnet_Sertifika_DenetlemeTakvimi_DenetlemeTakvimiGridDialog()).loadByIdAndOpenDialog(ss.unbox(this.get_entity().Id));
+			}) });
+			return buttons;
 		}
 	}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initEnum($Gimnet_Sertifika_FirmaDurumIds, $asm, { None: 0, Normal: 1, Yasakli: 2 });
@@ -1725,6 +1836,58 @@
 			}
 		}
 	}, Serenity.TemplatedDialog, [Serenity.IDialog]);
+	ss.initClass($Gimnet_Sertifika_DenetlemeTakvimi_DenetlemeTakvimiGridDialog, $asm, {
+		get_sertifika: function() {
+			return this.$7$SertifikaField;
+		},
+		set_sertifika: function(value) {
+			this.$7$SertifikaField = value;
+		},
+		get_denetlemeTakvimiGrid: function() {
+			return this.$7$DenetlemeTakvimiGridField;
+		},
+		set_denetlemeTakvimiGrid: function(value) {
+			this.$7$DenetlemeTakvimiGridField = value;
+		},
+		onDialogOpen: function() {
+			ss.makeGenericType(Serenity.TemplatedDialog$1, [Object]).prototype.onDialogOpen.call(this);
+			$('.ui-widget-overlay.ui-front').last().css('opacity', '0.5');
+		},
+		getToolbarButtons: function() {
+			return [];
+		},
+		getDialogOptions: function() {
+			var dialogOptions = ss.makeGenericType(Serenity.TemplatedDialog$1, [Object]).prototype.getDialogOptions.call(this);
+			dialogOptions.resizable = true;
+			return dialogOptions;
+		},
+		getTemplateName: function() {
+			return 'GridDialog';
+		},
+		updateTitle: function() {
+			if (ss.isNullOrUndefined(this.get_sertifika())) {
+				return;
+			}
+			this.element.dialog().dialog('option', 'title', ss.formatString('{0} Firması İçin Denetleme Zamanları', this.get_sertifika().FirmaFirmaAdi));
+		},
+		loadByIdAndOpenDialog: function(sertifikaID) {
+			this.set_sertifikaID(sertifikaID);
+			this.dialogOpen();
+		},
+		get_sertifikaID: function() {
+			return (ss.isValue(this.get_sertifika()) ? this.get_sertifika().Id : null);
+		},
+		set_sertifikaID: function(value) {
+			if (ss.isNullOrUndefined(this.get_sertifika()) || !ss.referenceEquals(this.get_sertifika().Id, value)) {
+				var sertID = value;
+				$Gimnet_Sertifika_HelalSertifikaService.retrieve({ EntityId: ss.unbox(sertID) }, ss.mkdel(this, function(response) {
+					this.set_sertifika(response.Entity);
+					this.get_denetlemeTakvimiGrid().set_sertifikaRow(this.get_sertifika());
+					this.updateTitle();
+				}), null);
+			}
+		}
+	}, Serenity.TemplatedDialog, [Serenity.IDialog]);
 	ss.initClass($Gimnet_Sertifika_Firma_FirmaLookupEditor, $asm, {
 		getLookupKey: function() {
 			return 'Sertifika.Firmalar';
@@ -1822,6 +1985,8 @@
 	ss.setMetadata($Gimnet_Membership_LoginPanel, { attr: [new Serenity.PanelAttribute(), new Serenity.FormKeyAttribute('Membership.Login')] });
 	ss.setMetadata($Gimnet_Sertifika_BarkodDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Barkod'), new Serenity.FormKeyAttribute('Sertifika.Barkod'), new Serenity.LocalTextPrefixAttribute('Sertifika.Barkod'), new Serenity.ServiceAttribute('Sertifika/Barkod')] });
 	ss.setMetadata($Gimnet_Sertifika_BarkodGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.Barkod'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Barkod'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_BarkodDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.Barkod'), new Serenity.ServiceAttribute('Sertifika/Barkod')] });
+	ss.setMetadata($Gimnet_Sertifika_DenetlemeTakvimiDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Denetciler'), new Serenity.FormKeyAttribute('Sertifika.DenetlemeTakvimi'), new Serenity.LocalTextPrefixAttribute('Sertifika.DenetlemeTakvimi'), new Serenity.ServiceAttribute('Sertifika/DenetlemeTakvimi')] });
+	ss.setMetadata($Gimnet_Sertifika_DenetlemeTakvimiGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.DenetlemeTakvimi'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Denetciler'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_DenetlemeTakvimiDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.DenetlemeTakvimi'), new Serenity.ServiceAttribute('Sertifika/DenetlemeTakvimi')] });
 	ss.setMetadata($Gimnet_Sertifika_FirmaDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('FirmaAdi'), new Serenity.FormKeyAttribute('Sertifika.Firma'), new Serenity.LocalTextPrefixAttribute('Sertifika.Firma'), new Serenity.ServiceAttribute('Sertifika/Firma')] });
 	ss.setMetadata($Gimnet_Sertifika_FirmaDurumIds, { attr: [new Serenity.EnumKeyAttribute('Gimnet.Sertifika.FirmaDurumIds')] });
 	ss.setMetadata($Gimnet_Sertifika_FirmaGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.Firma'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('FirmaAdi'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_FirmaDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.Firma'), new Serenity.ServiceAttribute('Sertifika/Firma')] });
@@ -1835,6 +2000,7 @@
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.SertifikaResim'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('ResimKonumu'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_SertifikaResimDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.SertifikaResim'), new Serenity.ServiceAttribute('Sertifika/SertifikaResim')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResimleriUploadEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Sertifika Resimleri'), new Serenity.OptionsTypeAttribute(Serenity.ImageUploadEditorOptions), new Serenity.ElementAttribute('<div/>')] });
 	ss.setMetadata($Gimnet_Sertifika_Barkod_BarkodGridDialog, { attr: [new Serenity.IdPropertyAttribute('Id')] });
+	ss.setMetadata($Gimnet_Sertifika_DenetlemeTakvimi_DenetlemeTakvimiGridDialog, { attr: [new Serenity.IdPropertyAttribute('Id')] });
 	ss.setMetadata($Gimnet_Sertifika_Firma_FirmaLookupEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Firma Adı')] });
 	ss.setMetadata($Gimnet_Sertifika_Kategori_KategoriLookupEditor, { attr: [new Serenity.EditorAttribute(), new System.ComponentModel.DisplayNameAttribute('Kategori')] });
 	ss.setMetadata($Gimnet_Sertifika_SertifikaResim_SertifikaResimGridDialog, { attr: [new Serenity.IdPropertyAttribute('Id')] });
