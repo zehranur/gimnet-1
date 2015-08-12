@@ -16,11 +16,11 @@ namespace Gimnet.Sertifika
         public DenetlemeTakvimiForm(string idPrefix) : base(idPrefix) {}
     
         public IntegerEditor FirmaId { get { return ById<IntegerEditor>("FirmaId"); } }
-        public DateEditor DenetlemeTarihi { get { return ById<DateEditor>("DenetlemeTarihi"); } }
-        public StringEditor Denetciler { get { return ById<StringEditor>("Denetciler"); } }
-        public IntegerEditor Durumu { get { return ById<IntegerEditor>("Durumu"); } }
-        public StringEditor Sonuc { get { return ById<StringEditor>("Sonuc"); } }
         public DateEditor PlanananTarih { get { return ById<DateEditor>("PlanananTarih"); } }
+        public DateEditor DenetlemeTarihi { get { return ById<DateEditor>("DenetlemeTarihi"); } }
+        public TextAreaEditor Denetciler { get { return ById<TextAreaEditor>("Denetciler"); } }
+        public EnumEditor Durumu { get { return ById<EnumEditor>("Durumu"); } }
+        public TextAreaEditor Sonuc { get { return ById<TextAreaEditor>("Sonuc"); } }
     }
 }
 

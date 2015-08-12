@@ -15,12 +15,12 @@ namespace Gimnet.Sertifika.Forms
     {
         [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
         public Int32 Id { get; set; }
-        public Int32 FirmaId { get; set; }
-        public DateTime DenetlemeTarihi { get; set; }
         [EditLink]
-        public String Denetciler { get; set; }
-        public Int32 Durumu { get; set; }
-        public String Sonuc { get; set; }
+        public String FirmaFirmaAdi { get; set; }
         public DateTime PlanananTarih { get; set; }
+        public DateTime DenetlemeTarihi { get; set; }
+        public String Denetciler { get; set; }
+        public DenetlemeDurumIds Durumu { get; set; }
+        public String Sonuc { get; set; }
     }
 }

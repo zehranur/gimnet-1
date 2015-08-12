@@ -16,13 +16,13 @@ namespace Gimnet.Sertifika
         {
         }
 
-        private HelalSertifikaRow sertifikaRow;
-        public HelalSertifikaRow SertifikaRow
+        private FirmaRow firmaRow;
+        public FirmaRow FirmaRow
         {
-            get { return this.sertifikaRow; }
+            get { return this.firmaRow; }
             set
             {
-                this.sertifikaRow = value;
+                this.firmaRow = value;
                 Refresh();
             }
         }
@@ -32,7 +32,7 @@ namespace Gimnet.Sertifika
             var dialog = base.CreateEntityDialog(itemType, callback);
 
             if (itemType == GetItemType())
-                dialog.As<SertifikaResimDialog>().SertifikaId = this.sertifikaRow.Id;
+                dialog.As<DenetlemeTakvimiDialog>().FirmaId = this.firmaRow.Id;
             return dialog;
         }
 
@@ -41,11 +41,11 @@ namespace Gimnet.Sertifika
             if (!base.OnViewSubmit())
                 return false;
 
-            if (this.sertifikaRow == null || this.sertifikaRow.Id == null)
+            if (this.firmaRow == null || this.firmaRow.Id == null)
                 return false;
 
             var eqFilter = new JsDictionary<string, Object>();
-            eqFilter["SertifikaId"] = this.sertifikaRow.Id;
+            eqFilter["FirmaId"] = this.firmaRow.Id;
             view.Params.EqualityFilter = eqFilter;
             return true;
         }

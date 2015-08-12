@@ -9,7 +9,7 @@
     [IdProperty("Id")]
     public class DenetlemeTakvimiGridDialog : TemplatedDialog
     {
-        public HelalSertifikaRow Sertifika { get; set; }
+        public FirmaRow firma { get; set; }
         public DenetlemeTakvimiGrid DenetlemeTakvimiGrid { get; set; }
 
         public DenetlemeTakvimiGridDialog()
@@ -43,34 +43,34 @@
 
         public void UpdateTitle()
         {
-            if (this.Sertifika == null)
+            if (this.firma == null)
                 return;
 
-            element.Dialog().Title = string.Format("{0} Firması İçin Denetleme Zamanları", Sertifika.FirmaFirmaAdi);
+            element.Dialog().Title = string.Format("{0} Firması İçin Denetleme Zamanları", firma.FirmaAdi);
         }
 
 
-        public void LoadByIdAndOpenDialog(Int32 sertifikaID)
+        public void LoadByIdAndOpenDialog(Int32 firmaID)
         {
-            this.SertifikaID = sertifikaID;
+            this.FirmaID = firmaID;
             this.DialogOpen();
         }
 
-        public Int32? SertifikaID
+        public Int32? FirmaID
         {
-            get { return Sertifika != null ? this.Sertifika.Id : null; }
+            get { return firma != null ? this.firma.Id : null; }
             set
             {
-                if (this.Sertifika == null || this.Sertifika.Id != value)
+                if (this.firma == null || this.firma.Id != value)
                 {
-                    var sertID = value;
-                    HelalSertifikaService.Retrieve(new RetrieveRequest
+                    var firmaID = value;
+                    FirmaService.Retrieve(new RetrieveRequest
                     {
-                        EntityId = sertID.Value
+                        EntityId = firmaID.Value
                     }, onSuccess: response =>
                     {
-                        Sertifika = response.Entity;
-                        this.DenetlemeTakvimiGrid.SertifikaRow = this.Sertifika;
+                        firma = response.Entity;
+                        this.DenetlemeTakvimiGrid.FirmaRow = this.firma;
                         UpdateTitle();
                     });
                 }

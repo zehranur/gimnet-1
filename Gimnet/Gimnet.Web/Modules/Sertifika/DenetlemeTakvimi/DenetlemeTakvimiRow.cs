@@ -37,7 +37,7 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.DenetlemeTarihi[this] = value; }
         }
 
-        [DisplayName("Denetciler"), Size(1000), NotNull, QuickSearch]
+        [DisplayName("Denetciler"), Size(1000), TextAreaEditor, NotNull, QuickSearch]
         public String Denetciler
         {
             get { return Fields.Denetciler[this]; }
@@ -45,13 +45,13 @@ namespace Gimnet.Sertifika.Entities
         }
 
         [DisplayName("Durumu"), NotNull]
-        public Int32? Durumu
+        public DenetlemeDurumIds Durumu
         {
-            get { return Fields.Durumu[this]; }
-            set { Fields.Durumu[this] = value; }
+            get { return (DenetlemeDurumIds)Fields.Durumu[this]; }
+            set { Fields.Durumu[this] = (long)value; }
         }
 
-        [DisplayName("Sonuc"), NotNull]
+        [DisplayName("Sonuc"), TextAreaEditor, NotNull]
         public String Sonuc
         {
             get { return Fields.Sonuc[this]; }
@@ -151,7 +151,7 @@ namespace Gimnet.Sertifika.Entities
             public readonly Int32Field FirmaId;
             public readonly DateTimeField DenetlemeTarihi;
             public readonly StringField Denetciler;
-            public readonly Int32Field Durumu;
+            public readonly Int64Field Durumu;
             public readonly StringField Sonuc;
             public readonly DateTimeField PlanananTarih;
 

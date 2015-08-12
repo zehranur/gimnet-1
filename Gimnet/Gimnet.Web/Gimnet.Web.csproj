@@ -1038,6 +1038,7 @@
     <Compile Include="Modules\HelalDunyaMarket\HelalMarket\HelalMarketRow.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Modules\Sertifika\DenetlemeTakvimi\DenetlemeDurumIds.cs" />
     <Compile Include="Modules\Sertifika\Firma\FirmaColumns.cs">
       <SubType>Code</SubType>
     </Compile>

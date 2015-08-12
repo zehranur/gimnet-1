@@ -72,7 +72,7 @@ namespace Gimnet.Sertifika.Entities
             set { Fields.Durum[this] = (Int64)value; }
         }
 
-        [DisplayName("Kapsam Dışı")]
+        [DisplayName("Kapsam Dışı"), TextAreaEditor]
         public String KapsamDisi
         {
             get { return Fields.KapsamDisi[this]; }

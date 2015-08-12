@@ -22,7 +22,7 @@ namespace Gimnet.Sertifika
         public DateEditor YenilemeTarihi { get { return ById<DateEditor>("YenilemeTarihi"); } }
         public TextAreaEditor SertifikaKapsami { get { return ById<TextAreaEditor>("SertifikaKapsami"); } }
         public EnumEditor Durum { get { return ById<EnumEditor>("Durum"); } }
-        public StringEditor KapsamDisi { get { return ById<StringEditor>("KapsamDisi"); } }
+        public TextAreaEditor KapsamDisi { get { return ById<TextAreaEditor>("KapsamDisi"); } }
         public DateEditor BitisTarihi { get { return ById<DateEditor>("BitisTarihi"); } }
         public StringEditor İptalAciklamasi { get { return ById<StringEditor>("İptalAciklamasi"); } }
         public MultipleImageUploadEditor SertifikaResimleri { get { return ById<MultipleImageUploadEditor>("SertifikaResimleri"); } }

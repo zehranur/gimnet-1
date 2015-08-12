@@ -14,10 +14,10 @@ namespace Gimnet.Sertifika.Forms
     public class DenetlemeTakvimiForm
     {
         public Int32 FirmaId { get; set; }
+        public DateTime PlanananTarih { get; set; }
         public DateTime DenetlemeTarihi { get; set; }
         public String Denetciler { get; set; }
-        public Int32 Durumu { get; set; }
+        public DenetlemeDurumIds Durumu { get; set; }
         public String Sonuc { get; set; }
-        public DateTime PlanananTarih { get; set; }
     }
 }

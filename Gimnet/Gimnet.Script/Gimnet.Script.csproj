@@ -176,6 +176,9 @@
     <Compile Include="Imports\ServiceContracts\Sertifika.BarkodService.cs">
       <DependentUpon>ServiceContracts.tt</DependentUpon>
     </Compile>
+    <Compile Include="Imports\ServiceContracts\Sertifika.DenetlemeDurumIds.cs">
+      <DependentUpon>ServiceContracts.tt</DependentUpon>
+    </Compile>
     <Compile Include="Imports\ServiceContracts\Sertifika.DenetlemeTakvimiRow.cs">
       <DependentUpon>ServiceContracts.tt</DependentUpon>
     </Compile>

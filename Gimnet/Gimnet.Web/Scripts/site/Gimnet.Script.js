@@ -7,6 +7,9 @@
 	global.Gimnet.Duyuru = global.Gimnet.Duyuru || {};
 	global.Gimnet.HelalDunyaMarket = global.Gimnet.HelalDunyaMarket || {};
 	global.Gimnet.Membership = global.Gimnet.Membership || {};
+	global.Gimnet.Modules = global.Gimnet.Modules || {};
+	global.Gimnet.Modules.Sertifika = global.Gimnet.Modules.Sertifika || {};
+	global.Gimnet.Modules.Sertifika.DenetlemeTakvimi = global.Gimnet.Modules.Sertifika.DenetlemeTakvimi || {};
 	global.Gimnet.Sertifika = global.Gimnet.Sertifika || {};
 	global.Gimnet.Sertifika.Barkod = global.Gimnet.Sertifika.Barkod || {};
 	global.Gimnet.Sertifika.DenetlemeTakvimi = global.Gimnet.Sertifika.DenetlemeTakvimi || {};
@@ -551,6 +554,12 @@
 	$Gimnet_Membership_LoginPanel.__typeName = 'Gimnet.Membership.LoginPanel';
 	global.Gimnet.Membership.LoginPanel = $Gimnet_Membership_LoginPanel;
 	////////////////////////////////////////////////////////////////////////////////
+	// Gimnet.Modules.Sertifika.DenetlemeTakvimi.DenetlemeDurumIds
+	var $Gimnet_Modules_Sertifika_DenetlemeTakvimi_DenetlemeDurumIds = function() {
+	};
+	$Gimnet_Modules_Sertifika_DenetlemeTakvimi_DenetlemeDurumIds.__typeName = 'Gimnet.Modules.Sertifika.DenetlemeTakvimi.DenetlemeDurumIds';
+	global.Gimnet.Modules.Sertifika.DenetlemeTakvimi.DenetlemeDurumIds = $Gimnet_Modules_Sertifika_DenetlemeTakvimi_DenetlemeDurumIds;
+	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.BarkodDialog
 	var $Gimnet_Sertifika_BarkodDialog = function() {
 		this.$form = null;
@@ -598,7 +607,11 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.DenetlemeTakvimiDialog
 	var $Gimnet_Sertifika_DenetlemeTakvimiDialog = function() {
+		this.$form = null;
+		this.$8$FirmaIdField = null;
 		ss.makeGenericType(Serenity.EntityDialog$1, [Object]).call(this);
+		this.$form = new $Gimnet_Sertifika_DenetlemeTakvimiForm(this.idPrefix);
+		this.$form.get_firmaId().set_value$1(this.get_firmaId());
 	};
 	$Gimnet_Sertifika_DenetlemeTakvimiDialog.__typeName = 'Gimnet.Sertifika.DenetlemeTakvimiDialog';
 	global.Gimnet.Sertifika.DenetlemeTakvimiDialog = $Gimnet_Sertifika_DenetlemeTakvimiDialog;
@@ -612,7 +625,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.DenetlemeTakvimiGrid
 	var $Gimnet_Sertifika_DenetlemeTakvimiGrid = function(container) {
-		this.$sertifikaRow = null;
+		this.$firmaRow = null;
 		ss.makeGenericType(Serenity.EntityGrid$1, [Object]).call(this, container);
 	};
 	$Gimnet_Sertifika_DenetlemeTakvimiGrid.__typeName = 'Gimnet.Sertifika.DenetlemeTakvimiGrid';
@@ -872,7 +885,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Gimnet.Sertifika.DenetlemeTakvimi.DenetlemeTakvimiGridDialog
 	var $Gimnet_Sertifika_DenetlemeTakvimi_DenetlemeTakvimiGridDialog = function() {
-		this.$7$SertifikaField = null;
+		this.$7$firmaField = null;
 		this.$7$DenetlemeTakvimiGridField = null;
 		Serenity.TemplatedDialog.call(this);
 		this.set_denetlemeTakvimiGrid(new $Gimnet_Sertifika_DenetlemeTakvimiGrid(this.byId$1('GridDiv')));
@@ -1452,6 +1465,7 @@
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Membership_LoginPanel, $asm, {}, ss.makeGenericType(Serenity.PropertyDialog$1, [Object]), [Serenity.IDialog]);
+	ss.initEnum($Gimnet_Modules_Sertifika_DenetlemeTakvimi_DenetlemeDurumIds, $asm, { None: 0, SorunsuzYapildi: 1, FirmaKabulEtmedi: 2, KusurlarBulundu: 3, İptalEdildi: 4 });
 	ss.initClass($Gimnet_Sertifika_BarkodDialog, $asm, {
 		loadEntity: function(entity) {
 			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
@@ -1498,39 +1512,53 @@
 		}
 	}, ss.makeGenericType(Serenity.EntityGrid$1, [Object]), [Serenity.IDataGrid]);
 	ss.initClass($Gimnet_Sertifika_BarkodService, $asm, {});
-	ss.initClass($Gimnet_Sertifika_DenetlemeTakvimiDialog, $asm, {}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
+	ss.initClass($Gimnet_Sertifika_DenetlemeTakvimiDialog, $asm, {
+		get_firmaId: function() {
+			return this.$8$FirmaIdField;
+		},
+		set_firmaId: function(value) {
+			this.$8$FirmaIdField = value;
+		},
+		loadEntity: function(entity) {
+			ss.makeGenericType(Serenity.EntityDialog$2, [Object, Object]).prototype.loadEntity.call(this, entity);
+			this.$form.get_firmaId().set_value$1(this.get_firmaId());
+			if (this.get_isNew()) {
+			}
+			Serenity.WX.getGridField(this.$form.get_firmaId()).hide();
+		}
+	}, ss.makeGenericType(Serenity.EntityDialog$1, [Object]), [Serenity.IDialog, Serenity.IEditDialog]);
 	ss.initClass($Gimnet_Sertifika_DenetlemeTakvimiForm, $asm, {
 		get_firmaId: function() {
 			return this.byId(Serenity.IntegerEditor).call(this, 'FirmaId');
+		},
+		get_planananTarih: function() {
+			return this.byId(Serenity.DateEditor).call(this, 'PlanananTarih');
 		},
 		get_denetlemeTarihi: function() {
 			return this.byId(Serenity.DateEditor).call(this, 'DenetlemeTarihi');
 		},
 		get_denetciler: function() {
-			return this.byId(Serenity.StringEditor).call(this, 'Denetciler');
+			return this.byId(Serenity.TextAreaEditor).call(this, 'Denetciler');
 		},
 		get_durumu: function() {
-			return this.byId(Serenity.IntegerEditor).call(this, 'Durumu');
+			return this.byId(Serenity.EnumEditor).call(this, 'Durumu');
 		},
 		get_sonuc: function() {
-			return this.byId(Serenity.StringEditor).call(this, 'Sonuc');
-		},
-		get_planananTarih: function() {
-			return this.byId(Serenity.DateEditor).call(this, 'PlanananTarih');
+			return this.byId(Serenity.TextAreaEditor).call(this, 'Sonuc');
 		}
 	}, Serenity.PrefixedContext);
 	ss.initClass($Gimnet_Sertifika_DenetlemeTakvimiGrid, $asm, {
-		get_sertifikaRow: function() {
-			return this.$sertifikaRow;
+		get_firmaRow: function() {
+			return this.$firmaRow;
 		},
-		set_sertifikaRow: function(value) {
-			this.$sertifikaRow = value;
+		set_firmaRow: function(value) {
+			this.$firmaRow = value;
 			this.refresh();
 		},
 		createEntityDialog: function(itemType, callback) {
 			var dialog = ss.makeGenericType(Serenity.EntityGrid$2, [Object, Object]).prototype.createEntityDialog.call(this, itemType, callback);
 			if (ss.referenceEquals(itemType, this.getItemType())) {
-				dialog.set_sertifikaId(this.$sertifikaRow.Id);
+				dialog.set_firmaId(this.$firmaRow.Id);
 			}
 			return dialog;
 		},
@@ -1538,11 +1566,11 @@
 			if (!ss.makeGenericType(Serenity.DataGrid$2, [Object, Object]).prototype.onViewSubmit.call(this)) {
 				return false;
 			}
-			if (ss.isNullOrUndefined(this.$sertifikaRow) || ss.isNullOrUndefined(this.$sertifikaRow.Id)) {
+			if (ss.isNullOrUndefined(this.$firmaRow) || ss.isNullOrUndefined(this.$firmaRow.Id)) {
 				return false;
 			}
 			var eqFilter = {};
-			eqFilter['SertifikaId'] = this.$sertifikaRow.Id;
+			eqFilter['FirmaId'] = this.$firmaRow.Id;
 			this.view.params.EqualityFilter = eqFilter;
 			return true;
 		}
@@ -1681,7 +1709,7 @@
 			return this.byId(Serenity.EnumEditor).call(this, 'Durum');
 		},
 		get_kapsamDisi: function() {
-			return this.byId(Serenity.StringEditor).call(this, 'KapsamDisi');
+			return this.byId(Serenity.TextAreaEditor).call(this, 'KapsamDisi');
 		},
 		get_bitisTarihi: function() {
 			return this.byId(Serenity.DateEditor).call(this, 'BitisTarihi');
@@ -1837,11 +1865,11 @@
 		}
 	}, Serenity.TemplatedDialog, [Serenity.IDialog]);
 	ss.initClass($Gimnet_Sertifika_DenetlemeTakvimi_DenetlemeTakvimiGridDialog, $asm, {
-		get_sertifika: function() {
-			return this.$7$SertifikaField;
+		get_firma: function() {
+			return this.$7$firmaField;
 		},
-		set_sertifika: function(value) {
-			this.$7$SertifikaField = value;
+		set_firma: function(value) {
+			this.$7$firmaField = value;
 		},
 		get_denetlemeTakvimiGrid: function() {
 			return this.$7$DenetlemeTakvimiGridField;
@@ -1865,24 +1893,24 @@
 			return 'GridDialog';
 		},
 		updateTitle: function() {
-			if (ss.isNullOrUndefined(this.get_sertifika())) {
+			if (ss.isNullOrUndefined(this.get_firma())) {
 				return;
 			}
-			this.element.dialog().dialog('option', 'title', ss.formatString('{0} Firması İçin Denetleme Zamanları', this.get_sertifika().FirmaFirmaAdi));
+			this.element.dialog().dialog('option', 'title', ss.formatString('{0} Firması İçin Denetleme Zamanları', this.get_firma().FirmaAdi));
 		},
-		loadByIdAndOpenDialog: function(sertifikaID) {
-			this.set_sertifikaID(sertifikaID);
+		loadByIdAndOpenDialog: function(firmaID) {
+			this.set_firmaID(firmaID);
 			this.dialogOpen();
 		},
-		get_sertifikaID: function() {
-			return (ss.isValue(this.get_sertifika()) ? this.get_sertifika().Id : null);
+		get_firmaID: function() {
+			return (ss.isValue(this.get_firma()) ? this.get_firma().Id : null);
 		},
-		set_sertifikaID: function(value) {
-			if (ss.isNullOrUndefined(this.get_sertifika()) || !ss.referenceEquals(this.get_sertifika().Id, value)) {
-				var sertID = value;
-				$Gimnet_Sertifika_HelalSertifikaService.retrieve({ EntityId: ss.unbox(sertID) }, ss.mkdel(this, function(response) {
-					this.set_sertifika(response.Entity);
-					this.get_denetlemeTakvimiGrid().set_sertifikaRow(this.get_sertifika());
+		set_firmaID: function(value) {
+			if (ss.isNullOrUndefined(this.get_firma()) || !ss.referenceEquals(this.get_firma().Id, value)) {
+				var firmaID = value;
+				$Gimnet_Sertifika_FirmaService.retrieve({ EntityId: ss.unbox(firmaID) }, ss.mkdel(this, function(response) {
+					this.set_firma(response.Entity);
+					this.get_denetlemeTakvimiGrid().set_firmaRow(this.get_firma());
 					this.updateTitle();
 				}), null);
 			}
@@ -1983,6 +2011,7 @@
 	ss.setMetadata($Gimnet_HelalDunyaMarket_HelalMarketDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Adi'), new Serenity.FormKeyAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.LocalTextPrefixAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.ServiceAttribute('HelalDunyaMarket/HelalMarket')] });
 	ss.setMetadata($Gimnet_HelalDunyaMarket_HelalMarketGrid, { attr: [new Serenity.ColumnsKeyAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Adi'), new Serenity.DialogTypeAttribute($Gimnet_HelalDunyaMarket_HelalMarketDialog), new Serenity.LocalTextPrefixAttribute('HelalDunyaMarket.HelalMarket'), new Serenity.ServiceAttribute('HelalDunyaMarket/HelalMarket')] });
 	ss.setMetadata($Gimnet_Membership_LoginPanel, { attr: [new Serenity.PanelAttribute(), new Serenity.FormKeyAttribute('Membership.Login')] });
+	ss.setMetadata($Gimnet_Modules_Sertifika_DenetlemeTakvimi_DenetlemeDurumIds, { attr: [new Serenity.EnumKeyAttribute('Gimnet.Modules.Sertifika.DenetlemeTakvimi.DenetlemeDurumIds')] });
 	ss.setMetadata($Gimnet_Sertifika_BarkodDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Barkod'), new Serenity.FormKeyAttribute('Sertifika.Barkod'), new Serenity.LocalTextPrefixAttribute('Sertifika.Barkod'), new Serenity.ServiceAttribute('Sertifika/Barkod')] });
 	ss.setMetadata($Gimnet_Sertifika_BarkodGrid, { attr: [new Serenity.ColumnsKeyAttribute('Sertifika.Barkod'), new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Barkod'), new Serenity.DialogTypeAttribute($Gimnet_Sertifika_BarkodDialog), new Serenity.LocalTextPrefixAttribute('Sertifika.Barkod'), new Serenity.ServiceAttribute('Sertifika/Barkod')] });
 	ss.setMetadata($Gimnet_Sertifika_DenetlemeTakvimiDialog, { attr: [new Serenity.IdPropertyAttribute('Id'), new Serenity.NamePropertyAttribute('Denetciler'), new Serenity.FormKeyAttribute('Sertifika.DenetlemeTakvimi'), new Serenity.LocalTextPrefixAttribute('Sertifika.DenetlemeTakvimi'), new Serenity.ServiceAttribute('Sertifika/DenetlemeTakvimi')] });

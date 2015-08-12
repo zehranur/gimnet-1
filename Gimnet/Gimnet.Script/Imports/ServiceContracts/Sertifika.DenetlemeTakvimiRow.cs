@@ -20,7 +20,7 @@ namespace Gimnet.Sertifika
         public Int32? FirmaId { get; set; }
         public String DenetlemeTarihi { get; set; }
         public String Denetciler { get; set; }
-        public Int32? Durumu { get; set; }
+        public DenetlemeDurumIds? Durumu { get; set; }
         public String Sonuc { get; set; }
         public String PlanananTarih { get; set; }
         public String FirmaFirmaAdi { get; set; }
